@@ -1,53 +1,106 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Võti Tulevikku App Theme
+ * Estonian Student Career Fair - Modern Professional Design
  */
 
-import { Platform } from 'react-native';
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+// Estonian blue with modern variations
+const primaryBlue = '#0066CC';
+const darkBlue = '#004080';
+const lightBlue = '#E6F2FF';
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    // Primary Estonian blue
+    primary: primaryBlue,
+    primaryDark: darkBlue,
+    primaryLight: lightBlue,
+    
+    // Modern text colors
+    text: '#111827',           // Rich black for readability
+    textSecondary: '#6B7280',  // Modern gray
+    textTertiary: '#9CA3AF',   // Light gray
+    textOnPrimary: '#FFFFFF',
+    
+    // Modern background system
+    background: '#FFFFFF',     // Pure white
+    surface: '#FFFFFF',        // Card surfaces
+    surfaceSecondary: '#F9FAFB', // Very light gray
+    surfaceElevated: '#FFFFFF', // Elevated cards
+    
+    // Modern UI colors
+    tint: primaryBlue,
+    border: '#E5E7EB',         // Subtle borders
+    divider: '#F3F4F6',        // Subtle dividers
+    
+    // Tab bar
+    tabIconDefault: '#6B7280',
+    tabIconSelected: primaryBlue,
+    tabBarBackground: '#FFFFFF',
+    
+    // Status colors
+    success: '#10B981',        // Modern green
+    warning: '#F59E0B',        // Modern amber
+    error: '#EF4444',          // Modern red
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    // Primary colors
+    primary: primaryBlue,
+    primaryDark: lightBlue,
+    primaryLight: '#1E40AF',
+    
+    // Dark mode text
+    text: '#F9FAFB',
+    textSecondary: '#D1D5DB',
+    textTertiary: '#9CA3AF',
+    textOnPrimary: '#FFFFFF',
+    
+    // Dark backgrounds
+    background: '#111827',     // Rich dark
+    surface: '#1F2937',        // Card surfaces
+    surfaceSecondary: '#374151', // Elevated surfaces
+    surfaceElevated: '#2D3748',
+    
+    // Dark UI colors
+    tint: lightBlue,
+    border: '#374151',
+    divider: '#4B5563',
+    
+    // Dark tab bar
+    tabIconDefault: '#9CA3AF',
+    tabIconSelected: lightBlue,
+    tabBarBackground: '#1F2937',
+    
+    // Status colors
+    success: '#34D399',
+    warning: '#FBBF24',
+    error: '#F87171',
   },
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+// Modern typography scale
+export const Typography = {
+  // Headlines
+  title1: 'text-3xl font-bold',        // 30px
+  title2: 'text-2xl font-bold',        // 24px
+  title3: 'text-xl font-semibold',     // 20px
+  
+  // Body text
+  body: 'text-base',                   // 16px
+  bodyMedium: 'text-base font-medium', // 16px medium
+  caption: 'text-sm',                  // 14px
+  small: 'text-xs',                    // 12px
+  
+  // Interactive elements
+  button: 'text-base font-semibold',
+  label: 'text-sm font-medium',
+};
+
+// Modern spacing system
+export const Spacing = {
+  xs: 'space-y-1',    // 4px
+  sm: 'space-y-2',    // 8px
+  md: 'space-y-4',    // 16px
+  lg: 'space-y-6',    // 24px
+  xl: 'space-y-8',    // 32px
+  xxl: 'space-y-12',  // 48px
+};
