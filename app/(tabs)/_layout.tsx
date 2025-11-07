@@ -1,113 +1,65 @@
-import { Feather, Ionicons, MaterialIcons } from '@expo/vector-icons';
+// app/(tabs)/_layout.tsx
+import { Feather } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === 'dark';
+export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
+  const baseHeight = 60; // visual height for the bar itself
+  const bottomPad = Math.max(insets.bottom, 12); // ensure at least 12px padding
 
   return (
     <Tabs
       screenOptions={{
-        // Modern tab bar styling
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].primary,
-        tabBarInactiveTintColor: isDark ? '#9CA3AF' : '#6B7280',
+        headerShown: false,
+        sceneStyle: { backgroundColor: '#FFFFFF' },
+        tabBarActiveTintColor: '#1E66FF',
+        tabBarInactiveTintColor: '#9CA3AF',
         tabBarStyle: {
-          backgroundColor: isDark ? '#1F2937' : '#FFFFFF',
-          borderTopColor: isDark ? '#374151' : '#E5E7EB',
+          backgroundColor: '#FFFFFF',
+          borderTopColor: '#E5E7EB',
           borderTopWidth: 1,
-          height: 90,
-          paddingBottom: 25,
+          height: baseHeight + bottomPad, // lifts above the home indicator
           paddingTop: 8,
-          elevation: 0,
-          shadowOpacity: 0.1,
-          shadowOffset: { width: 0, height: -3 },
-          shadowRadius: 12,
+          paddingBottom: bottomPad,
         },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '600',
-          marginTop: 4,
-        },
-        
-        // Modern header styling
-        headerShown: true,
-        headerStyle: {
-          backgroundColor: Colors[colorScheme ?? 'light'].primary,
-          elevation: 0,
-          shadowOpacity: 0,
-          borderBottomWidth: 0,
-        },
-        headerTintColor: Colors[colorScheme ?? 'light'].textOnPrimary,
-        headerTitleStyle: {
-          fontWeight: '700',
-          fontSize: 18,
-        },
-        
-        // Haptic feedback
-        tabBarButton: HapticTab,
-      }}>
-      
+        tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
+      }}
+    >
       <Tabs.Screen
         name="map"
         options={{
           title: 'Map',
-          headerTitle: 'Võti Tulevikku',
-          tabBarIcon: ({ color, focused }) => (
-            <MaterialIcons 
-              name="map" 
-              size={focused ? 26 : 24} 
-              color={color} 
-            />
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="map" size={size} color={color} />
           ),
         }}
       />
-      
       <Tabs.Screen
         name="search"
         options={{
           title: 'Search',
-          headerTitle: 'Search Companies',
-          tabBarIcon: ({ color, focused }) => (
-            <Feather 
-              name="search" 
-              size={focused ? 26 : 24} 
-              color={color} 
-            />
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="search" size={size} color={color} />
           ),
         }}
       />
-      
       <Tabs.Screen
         name="treasure-hunt"
         options={{
           title: 'Hunt',
-          headerTitle: 'Treasure Hunt',
-          tabBarIcon: ({ color, focused }) => (
-            <MaterialIcons 
-              name="stars" 
-              size={focused ? 26 : 24} 
-              color={color} 
-            />
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="grid" size={size} color={color} />
           ),
         }}
       />
-      
       <Tabs.Screen
         name="my-fair"
         options={{
           title: 'My Fair',
-          headerTitle: 'My Fair',
-          tabBarIcon: ({ color, focused }) => (
-            <Ionicons 
-              name="person" 
-              size={focused ? 26 : 24} 
-              color={color} 
-            />
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="user" size={size} color={color} />
           ),
         }}
       />
