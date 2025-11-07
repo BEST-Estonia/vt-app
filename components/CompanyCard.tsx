@@ -37,6 +37,7 @@ export default function CompanyCard({
     >
       <View className="p-4">
         <View className="flex-row">
+          {/* Logo */}
           <View className="mr-3">
             <View
               className="h-12 w-12 rounded-xl overflow-hidden bg-white items-center justify-center"
@@ -56,11 +57,16 @@ export default function CompanyCard({
             </View>
           </View>
 
+          {/* Main */}
           <View className="flex-1">
-            <View className="mb-1 flex-row items-start justify-between">
-              <Text className="text-[16px] font-semibold text-gray-900">
-                {company.name}
-              </Text>
+            <View className="mb-1 flex-row items-start">
+              {/* Title gets full flexible space with a tiny right padding
+                  so the last glyph is never clipped on Android */}
+              <View className="flex-1 pr-2">
+                <Text className="text-[16px] font-semibold text-gray-900 pr-1">
+                  {company.name}
+                </Text>
+              </View>
               <TouchableOpacity
                 className="ml-3"
                 onPress={() => onToggleFavorite(company.id)}
@@ -74,7 +80,7 @@ export default function CompanyCard({
               </TouchableOpacity>
             </View>
 
-            <Text className="mb-3 text-[14px] leading-5 text-gray-700">
+            <Text className="mb-3 text-[14px] leading-5 text-gray-700 pr-1">
               {company.description}
             </Text>
 

@@ -1,9 +1,11 @@
 // app/(tabs)/search.tsx
 // Search screen using extracted data, CompanyCard component, and the FilterSheet modal.
+// Adds vt-logo.png to the header before "Search Companies".
 
 import { Feather } from '@expo/vector-icons';
 import React, { useMemo, useState } from 'react';
 import {
+  Image,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -91,11 +93,21 @@ export default function SearchScreen() {
 
       {/* Header */}
       <SafeTopArea edges={['top']} style={{ backgroundColor: '#FFFFFF' }}>
-  <View className="px-5 pt-6 pb-3 border-b border-gray-200 bg-white">
+        <View className="px-5 pt-6 pb-3 border-b border-gray-200 bg-white">
           <View className="flex-row items-center justify-between">
-            <Text className="text-[22px] font-bold text-gray-900">
-              Search Companies
-            </Text>
+            {/* Left: logo + title */}
+            <View className="flex-row items-center">
+              <Image
+                source={require('./assets/vt-logo.png')}
+                style={{ width: 35, height: 35, marginRight: 8 }}
+                resizeMode="contain"
+              />
+              <Text className="text-[22px] font-bold text-gray-900">
+                Search Companies
+              </Text>
+            </View>
+
+            {/* Right: filters button */}
             <TouchableOpacity
               className="h-9 w-9 rounded-full items-center justify-center"
               activeOpacity={0.7}

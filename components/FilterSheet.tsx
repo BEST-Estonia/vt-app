@@ -3,11 +3,11 @@
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -196,6 +196,7 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: 15, fontWeight: '600', color: '#111827', marginBottom: 8 },
   rowWrap: { flexDirection: 'row', flexWrap: 'wrap' },
   row: { flexDirection: 'row' },
+
   chip: {
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -207,8 +208,10 @@ const styles = StyleSheet.create({
   },
   chipDefault: {},
   chipSelected: { backgroundColor: '#EFF6FF' },
+
+  // Increased horizontal padding so "A-Z" is never clipped on Android
   sortBtn: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 14, // was 12
     paddingVertical: 8,
     borderRadius: 10,
     borderWidth: 1,
@@ -217,6 +220,7 @@ const styles = StyleSheet.create({
   sortDefault: { backgroundColor: '#FFFFFF' },
   sortActive: { backgroundColor: '#EFF6FF' },
   sortText: { fontSize: 13, fontWeight: '600' },
+
   footerSafe: { backgroundColor: '#FFFFFF' },
   footer: {
     flexDirection: 'row',
