@@ -1,5 +1,4 @@
-// components/CompanyCard.tsx
-// Moved out of app/(tabs) so it is not treated as a route by expo-router.
+// app/components/CompanyCard.tsx
 import type { Company } from '@/app/(tabs)/data/companies';
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
@@ -60,8 +59,6 @@ export default function CompanyCard({
           {/* Main */}
           <View className="flex-1">
             <View className="mb-1 flex-row items-start">
-              {/* Title gets full flexible space with a tiny right padding
-                  so the last glyph is never clipped on Android */}
               <View className="flex-1 pr-2">
                 <Text className="text-[16px] font-semibold text-gray-900 pr-1">
                   {company.name}

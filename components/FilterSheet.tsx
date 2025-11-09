@@ -1,5 +1,4 @@
-// components/FilterSheet.tsx
-// Moved out of app/(tabs) so it is not treated as a route by expo-router.
+// app/components/FilterSheet.tsx
 import { Feather } from '@expo/vector-icons';
 import React from 'react';
 import {
@@ -77,7 +76,6 @@ export default function FilterSheet({
 
   return (
     <View style={styles.overlay}>
-      {/* Header */}
       <SafeAreaView edges={['top']} style={styles.headerSafe}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Filters</Text>
@@ -87,13 +85,11 @@ export default function FilterSheet({
         </View>
       </SafeAreaView>
 
-      {/* Content */}
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        {/* Industry */}
         <Text style={styles.sectionTitle}>Industry</Text>
         <View style={styles.rowWrap}>
           {allIndustries.map((ind) => (
@@ -106,7 +102,6 @@ export default function FilterSheet({
           ))}
         </View>
 
-        {/* Hiring Type */}
         <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Hiring Type</Text>
         <View style={styles.rowWrap}>
           {allHiring.map((h) => (
@@ -119,7 +114,6 @@ export default function FilterSheet({
           ))}
         </View>
 
-        {/* Sort By */}
         <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Sort By</Text>
         <View style={styles.row}>
           {(['A-Z', 'Relevance'] as SortMode[]).map((mode) => {
@@ -149,7 +143,6 @@ export default function FilterSheet({
         </View>
       </ScrollView>
 
-      {/* Footer actions */}
       <SafeAreaView edges={['bottom']} style={styles.footerSafe}>
         <View style={styles.footer}>
           <TouchableOpacity
@@ -196,7 +189,6 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: 15, fontWeight: '600', color: '#111827', marginBottom: 8 },
   rowWrap: { flexDirection: 'row', flexWrap: 'wrap' },
   row: { flexDirection: 'row' },
-
   chip: {
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -208,19 +200,17 @@ const styles = StyleSheet.create({
   },
   chipDefault: {},
   chipSelected: { backgroundColor: '#EFF6FF' },
-
-  // Increased horizontal padding so "A-Z" is never clipped on Android
   sortBtn: {
-    paddingHorizontal: 14, // was 12
+    paddingHorizontal: 16, // give a bit more breathing room
     paddingVertical: 8,
-    borderRadius: 10,
+    borderRadius: 12,
     borderWidth: 1,
     marginRight: 12,
+    minWidth: 72, // ensures "A‑Z" fits comfortably on small widths
   },
   sortDefault: { backgroundColor: '#FFFFFF' },
   sortActive: { backgroundColor: '#EFF6FF' },
   sortText: { fontSize: 13, fontWeight: '600' },
-
   footerSafe: { backgroundColor: '#FFFFFF' },
   footer: {
     flexDirection: 'row',

@@ -1,8 +1,6 @@
 // app/(tabs)/search.tsx
-// Search screen using extracted data, CompanyCard component, and the FilterSheet modal.
-// Adds vt-logo.png to the header before "Search Companies".
-
 import { Feather } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
   Image,
@@ -31,11 +29,10 @@ import {
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
 
-  // Data + favorites
   const [companies, setCompanies] = useState<Company[]>(companiesSeed);
 
-  // Query + filters + sort
   const [query, setQuery] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
@@ -47,7 +44,6 @@ export default function SearchScreen() {
       prev.map((c) => (c.id === id ? { ...c, isFavorite: !c.isFavorite } : c))
     );
 
-  // Apply search + filters + sort
   const filtered = useMemo(() => {
     let list = companies;
 
@@ -76,8 +72,6 @@ export default function SearchScreen() {
     if (sortMode === 'A-Z') {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     }
-    // Relevance: keep existing order for now
-
     return list;
   }, [companies, query, selectedIndustries, selectedHiring, sortMode]);
 
@@ -95,19 +89,16 @@ export default function SearchScreen() {
       <SafeTopArea edges={['top']} style={{ backgroundColor: '#FFFFFF' }}>
         <View className="px-5 pt-6 pb-3 border-b border-gray-200 bg-white">
           <View className="flex-row items-center justify-between">
-            {/* Left: logo + title */}
             <View className="flex-row items-center">
               <Image
                 source={require('./assets/vt-logo.png')}
-                style={{ width: 35, height: 35, marginRight: 8 }}
+                style={{ width: 28, height: 28, marginRight: 8 }}
                 resizeMode="contain"
               />
               <Text className="text-[22px] font-bold text-gray-900">
                 Search Companies
               </Text>
             </View>
-
-            {/* Right: filters button */}
             <TouchableOpacity
               className="h-9 w-9 rounded-full items-center justify-center"
               activeOpacity={0.7}
@@ -158,6 +149,12 @@ export default function SearchScreen() {
             key={c.id}
             company={c}
             onToggleFavorite={toggleFavorite}
+            onPress={() =>
+              router.push({
+                pathname: '/company/[id]',
+                params: { id: c.id },
+              })
+            }
           />
         ))}
       </ScrollView>
@@ -176,7 +173,7 @@ export default function SearchScreen() {
         setSortMode={setSortMode}
         onClearAll={clearAllFilters}
         onApply={() => {
-          // State is already bound to the list
+          // state already drives the list
         }}
       />
     </SafeAreaView>
