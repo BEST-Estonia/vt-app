@@ -1,7 +1,7 @@
 // app/company/[id].tsx
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   Dimensions,
   Image,
@@ -24,25 +24,38 @@ import {
   type CompanyEvent,
   type CompanyLinkIcon,
 } from '../(tabs)/data/companies';
+import { useUserStore } from '../state/userStore';
 
 export default function CompanyProfileScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
-  const [companies, setCompanies] = useState<Company[]>(companiesSeed);
 
-  // Local schedule state: ids of events the user added (prototype)
-  const [scheduledEventIds, setScheduledEventIds] = useState<string[]>([]);
+  // Read and write from the shared store
+  const {
+    favorites,
+    addVisited,
+    toggleFavorite,
+    schedule: scheduledEventIds,
+    addToSchedule,
+    removeFromSchedule,
+  } = useUserStore();
 
-  const company = useMemo(
-    () => companies.find((c) => c.id === id),
-    [companies, id]
+  // Resolve the company and events
+  const company: Company | undefined = useMemo(
+    () => companiesSeed.find((c) => c.id === id),
+    [id]
   );
 
   const events: CompanyEvent[] = useMemo(
     () => companyEvents.filter((e) => e.companyId === id),
     [id]
   );
+
+  // Mark visited when viewing a company
+  React.useEffect(() => {
+    if (id) addVisited(id);
+  }, [addVisited, id]);
 
   if (!company) {
     return (
@@ -55,28 +68,13 @@ export default function CompanyProfileScreen() {
     );
   }
 
-  const toggleFavorite = () =>
-    setCompanies((prev) =>
-      prev.map((c) =>
-        c.id === company.id ? { ...c, isFavorite: !c.isFavorite } : c
-      )
-    );
+  const isFavorite = favorites.includes(company.id);
 
   const openUrl = async (url?: string) => {
     if (!url) return;
     try {
       await Linking.openURL(url);
     } catch {}
-  };
-
-  const addToSchedule = (eventId: string) => {
-    setScheduledEventIds((prev) =>
-      prev.includes(eventId) ? prev : [...prev, eventId]
-    );
-  };
-
-  const removeFromSchedule = (eventId: string) => {
-    setScheduledEventIds((prev) => prev.filter((id) => id !== eventId));
   };
 
   const { width } = Dimensions.get('window');
@@ -183,8 +181,8 @@ export default function CompanyProfileScreen() {
           <View className="mt-4 -mx-1 flex-row">
             <ActionButton
               icon={<Feather name="star" size={18} color="#1E66FF" />}
-              label={company.isFavorite ? 'Saved' : 'Save'}
-              onPress={toggleFavorite}
+              label={isFavorite ? 'Saved' : 'Save'}
+              onPress={() => toggleFavorite(company.id)}
             />
             <ActionButton
               icon={<Feather name="navigation" size={18} color="#1E66FF" />}
@@ -194,8 +192,13 @@ export default function CompanyProfileScreen() {
               }}
             />
             <ActionButton
-              // Replaced ? with QR icon
-              icon={<MaterialCommunityIcons name="qrcode-scan" size={18} color="#1E66FF" />}
+              icon={
+                <MaterialCommunityIcons
+                  name="qrcode-scan"
+                  size={18}
+                  color="#1E66FF"
+                />
+              }
               label="Scan"
               onPress={() => {
                 // TODO: open scanner
@@ -213,7 +216,7 @@ export default function CompanyProfileScreen() {
           </Section>
         )}
 
-        {/* Links (extra spacing between rows) */}
+        {/* Links */}
         {company.links?.length ? (
           <Section title="Links">
             <View className="space-y-3">
@@ -237,18 +240,21 @@ export default function CompanyProfileScreen() {
           </Section>
         ) : null}
 
-        {/* Events & Sessions with completed Add/Added behavior */}
+        {/* Events & Sessions with Add/Added behavior */}
         {events.length ? (
           <Section title="Events & Sessions">
-            {events.map((e) => (
-              <EventCard
-                key={e.id}
-                event={e}
-                added={scheduledEventIds.includes(e.id)}
-                onAdd={() => addToSchedule(e.id)}
-                onRemove={() => removeFromSchedule(e.id)}
-              />
-            ))}
+            {events.map((e) => {
+              const added = scheduledEventIds.includes(e.id);
+              return (
+                <EventCard
+                  key={e.id}
+                  event={e}
+                  added={added}
+                  onAdd={() => addToSchedule(e.id)}
+                  onRemove={() => removeFromSchedule(e.id)}
+                />
+              );
+            })}
           </Section>
         ) : null}
       </ScrollView>
@@ -357,14 +363,15 @@ function EventCard({
           </Text>
         </View>
 
-        {/* Completed Add/Added button behavior */}
         {added ? (
           <TouchableOpacity
             className="mt-3 h-11 rounded-xl bg-gray-100 items-center justify-center border border-gray-300"
             activeOpacity={0.9}
             onPress={onRemove}
           >
-            <Text className="text-gray-700 font-semibold">Added • Tap to remove</Text>
+            <Text className="text-gray-700 font-semibold">
+              Added • Tap to remove
+            </Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
