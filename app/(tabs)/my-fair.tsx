@@ -1,4 +1,3 @@
-// app/(tabs)/my-fair.tsx
 import { useUserStore } from '@/app/state/userStore';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';

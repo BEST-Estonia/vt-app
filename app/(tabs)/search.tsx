@@ -1,4 +1,3 @@
-// app/(tabs)/search.tsx
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
@@ -19,19 +18,19 @@ import {
 
 import CompanyCard from '@/components/CompanyCard';
 import FilterSheet from '@/components/FilterSheet';
+// Import the global store
+import { useUserStore } from '@/app/state/userStore';
 import {
   ALL_HIRING,
   ALL_INDUSTRIES,
   companiesSeed,
-  type Company,
-  type SortMode,
+  type SortMode
 } from './data/companies';
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-
-  const [companies, setCompanies] = useState<Company[]>(companiesSeed);
+  const { favorites, toggleFavorite } = useUserStore();
 
   const [query, setQuery] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -39,12 +38,15 @@ export default function SearchScreen() {
   const [selectedHiring, setSelectedHiring] = useState<string[]>([]);
   const [sortMode, setSortMode] = useState<SortMode>('Relevance');
 
-  const toggleFavorite = (id: string) =>
-    setCompanies((prev) =>
-      prev.map((c) => (c.id === id ? { ...c, isFavorite: !c.isFavorite } : c))
-    );
+  const companies = useMemo(() => {
+    return companiesSeed.map((c) => ({
+      ...c,
+      isFavorite: favorites.includes(c.id),
+    }));
+  }, [favorites]);
 
   const filtered = useMemo(() => {
+    // This 'list' now starts from our new memo-ized 'companies' variable
     let list = companies;
 
     const q = query.trim().toLowerCase();
@@ -73,6 +75,7 @@ export default function SearchScreen() {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     }
     return list;
+    // Update dependency array
   }, [companies, query, selectedIndustries, selectedHiring, sortMode]);
 
   const clearAllFilters = () => {
@@ -148,6 +151,7 @@ export default function SearchScreen() {
           <CompanyCard
             key={c.id}
             company={c}
+            // This now passes the GLOBAL toggleFavorite function
             onToggleFavorite={toggleFavorite}
             onPress={() =>
               router.push({
