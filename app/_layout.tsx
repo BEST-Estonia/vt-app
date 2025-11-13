@@ -4,6 +4,7 @@ import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import '../global.css';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const LightTheme = {
   ...DefaultTheme,
@@ -20,22 +21,24 @@ const LightTheme = {
 
 export default function RootLayout() {
   return (
-    <ThemeProvider value={LightTheme}>
-      <Stack
-        screenOptions={{
-          headerShown: false, // we render our own headers
-          contentStyle: { backgroundColor: '#FFFFFF' },
-          headerStyle: { backgroundColor: '#FFFFFF' },
-          headerTintColor: '#000000',
-        }}
-      >
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen
-          name="modal"
-          options={{ presentation: 'modal', title: 'Modal' }}
-        />
-      </Stack>
-      <StatusBar style="dark" backgroundColor="#FFFFFF" />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider value={LightTheme}>
+        <Stack
+          screenOptions={{
+            headerShown: false, // we render our own headers
+            contentStyle: { backgroundColor: '#FFFFFF' },
+            headerStyle: { backgroundColor: '#FFFFFF' },
+            headerTintColor: '#000000',
+          }}
+        >
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen
+            name="modal"
+            options={{ presentation: 'modal', title: 'Modal' }}
+          />
+        </Stack>
+        <StatusBar style="dark" backgroundColor="#FFFFFF" />
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
