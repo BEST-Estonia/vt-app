@@ -181,161 +181,46 @@ const BOOTHS: PlaceholderBooth[] = [
 const START_NODE_ID: NodeId = 'fuajee-uks';
 
 const NODES: PathNode[] = [
-  {
-    id: 'fuajee-uks',
-    x: 0.491,
-    y: 0.26,
-    neighbors: ['fuajee-16-box'],
-  },
-  {
-    id: 'fuajee-7-box',
-    x: 0.491,
-    y: 0.16,
-    neighbors: ['fuajee-uks', "fuajee-12-box", "fuajee-9-box"],
-  },
-  {
-    id: 'fuajee-12-box',
-    x: 0.527,
-    y: 0.16,
-    neighbors: ['fuajee-7-box', "fuajee-10-box", "fuajee-16-box"],
-  },
-  {
-    id: 'fuajee-9-box',
-    x: 0.491,
-    y: 0.15,
-    neighbors: ['fuajee-7-box', "fuajee-10-box"],
-  },
-  {
-    id: 'fuajee-10-box',
-    x: 0.527,
-    y: 0.10,
-    neighbors: ['fuajee-9-box', "fuajee-12-box",],
-  },
-  {
-    id: 'fuajee-16-box',
-    x: 0.527,                   // veidi paremale, fuajee koridori keskjoon
-    y: 0.26,
-    neighbors: ['fuajee-uks',"fuajee-12-box", 'fuajee-kesk-2'],
-  },
-  {
-    id: 'fuajee-kesk-2',
-    x: 0.38,
-    y: 0.30,
-    neighbors: ['fuajee-16-box', 'fuajee-kesk-3', 'kohvik-ristmik'],
-  },
-  {
-    id: 'fuajee-kesk-3',
-    x: 0.43,
-    y: 0.25,
-    neighbors: ['fuajee-kesk-2', 'fuajee-ylapool'],
-  },
-  {
-    id: 'fuajee-ylapool',
-    x: 0.48,
-    y: 0.20,
-    neighbors: ['fuajee-kesk-3'],
-  },
-
-  // KOHVIKU KORIDOR
-  {
-    id: 'kohvik-ristmik',
-    x: 0.33,
-    y: 0.30,
-    neighbors: ['fuajee-kesk-2', 'kohvik-kesk-1'],
-  },
-  {
-    id: 'kohvik-kesk-1',
-    x: 0.25,
-    y: 0.30,
-    neighbors: ['kohvik-ristmik', 'kohvik-kesk-2'],
-  },
-  {
-    id: 'kohvik-kesk-2',
-    x: 0.18,
-    y: 0.30,
-    neighbors: ['kohvik-kesk-1'],   // tupik
-  },
-
-  // AULA SUUNAS ALLA
-  {
-    id: 'aula-koridor-1',
-    x: 0.33,
-    y: 0.40,
-    neighbors: ['fuajee-kesk-1', 'aula-koridor-2'],
-  },
-  {
-    id: 'aula-koridor-2',
-    x: 0.33,
-    y: 0.50,
-    neighbors: ['aula-koridor-1', 'aula-uks'],
-  },
-  {
-    id: 'aula-uks',
-    x: 0.36,
-    y: 0.55,
-    neighbors: ['aula-koridor-2', 'aula-ring-1'],
-  },
-
-  // AULA RING (lihtne ruut / ring ümber bokside)
-  {
-    id: 'aula-ring-1',
-    x: 0.40,
-    y: 0.60,
-    neighbors: ['aula-uks', 'aula-ring-2'],
-  },
-  {
-    id: 'aula-ring-2',
-    x: 0.40,
-    y: 0.68,
-    neighbors: ['aula-ring-1', 'aula-ring-3'],
-  },
-  {
-    id: 'aula-ring-3',
-    x: 0.32,
-    y: 0.68,
-    neighbors: ['aula-ring-2', 'aula-ring-4'],
-  },
-  {
-    id: 'aula-ring-4',
-    x: 0.32,
-    y: 0.60,
-    neighbors: ['aula-ring-3', 'aula-uks'],
-  },
-
-  // TUDENGIMAJA KORIDOR ALLA
-  {
-    id: 'tudeng-tee-1',
-    x: 0.35,
-    y: 0.75,
-    neighbors: ['aula-ring-2', 'tudeng-tee-2'],
-  },
-  {
-    id: 'tudeng-tee-2',
-    x: 0.40,
-    y: 0.82,
-    neighbors: ['tudeng-tee-1', 'tudeng-kesk-1'],
-  },
-  {
-    id: 'tudeng-kesk-1',
-    x: 0.55,
-    y: 0.82,
-    neighbors: ['tudeng-tee-2', 'tudeng-kesk-2'],
-  },
-  {
-    id: 'tudeng-kesk-2',
-    x: 0.63,
-    y: 0.82,
-    neighbors: ['tudeng-kesk-1', 'tudeng-ots'],
-  },
-  {
-    id: 'tudeng-ots',
-    x: 0.70,
-    y: 0.82,
-    neighbors: ['tudeng-kesk-2'],   // tupik
-  },
+  { id: 'fuajee-uks', x: 0.486, y: 0.26, neighbors: ['fuajee-16-box', 'fuajee-7-box'] },
+  { id: 'fuajee-7-box', x: 0.486, y: 0.18, neighbors: ['fuajee-uks', 'fuajee-12-box', 'fuajee-9-box'] },
+  { id: 'fuajee-12-box', x: 0.522, y: 0.18, neighbors: ['fuajee-7-box', 'fuajee-10-box', 'fuajee-16-box'] },
+  { id: 'fuajee-9-box', x: 0.486, y: 0.13, neighbors: ['fuajee-7-box', 'fuajee-10-box'] },
+  { id: 'fuajee-10-box', x: 0.522, y: 0.13, neighbors: ['fuajee-9-box', 'fuajee-12-box'] },
+  { id: 'fuajee-16-box', x: 0.522, y: 0.26, neighbors: ['fuajee-uks', 'fuajee-12-box', 'fuajee-19-box'] },
+  { id: 'fuajee-19-box', x: 0.522, y: 0.33, neighbors: ['fuajee-16-box', 'fuajee-kohvik-rist'] },
+  { id: 'fuajee-kohvik-rist', x: 0.522, y: 0.37, neighbors: ['fuajee-19-box', 'kohvik-29-box', 'fuajee-koridor-25-box'] },
+  { id: 'kohvik-29-box', x: 0.365, y: 0.37, neighbors: ['fuajee-kohvik-rist', 'kohvik-tupik'] },
+  { id: 'kohvik-tupik', x: 0.265, y: 0.37, neighbors: ['kohvik-29-box'] },
+  { id: 'fuajee-koridor-25-box', x: 0.522, y: 0.45, neighbors: ['fuajee-kohvik-rist', 'aula-fuajee-rist'] },
+  { id: 'aula-fuajee-rist', x: 0.422, y: 0.45, neighbors: ['fuajee-koridor-25-box', 'aula-uks-out'] },
+  { id: 'aula-uks-out', x: 0.422, y: 0.625, neighbors: ['aula-fuajee-rist', 'aula-uks-in', 'koridor-aula'] },
+  { id: 'aula-uks-in', x: 0.352, y: 0.625, neighbors: ['aula-uks-out', 'aula-43-box', 'aula-68-box'] },
+  { id: 'aula-43-box', x: 0.352, y: 0.54, neighbors: ['aula-uks-in', 'aula-47-box'] },
+  { id: 'aula-47-box', x: 0.352, y: 0.50, neighbors: ['aula-43-box', 'aula-51-box'] },
+  { id: 'aula-51-box', x: 0.262, y: 0.50, neighbors: ['aula-47-box', 'aula-56-box'] },
+  { id: 'aula-56-box', x: 0.175, y: 0.50, neighbors: ['aula-51-box', 'aula-62-box'] },
+  { id: 'aula-62-box', x: 0.175, y: 0.58, neighbors: ['aula-56-box', 'aula-82-box'] },
+  { id: 'aula-82-box', x: 0.282, y: 0.58, neighbors: ['aula-62-box', 'aula-68-box'] },
+  { id: 'aula-68-box', x: 0.305, y: 0.625, neighbors: ['aula-82-box', 'aula-uks-in'] },
+  { id: 'koridor-aula', x: 0.365, y: 0.625, neighbors: ['aula-uks-out', 'koridor-aula-rist'] },
+  { id: 'koridor-aula-rist', x: 0.365, y: 0.68, neighbors: ['koridor-aula', 'koridor-tudengimajja'] },
+  { id: 'koridor-tudengimajja', x: 0.545, y: 0.68, neighbors: ['koridor-aula-rist', 'tudengimaja-86-box'] },
+  { id: 'tudengimaja-86-box', x: 0.545, y: 0.75, neighbors: ['koridor-tudengimajja', 'tudengimaja-89-box'] },
+  { id: 'tudengimaja-89-box', x: 0.545, y: 0.80, neighbors: ['tudengimaja-86-box', 'tudengimaja-95-box', 'tudengimaja-vasak-all'] },
+  { id: 'tudengimaja-95-box', x: 0.651, y: 0.80, neighbors: ['tudengimaja-89-box', 'tudengimaja-93-box', 'tudengimaja-109-box'] },
+  { id: 'tudengimaja-93-box', x: 0.651, y: 0.756, neighbors: ['tudengimaja-95-box', 'tudengimaja-91-box', 'tudengimaja-111-box'] },
+  { id: 'tudengimaja-91-box', x: 0.651, y: 0.71, neighbors: ['tudengimaja-95-box', 'tudengimaja-114-box'] },
+  { id: 'tudengimaja-114-box', x: 0.688, y: 0.71, neighbors: ['tudengimaja-91-box'] },
+  { id: 'tudengimaja-111-box', x: 0.688, y: 0.756, neighbors: ['tudengimaja-114-box', 'tudengimaja-93-box', 'tudengimaja-109-box'] },
+  { id: 'tudengimaja-109-box', x: 0.688, y: 0.80, neighbors: ['tudengimaja-95-box', 'tudengimaja-111-box', 'tudengimaja-107-box'] },
+  { id: 'tudengimaja-107-box', x: 0.688, y: 0.85, neighbors: ['tudengimaja-97-box', 'tudengimaja-109-box', 'tudengimaja-104-box'] },
+  { id: 'tudengimaja-104-box', x: 0.688, y: 0.89, neighbors: ['tudengimaja-100-box', 'tudengimaja-107-box'] },
+  { id: 'tudengimaja-100-box', x: 0.651, y: 0.89, neighbors: ['tudengimaja-104-box', 'tudengimaja-97-box', 'tudengimaja-vasak-all'] },
+  { id: 'tudengimaja-97-box', x: 0.651, y: 0.85, neighbors: ['tudengimaja-100-box', 'tudengimaja-95-box'] },
+  { id: 'tudengimaja-vasak-all', x: 0.545, y: 0.89, neighbors: ['tudengimaja-89-box', 'tudengimaja-100-box'] },
 ];
 
-// --- PATHI LEIDMINE (BFS) ---
+// bfs type shift
 function findPath(startId: NodeId, endId: NodeId): PathNode[] {
   const byId: Record<string, PathNode> = {};
   NODES.forEach((n) => {
@@ -411,6 +296,8 @@ const MAX_SCALE = 3;
 export default function MapScreen() {
   const [selected, setSelected] = useState<PlaceholderBooth | null>(null);
   const [pathNodes, setPathNodes] = useState<PathNode[]>([]);
+  const [visibleSegments, setVisibleSegments] = useState(0);
+  const [pathProgress, setPathProgress] = useState(1);
 
   const { width, height: screenHeight } = Dimensions.get('window');
   const baseHeight = (width * 1684) / 1190; // SVG viewBox ratio
@@ -432,6 +319,25 @@ export default function MapScreen() {
   const ZOOM_STEP = 1.5; // double tap zoom step
   const EPS = 0.05;
 
+  function animatePath(duration = 700) {
+  const start = Date.now();
+
+  setPathProgress(0);
+
+  function step() {
+    const now = Date.now();
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+
+    setPathProgress(eased);
+
+    if (t < 1) {
+      requestAnimationFrame(step);
+    }
+  }
+
+  requestAnimationFrame(step);
+}
 
   // pinch zoom
   const pinch = Gesture.Pinch()
@@ -480,6 +386,10 @@ export default function MapScreen() {
 
   const containerHeight = Math.max(baseHeight, screenHeight * 0.7);
 
+  const startNode = pathNodes.length > 0 ? pathNodes[0] : null;
+  const endNode =
+    pathNodes.length > 1 ? pathNodes[pathNodes.length - 1] : null;
+
   return (
     <View
       style={{
@@ -512,7 +422,7 @@ export default function MapScreen() {
               position: 'absolute',
               top: 0,
               right: 0,
-              width: width * 0.25,   // mängi numbriga: 0.2, 0.3, kuni legend on peidus
+              width: width * 0.25,
               height: baseHeight,
               backgroundColor: '#fff',
             }}
@@ -522,17 +432,32 @@ export default function MapScreen() {
           {pathNodes.length > 1 &&
             pathNodes.map((node, index) => {
               if (index === 0) return null;
+
               const prev = pathNodes[index - 1];
+
+              const totalSegments = pathNodes.length - 1;
+              const maxIndexFloat = pathProgress * totalSegments;
+
+              const segmentIndex = index;
+              const startForThis = segmentIndex - 1;
+
+              if (maxIndexFloat <= startForThis) return null;
+
+              const rawProgress = maxIndexFloat - startForThis;
+              const segProgress = Math.min(Math.max(rawProgress, 0), 1);
 
               const x1 = prev.x * width;
               const y1 = prev.y * baseHeight;
               const x2 = node.x * width;
               const y2 = node.y * baseHeight;
+              
+              const x2p = x1 + (x2 - x1) * segProgress;
+              const y2p = y1 + (y2 - y1) * segProgress;
 
-              const left = Math.min(x1, x2);
-              const top = Math.min(y1, y2);
-              const segmentWidth = Math.max(Math.abs(x2 - x1), 2);
-              const segmentHeight = Math.max(Math.abs(y2 - y1), 2);
+              const left = Math.min(x1, x2p);
+              const top = Math.min(y1, y2p);
+              const segmentWidth = Math.max(Math.abs(x2p - x1), 2);
+              const segmentHeight = Math.max(Math.abs(y2p - y1), 2);
 
               return (
                 <View
@@ -550,24 +475,42 @@ export default function MapScreen() {
               );
             })}
 
+
+            {/*debug type shift*/}
             {/* PATH NODE ringid (algus/lõpp ja vahepunktid) */}
-            {pathNodes.map((node) => (
+            {startNode && (
               <View
-                key={node.id}
+                key={`start-${startNode.id}`}
                 style={{
                   position: 'absolute',
-                  left: node.x * width - 6,
-                  top: node.y * baseHeight - 6,
-                  width: 5,
-                  height: 5,
-                  borderRadius: 6,
-                  backgroundColor:
-                    node.id === START_NODE_ID ? '#22c55e' : '#0ea5e9',
+                  left: startNode.x * width - 3,
+                  top: startNode.y * baseHeight - 3,
+                  width: 6,
+                  height: 6,
+                  borderRadius: 3,
+                  backgroundColor: '#ef4444', // punane algus
                   borderWidth: 1,
                   borderColor: '#ffffff',
                 }}
               />
-            ))}
+            )}
+
+            {endNode && endNode.id !== startNode?.id && (
+              <View
+                key={`end-${endNode.id}`}
+                style={{
+                  position: 'absolute',
+                  left: endNode.x * width - 3,
+                  top: endNode.y * baseHeight - 3,
+                  width: 6,
+                  height: 6,
+                  borderRadius: 3,
+                  backgroundColor: '#22c55e', // sihtpunkt
+                  borderWidth: 1,
+                  borderColor: '#ffffff',
+                }}
+              />
+            )}
 
             {/* BOKSID kaardi peal */}
             {BOOTHS.map((b) => (
@@ -581,8 +524,15 @@ export default function MapScreen() {
                     if (nodeId) {
                       const path = findPath(START_NODE_ID, nodeId);
                       setPathNodes(path);
+
+                      if (path.length > 1) {
+                        animatePath(700);
+                      } else {
+                        setPathProgress(1);
+                      }
                     } else {
                       setPathNodes([]);
+                      setPathProgress(0);
                     }
                   }}
                 style={{
