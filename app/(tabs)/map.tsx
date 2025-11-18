@@ -178,80 +178,162 @@ const BOOTHS: PlaceholderBooth[] = [
 ];
 
 // --- GRAAF: peauksest koridoripunktideni ---
-const START_NODE_ID: NodeId = 'main-entrance';
+const START_NODE_ID: NodeId = 'fuajee-uks';
 
 const NODES: PathNode[] = [
   {
-    id: 'main-entrance',
-    x: 0.46,
+    id: 'fuajee-uks',
+    x: 0.491,
     y: 0.26,
-    neighbors: ['main-entrance-front'],
+    neighbors: ['fuajee-16-box'],
   },
   {
-    id: 'main-entrance-front',
-    x: 0.52,
+    id: 'fuajee-7-box',
+    x: 0.491,
+    y: 0.16,
+    neighbors: ['fuajee-uks', "fuajee-12-box", "fuajee-9-box"],
+  },
+  {
+    id: 'fuajee-12-box',
+    x: 0.527,
+    y: 0.16,
+    neighbors: ['fuajee-7-box', "fuajee-10-box", "fuajee-16-box"],
+  },
+  {
+    id: 'fuajee-9-box',
+    x: 0.491,
+    y: 0.15,
+    neighbors: ['fuajee-7-box', "fuajee-10-box"],
+  },
+  {
+    id: 'fuajee-10-box',
+    x: 0.527,
+    y: 0.10,
+    neighbors: ['fuajee-9-box', "fuajee-12-box",],
+  },
+  {
+    id: 'fuajee-16-box',
+    x: 0.527,                   // veidi paremale, fuajee koridori keskjoon
     y: 0.26,
-    neighbors: ['fuajee-top', 'corridor-cafe-front'],
+    neighbors: ['fuajee-uks',"fuajee-12-box", 'fuajee-kesk-2'],
   },
   {
-    id: 'corridor-cafe-front',
-    x: 0.52,
-    y: 0.36,
-    neighbors: ['main-entrance-front', 'cafe-area', 'corridor-aula-stairs'],
+    id: 'fuajee-kesk-2',
+    x: 0.38,
+    y: 0.30,
+    neighbors: ['fuajee-16-box', 'fuajee-kesk-3', 'kohvik-ristmik'],
   },
   {
-    id: 'cafe-area',
-    x: 0.24,
-    y: 0.36,
-    neighbors: ['corridor-cafe-front'],
+    id: 'fuajee-kesk-3',
+    x: 0.43,
+    y: 0.25,
+    neighbors: ['fuajee-kesk-2', 'fuajee-ylapool'],
   },
   {
-    id: 'corridor-aula-stairs',
-    x: 0.52,
-    y: 0.46,
-    neighbors: ['corridor-cafe-front'],
+    id: 'fuajee-ylapool',
+    x: 0.48,
+    y: 0.20,
+    neighbors: ['fuajee-kesk-3'],
+  },
+
+  // KOHVIKU KORIDOR
+  {
+    id: 'kohvik-ristmik',
+    x: 0.33,
+    y: 0.30,
+    neighbors: ['fuajee-kesk-2', 'kohvik-kesk-1'],
   },
   {
-    id: 'fuajee-top',
-    x: 0.52,
-    y: 0.17,
-    neighbors: ['main-entrance'],
+    id: 'kohvik-kesk-1',
+    x: 0.25,
+    y: 0.30,
+    neighbors: ['kohvik-ristmik', 'kohvik-kesk-2'],
+  },
+  {
+    id: 'kohvik-kesk-2',
+    x: 0.18,
+    y: 0.30,
+    neighbors: ['kohvik-kesk-1'],   // tupik
+  },
+
+  // AULA SUUNAS ALLA
+  {
+    id: 'aula-koridor-1',
+    x: 0.33,
+    y: 0.40,
+    neighbors: ['fuajee-kesk-1', 'aula-koridor-2'],
+  },
+  {
+    id: 'aula-koridor-2',
+    x: 0.33,
+    y: 0.50,
+    neighbors: ['aula-koridor-1', 'aula-uks'],
+  },
+  {
+    id: 'aula-uks',
+    x: 0.36,
+    y: 0.55,
+    neighbors: ['aula-koridor-2', 'aula-ring-1'],
+  },
+
+  // AULA RING (lihtne ruut / ring ümber bokside)
+  {
+    id: 'aula-ring-1',
+    x: 0.40,
+    y: 0.60,
+    neighbors: ['aula-uks', 'aula-ring-2'],
+  },
+  {
+    id: 'aula-ring-2',
+    x: 0.40,
+    y: 0.68,
+    neighbors: ['aula-ring-1', 'aula-ring-3'],
+  },
+  {
+    id: 'aula-ring-3',
+    x: 0.32,
+    y: 0.68,
+    neighbors: ['aula-ring-2', 'aula-ring-4'],
+  },
+  {
+    id: 'aula-ring-4',
+    x: 0.32,
+    y: 0.60,
+    neighbors: ['aula-ring-3', 'aula-uks'],
+  },
+
+  // TUDENGIMAJA KORIDOR ALLA
+  {
+    id: 'tudeng-tee-1',
+    x: 0.35,
+    y: 0.75,
+    neighbors: ['aula-ring-2', 'tudeng-tee-2'],
+  },
+  {
+    id: 'tudeng-tee-2',
+    x: 0.40,
+    y: 0.82,
+    neighbors: ['tudeng-tee-1', 'tudeng-kesk-1'],
+  },
+  {
+    id: 'tudeng-kesk-1',
+    x: 0.55,
+    y: 0.82,
+    neighbors: ['tudeng-tee-2', 'tudeng-kesk-2'],
+  },
+  {
+    id: 'tudeng-kesk-2',
+    x: 0.63,
+    y: 0.82,
+    neighbors: ['tudeng-kesk-1', 'tudeng-ots'],
+  },
+  {
+    id: 'tudeng-ots',
+    x: 0.70,
+    y: 0.82,
+    neighbors: ['tudeng-kesk-2'],   // tupik
   },
 ];
-
-// boks → lähim teepunkt (võid hiljem täiendada)
-const BOOTH_TO_NODE: Record<string, NodeId> = {
-  '1': 'fuajee-top',
-  '2': 'fuajee-top',
-  '3': 'fuajee-top',
-  '4': 'fuajee-top',
-  '10': 'corridor-fuajee',
-  '11': 'corridor-fuajee',
-  '12': 'corridor-fuajee',
-  '13': 'corridor-fuajee',
-  '14': 'corridor-fuajee',
-  '15': 'corridor-fuajee',
-  '16': 'corridor-fuajee',
-  '17': 'corridor-fuajee',
-  '18': 'corridor-fuajee',
-  '19': 'corridor-fuajee',
-  '20': 'corridor-cafe-front',
-  '21': 'corridor-fuajee',
-  '22': 'corridor-fuajee',
-  '23': 'corridor-fuajee',
-  '24': 'corridor-fuajee',
-  '25': 'corridor-fuajee',
-  '26': 'corridor-fuajee',
-  '35': 'cafe-area',
-
-  '60': 'corridor-aula',
-  '61': 'corridor-aula',
-  '62': 'corridor-aula',
-  '63': 'corridor-aula',
-  '64': 'corridor-aula',
-
-  '84': 'corridor-middle', // näide – siia võiks tulla nt SEB
-};
 
 // --- PATHI LEIDMINE (BFS) ---
 function findPath(startId: NodeId, endId: NodeId): PathNode[] {
@@ -296,6 +378,32 @@ function findPath(startId: NodeId, endId: NodeId): PathNode[] {
   return path.reverse();
 }
 
+// Leia lähim node antud (x, y) jaoks
+function findNearestNodeId(x: number, y: number): NodeId | null {
+  if (NODES.length === 0) return null;
+
+  let bestId: NodeId | null = null;
+  let bestDistSq = Number.POSITIVE_INFINITY;
+
+  for (const node of NODES) {
+    const dx = node.x - x;
+    const dy = node.y - y;
+    const distSq = dx * dx + dy * dy;
+
+    if (distSq < bestDistSq) {
+      bestDistSq = distSq;
+      bestId = node.id;
+    }
+  }
+
+  // soovi korral võid panna ka mingi max kauguse filtri
+  // const MAX_DIST_SQ = 0.05 * 0.05;
+  // if (bestDistSq > MAX_DIST_SQ) return null;
+
+  return bestId;
+}
+
+
 // --- ZOOMI SEADED ---
 const MIN_SCALE = 0.8;
 const MAX_SCALE = 3;
@@ -308,11 +416,22 @@ export default function MapScreen() {
   const baseHeight = (width * 1684) / 1190; // SVG viewBox ratio
   const boothSize = 8;
 
-  // zoom & pan shared values
-  const scale = useSharedValue(1);
-  const translateX = useSharedValue(0);
-  const translateY = useSharedValue(0);
-  const startScale = useSharedValue(1);
+
+  const ENTRANCE_X = 0.27;
+  const ENTRANCE_Y = 0.34;
+  const INITIAL_SCALE = 1.3;
+
+  const INITIAL_TX = width / 2 - ENTRANCE_X * width * INITIAL_SCALE;
+  const INITIAL_TY = baseHeight / 2 - ENTRANCE_Y * baseHeight * INITIAL_SCALE;
+
+  const scale = useSharedValue(INITIAL_SCALE);
+  const translateX = useSharedValue(INITIAL_TX);
+  const translateY = useSharedValue(INITIAL_TY);
+  const startScale = useSharedValue(INITIAL_SCALE);
+
+  const ZOOM_STEP = 1.5; // double tap zoom step
+  const EPS = 0.05;
+
 
   // pinch zoom
   const pinch = Gesture.Pinch()
@@ -326,22 +445,30 @@ export default function MapScreen() {
       scale.value = next;
     });
 
-  // pan
   const pan = Gesture.Pan().onChange((event) => {
     translateX.value += event.changeX;
     translateY.value += event.changeY;
   });
 
-  // double tap reset
+  // double tap zoom
   const doubleTap = Gesture.Tap()
     .numberOfTaps(2)
-    .onEnd(() => {
-      scale.value = withTiming(1);
-      translateX.value = withTiming(0);
-      translateY.value = withTiming(0);
+    .maxDuration(250)
+    .maxDelay(300)
+    .maxDistance(20)
+    .onEnd((_event, success) => {
+      if (!success) return;
+
+      const next = Math.min(scale.value * 1.5, MAX_SCALE);
+      scale.value = withTiming(next);
     });
 
-  const gesture = Gesture.Simultaneous(pinch, pan, doubleTap);
+
+
+  const panZoom = Gesture.Simultaneous(pinch, pan);
+
+  const gesture = Gesture.Exclusive(doubleTap, panZoom);
+
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
@@ -374,41 +501,54 @@ export default function MapScreen() {
             animatedStyle,
           ]}
         >
-          <View style={{ width, height: baseHeight }}>
-            {/* SVG kaart */}
-            <FloorMap width="100%" height="100%" />
+        <View style={{ width, height: baseHeight }}>
+          {/* SVG kaart */}
+          <FloorMap width="100%" height="100%" />
 
-            {/* PATH peauksest valitud boksini */}
-            {pathNodes.length > 1 &&
-              pathNodes.map((node, index) => {
-                if (index === 0) return null;
-                const prev = pathNodes[index - 1];
+          {/* MASK, mis katab parempoolse osa (legendi) */}
+          <View
+            pointerEvents="none"
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 0,
+              width: width * 0.25,   // mängi numbriga: 0.2, 0.3, kuni legend on peidus
+              height: baseHeight,
+              backgroundColor: '#fff',
+            }}
+          />
 
-                const x1 = prev.x * width;
-                const y1 = prev.y * baseHeight;
-                const x2 = node.x * width;
-                const y2 = node.y * baseHeight;
+          {/* PATH, ringid, boksid – kõik jääb samaks */}
+          {pathNodes.length > 1 &&
+            pathNodes.map((node, index) => {
+              if (index === 0) return null;
+              const prev = pathNodes[index - 1];
 
-                const left = Math.min(x1, x2);
-                const top = Math.min(y1, y2);
-                const segmentWidth = Math.max(Math.abs(x2 - x1), 4);
-                const segmentHeight = Math.max(Math.abs(y2 - y1), 4);
+              const x1 = prev.x * width;
+              const y1 = prev.y * baseHeight;
+              const x2 = node.x * width;
+              const y2 = node.y * baseHeight;
 
-                return (
-                  <View
-                    key={`${prev.id}-${node.id}`}
-                    style={{
-                      position: 'absolute',
-                      left,
-                      top,
-                      width: segmentWidth,
-                      height: segmentHeight,
-                      backgroundColor: 'rgba(16,185,129,0.7)', // roheline tee
-                      borderRadius: 999,
-                    }}
-                  />
-                );
-              })}
+              const left = Math.min(x1, x2);
+              const top = Math.min(y1, y2);
+              const segmentWidth = Math.max(Math.abs(x2 - x1), 2);
+              const segmentHeight = Math.max(Math.abs(y2 - y1), 2);
+
+              return (
+                <View
+                  key={`${prev.id}-${node.id}`}
+                  style={{
+                    position: 'absolute',
+                    left,
+                    top,
+                    width: segmentWidth,
+                    height: segmentHeight,
+                    backgroundColor: 'rgba(16,185,129,0.7)',
+                    borderRadius: 999,
+                  }}
+                />
+              );
+            })}
 
             {/* PATH NODE ringid (algus/lõpp ja vahepunktid) */}
             {pathNodes.map((node) => (
@@ -418,8 +558,8 @@ export default function MapScreen() {
                   position: 'absolute',
                   left: node.x * width - 6,
                   top: node.y * baseHeight - 6,
-                  width: 12,
-                  height: 12,
+                  width: 5,
+                  height: 5,
                   borderRadius: 6,
                   backgroundColor:
                     node.id === START_NODE_ID ? '#22c55e' : '#0ea5e9',
@@ -433,16 +573,18 @@ export default function MapScreen() {
             {BOOTHS.map((b) => (
               <Pressable
                 key={b.boothNumber}
-                onPress={() => {
-                  setSelected(b);
-                  const nodeId = BOOTH_TO_NODE[b.boothNumber];
-                  if (nodeId) {
-                    const path = findPath(START_NODE_ID, nodeId);
-                    setPathNodes(path);
-                  } else {
-                    setPathNodes([]);
-                  }
-                }}
+                  onPress={() => {
+                    setSelected(b);
+
+                    const nodeId = findNearestNodeId(b.x, b.y);
+
+                    if (nodeId) {
+                      const path = findPath(START_NODE_ID, nodeId);
+                      setPathNodes(path);
+                    } else {
+                      setPathNodes([]);
+                    }
+                  }}
                 style={{
                   position: 'absolute',
                   left: b.x * width - boothSize / 2,
@@ -465,6 +607,40 @@ export default function MapScreen() {
           </View>
         </Animated.View>
       </GestureDetector>
+
+       <View
+      pointerEvents="box-none"
+      style={{
+        position: 'absolute',
+        left: 16,
+        bottom: 24,
+      }}
+    >
+      <Pressable
+        onPress={() => {
+          scale.value = withTiming(INITIAL_SCALE);
+          translateX.value = withTiming(INITIAL_TX);
+          translateY.value = withTiming(INITIAL_TY);
+        }}
+        style={{
+          paddingHorizontal: 12,
+          paddingVertical: 8,
+          borderRadius: 999,
+          backgroundColor: 'rgba(15,23,42,0.9)',
+        }}
+        accessibilityLabel="Reset map view"
+      >
+        <Text
+          style={{
+            color: 'white',
+            fontSize: 18,
+            lineHeight: 18,
+          }}
+        >
+          ⌖
+        </Text>
+      </Pressable>
+    </View>
 
       {/* Modal boksi info jaoks */}
       <Modal visible={!!selected} transparent animationType="fade">
