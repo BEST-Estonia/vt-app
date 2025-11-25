@@ -12,6 +12,7 @@ function Tag({ label, type }: { label: string; type: 'blue' | 'gray' }) {
       </View>
     );
   }
+
   return (
     <View className="mr-2 mb-2 rounded-full bg-gray-100 px-2.5 py-1">
       <Text className="text-[12px] font-medium text-gray-700">{label}</Text>
@@ -19,15 +20,71 @@ function Tag({ label, type }: { label: string; type: 'blue' | 'gray' }) {
   );
 }
 
+type Props = {
+  company: Company;
+  onToggleFavorite?: (id: string) => void;
+  onPress?: () => void;
+  scanned?: boolean;
+  compact?: boolean;
+};
+
 export default function CompanyCard({
   company,
-  onToggleFavorite,
+  onToggleFavorite = () => {},
   onPress,
-}: {
-  company: Company;
-  onToggleFavorite: (id: string) => void;
-  onPress?: () => void;
-}) {
+  scanned = false,
+  compact = false,
+}: Props) {
+  if (compact) {
+    return (
+      <TouchableOpacity
+        activeOpacity={0.85}
+        onPress={onPress}
+        className="mr-4"
+        style={{ width: 140 }}
+      >
+        <View className="bg-white rounded-2xl p-3 items-center shadow-sm border border-gray-100">
+          <View
+            style={{ width: 72, height: 72 }}
+            className="rounded-full overflow-hidden items-center justify-center bg-white"
+          >
+            {company.localLogo ? (
+              <Image
+                source={company.localLogo}
+                style={{ width: '100%', height: '100%' }}
+                resizeMode="contain"
+              />
+            ) : (
+              <Text className="text-[18px] font-bold text-blue-700">
+                {company.initials}
+              </Text>
+            )}
+
+            {scanned ? (
+              <View style={{ position: 'absolute', bottom: -4, right: -4 }}>
+                <View className="h-6 w-6 rounded-full bg-green-600 items-center justify-center shadow-lg">
+                  <MaterialIcons name="check" size={14} color="white" />
+                </View>
+              </View>
+            ) : null}
+          </View>
+
+          <Text
+            className="mt-3 text-sm font-semibold text-gray-900 text-center"
+            numberOfLines={2}
+          >
+            {company.name}
+          </Text>
+          {company.boothCode ? (
+            <Text className="text-xs text-gray-500 mt-1">
+              {company.boothCode}
+            </Text>
+          ) : null}
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <TouchableOpacity
       activeOpacity={0.8}
@@ -38,25 +95,36 @@ export default function CompanyCard({
         <View className="flex-row">
           {/* Logo */}
           <View className="mr-3">
-            <View
-              className="h-12 w-12 rounded-xl overflow-hidden bg-white items-center justify-center"
-              style={{ borderWidth: 1, borderColor: '#E5E7EB', padding: 4 }}
-            >
-              {company.localLogo ? (
-                <Image
-                  source={company.localLogo}
-                  style={{ width: '100%', height: '100%' }}
-                  resizeMode="contain"
-                />
-              ) : (
-                <Text className="text-[16px] font-bold text-blue-700">
-                  {company.initials}
-                </Text>
-              )}
+            <View className="relative">
+              <View
+                className="h-12 w-12 rounded-xl overflow-hidden bg-white items-center justify-center"
+                style={{ borderWidth: 1, borderColor: '#E5E7EB', padding: 4 }}
+              >
+                {company.localLogo ? (
+                  <Image
+                    source={company.localLogo}
+                    style={{ width: '100%', height: '100%' }}
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <Text className="text-[16px] font-bold text-blue-700">
+                    {company.initials}
+                  </Text>
+                )}
+              </View>
+
+              {/* scanned overlay badge */}
+              {scanned ? (
+                <View style={{ position: 'absolute', top: 0, right: 0 }}>
+                  <View className="h-6 w-6 rounded-full bg-green-600 items-center justify-center shadow-lg">
+                    <MaterialIcons name="check" size={14} color="white" />
+                  </View>
+                </View>
+              ) : null}
             </View>
           </View>
 
-          {/* Main */}
+          {/* Main content */}
           <View className="flex-1">
             <View className="mb-1 flex-row items-start">
               <View className="flex-1 pr-2">
@@ -82,13 +150,13 @@ export default function CompanyCard({
             </Text>
 
             <View className="mb-2 flex-row flex-wrap">
-              {company.industries.map((tag, idx) => (
+              {company.industries.map((tag: string, idx: number) => (
                 <Tag key={`ind-${idx}`} label={tag} type="blue" />
               ))}
             </View>
 
             <View className="flex-row flex-wrap">
-              {company.hiringTypes.map((tag, idx) => (
+              {company.hiringTypes.map((tag: string, idx: number) => (
                 <Tag key={`hire-${idx}`} label={tag} type="gray" />
               ))}
             </View>
