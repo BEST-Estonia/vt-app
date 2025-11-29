@@ -1,3 +1,5 @@
+import { companiesSeed, type Company } from '@/data/companies';
+import { useUserStore } from '@/store/userStore';
 import { MaterialIcons } from '@expo/vector-icons';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -13,8 +15,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CompanyCard from '../../components/CompanyCard';
 import TreasureHuntMap from '../../components/TreasureHuntMap';
-import { useUserStore } from '../state/userStore';
-import { companiesSeed, type Company } from './data/companies';
 
 
 export default function TreasureHuntScreen() {

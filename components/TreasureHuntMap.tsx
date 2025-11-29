@@ -1,9 +1,9 @@
 // app/components/TreasureHuntMap.tsx
+import type { Company } from '@/data/companies';
+import { MaterialIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
 import React, { useEffect, useRef } from 'react';
 import { Alert, Animated, Image, Text, TouchableOpacity, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { MaterialIcons } from '@expo/vector-icons';
-import type { Company } from '@/app/(tabs)/data/companies';
 
 type Props = {
   companies: Company[];

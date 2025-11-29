@@ -19,13 +19,13 @@ import {
 import CompanyCard from '@/components/CompanyCard';
 import FilterSheet from '@/components/FilterSheet';
 // Import the global store
-import { useUserStore } from '@/app/state/userStore';
 import {
   ALL_HIRING,
   ALL_INDUSTRIES,
   companiesSeed,
   type SortMode
-} from './data/companies';
+} from '@/data/companies';
+import { useUserStore } from '@/store/userStore';
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();

@@ -49,16 +49,16 @@ export const ALL_HIRING = ['Internship', 'Full-time', 'Graduate'] as const;
 
 // Local logo assets (paths relative to this file's folder)
 export const logos = {
-  bolt: require('../assets/bolt-logo.png'),
-  cleveron: require('../assets/cleveron-logo.png'),
-  elisa: require('../assets/elisa-logo.png'),
-  enefit: require('../assets/enefit-logo.png'),
-  ericsson: require('../assets/ericsson-logo.png'),
-  helmes: require('../assets/helmes-logo.jpg'),
-  lhv: require('../assets/lhv-logo.png'),
-  pipedrive: require('../assets/pipedrive-logo.png'),
-  swedbank: require('../assets/swedbank-logo.png'),
-  telia: require('../assets/telia-logo.png'),
+  bolt: require('../app/(tabs)/assets/bolt-logo.png'),
+  cleveron: require('../app/(tabs)/assets/cleveron-logo.png'),
+  elisa: require('../app/(tabs)/assets/elisa-logo.png'),
+  enefit: require('../app/(tabs)/assets/enefit-logo.png'),
+  ericsson: require('../app/(tabs)/assets/ericsson-logo.png'),
+  helmes: require('../app/(tabs)/assets/helmes-logo.jpg'),
+  lhv: require('../app/(tabs)/assets/lhv-logo.png'),
+  pipedrive: require('../app/(tabs)/assets/pipedrive-logo.png'),
+  swedbank: require('../app/(tabs)/assets/swedbank-logo.png'),
+  telia: require('../app/(tabs)/assets/telia-logo.png'),
 };
 
 export const companiesSeed: Company[] = [

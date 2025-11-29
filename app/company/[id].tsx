@@ -1,4 +1,12 @@
 // app/company/[id].tsx
+import {
+  companiesSeed,
+  companyEvents,
+  type Company,
+  type CompanyEvent,
+  type CompanyLinkIcon,
+} from '@/data/companies';
+import { useUserStore } from '@/store/userStore';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo } from 'react';
@@ -17,14 +25,6 @@ import {
   SafeAreaView as SafeTopArea,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import {
-  companiesSeed,
-  companyEvents,
-  type Company,
-  type CompanyEvent,
-  type CompanyLinkIcon,
-} from '../(tabs)/data/companies';
-import { useUserStore } from '../state/userStore';
 
 export default function CompanyProfileScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

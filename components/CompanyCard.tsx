@@ -1,5 +1,5 @@
 // app/components/CompanyCard.tsx
-import type { Company } from '@/app/(tabs)/data/companies';
+import type { Company } from '@/data/companies';
 import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';

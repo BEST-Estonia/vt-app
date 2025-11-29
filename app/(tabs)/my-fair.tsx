@@ -1,4 +1,10 @@
-import { useUserStore } from '@/app/state/userStore';
+import {
+  companiesSeed,
+  companyEvents,
+  type Company,
+  type CompanyEvent,
+} from '@/data/companies';
+import { useUserStore } from '@/store/userStore';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -15,12 +21,6 @@ import {
   SafeAreaView as SafeTopArea,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import {
-  companiesSeed,
-  companyEvents,
-  type Company,
-  type CompanyEvent,
-} from './data/companies';
 
 export default function MyFairScreen() {
   const insets = useSafeAreaInsets();
