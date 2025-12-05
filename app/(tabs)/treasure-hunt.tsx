@@ -1,12 +1,15 @@
 import { companiesSeed, type Company } from '@/data/companies';
+import { supabase } from '@/lib/supabase';
 import { useUserStore } from '@/store/userStore';
 import { MaterialIcons } from '@expo/vector-icons';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Alert,
   FlatList,
   Modal,
   ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -16,18 +19,29 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CompanyCard from '../../components/CompanyCard';
 import TreasureHuntMap from '../../components/TreasureHuntMap';
 
-
 export default function TreasureHuntScreen() {
+  // Store hooks
   const ensureParticipantId = useUserStore((s) => s.ensureParticipantId);
   const participantId = useUserStore((s) => s.participantId);
   const scanned = useUserStore((s) => s.scanned);
-  const pending = useUserStore((s) => s.pendingScans);
   const addScan = useUserStore((s) => s.addScan);
-  const markScanSynced = useUserStore((s) => s.markScanSynced);
 
+  // Local state
   const [modalVisible, setModalVisible] = useState(false);
   const [manualCode, setManualCode] = useState('');
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
+
+  // Camera permissions
+  const [permission, requestPermission] = useCameraPermissions();
+  // To prevent multiple rapid scans
+  const [scannedRecent, setScannedRecent] = useState(false);
+
+  // Giveaway / Winner state
+  const [winnerModalVisible, setWinnerModalVisible] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  // Track locally if they have just submitted successfully
+  const [hasRegisteredLocal, setHasRegisteredLocal] = useState(false);
 
   const carouselRef = useRef<FlatList<Company> | null>(null);
 
@@ -35,27 +49,53 @@ export default function TreasureHuntScreen() {
     ensureParticipantId();
   }, [ensureParticipantId]);
 
+  // Default selection
   useEffect(() => {
     if (!selectedCompany && companiesSeed.length > 0) {
       setSelectedCompany(companiesSeed[0]);
     }
   }, [selectedCompany]);
 
+  // Check if user finished
   const total = companiesSeed.length;
   const scannedCount = scanned.length;
+  const remaining = total - scannedCount;
+  const isFinished = scannedCount === total && total > 0;
 
   const openScanFor = (company: Company) => {
+    if (scanned.includes(company.id)) {
+      Alert.alert('Juba skannitud!', 'Oled selle punkti juba läbinud.');
+      return;
+    }
     setSelectedCompany(company);
     setManualCode('');
+    setScannedRecent(false);
     setModalVisible(true);
+  };
+
+  const handleBarCodeScanned = ({ data }: { data: string }) => {
+    if (scannedRecent || !selectedCompany) return;
+
+    // VALIDATION LOGIC: matches ID, Booth code, or Name
+    const match =
+      data === selectedCompany.id ||
+      data === selectedCompany.boothCode ||
+      data.toLowerCase() === selectedCompany.name.toLowerCase();
+
+    if (match) {
+      setScannedRecent(true);
+      addScan(selectedCompany.id);
+      Alert.alert('Õnnestus!', `Oled leidnud: ${selectedCompany.name}`, [
+        { text: 'OK', onPress: () => setModalVisible(false) },
+      ]);
+    }
   };
 
   const handleManualScan = () => {
     if (!selectedCompany) return;
-
     const input = manualCode.trim();
     if (!input) {
-      Alert.alert('Sisesta koodi või kasuta Simulate');
+      Alert.alert('Sisesta koodi või kasuta kaamerat');
       return;
     }
 
@@ -73,19 +113,79 @@ export default function TreasureHuntScreen() {
     setModalVisible(false);
   };
 
-  const simulateScan = (company: Company) => {
-    addScan(company.id);
-  };
-
-  const syncPending = () => {
-    if (pending.length === 0) {
-      Alert.alert('Kõik skannid on sünkroniseeritud');
+  // --- DATABASE SUBMISSION LOGIC ---
+  const handleSubmitWinner = async () => {
+    if (!fullName.trim()) {
+      Alert.alert('Viga', 'Palun sisesta oma täisnimi.');
       return;
     }
+    setIsSubmitting(true);
 
-    pending.forEach((p) => markScanSynced(p.clientId));
-    Alert.alert('Sünkroonitud', `${pending.length} skannitud kirjet sünkroniseeritud`);
+    try {
+      // 1. Send data to Supabase
+      const { error } = await supabase
+        .from('giveaway_entries')
+        .insert([
+          {
+            participant_id: participantId,
+            full_name: fullName.trim()
+          }
+        ]);
+
+      if (error) {
+        if (error.code === '23505') { // Unique violation code
+           setHasRegisteredLocal(true);
+           Alert.alert('Info', 'Oled juba registreerunud!');
+           setWinnerModalVisible(false);
+           return;
+        }
+        throw error;
+      }
+
+      // 2. Success
+      setHasRegisteredLocal(true); // Mark as done locally
+      Alert.alert(
+        'Tehtud!',
+        'Oled edukalt loosimises kirjas. Edu!',
+        [{ text: 'OK', onPress: () => setWinnerModalVisible(false) }]
+      );
+
+    } catch (e) {
+      console.error(e);
+      Alert.alert('Viga', 'Andmete saatmine ebaõnnestus. Kontrolli internetiühendust.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  // --- MAIN BUTTON LOGIC ---
+  let buttonText = `Kogu veel ${remaining} punkti`;
+  let buttonIcon = "qr-code-scanner";
+  let buttonBg = "bg-gray-500";
+  let handleMainButtonPress = () => {
+      Alert.alert('Pole veel valmis!', 'Auhinna loosimises osalemiseks pead läbima kõik punktid.');
+  };
+
+  if (isFinished) {
+      if (hasRegisteredLocal) {
+          // Finished AND already submitted
+          buttonText = "Oled registreeritud!";
+          buttonIcon = "check-circle";
+          buttonBg = "bg-blue-600";
+          handleMainButtonPress = () => {
+               Alert.alert('Registreeritud!', 'Oled juba edukalt loosimises kirjas.');
+          };
+      } else {
+          // Finished but hasn't submitted yet
+          // Changed button text to "Kraba auhind" to match your request if needed, 
+          // or keep it "Osale loosimises" which is more descriptive.
+          buttonText = "Osale loosimises"; 
+          buttonIcon = "emoji-events";
+          buttonBg = "bg-green-600";
+          handleMainButtonPress = () => setWinnerModalVisible(true);
+      }
+  }
+
 
   const renderCompact = ({ item }: { item: Company }) => {
     const isScanned = scanned.includes(item.id);
@@ -99,6 +199,10 @@ export default function TreasureHuntScreen() {
     );
   };
 
+  if (!permission) {
+    return <View className="flex-1 bg-white" />;
+  }
+
   return (
     <SafeAreaView
       className="flex-1 bg-white"
@@ -110,28 +214,38 @@ export default function TreasureHuntScreen() {
       >
         {/* HEADER */}
         <View className="mt-8 p-6 mb-2 items-center">
-          <View className="rounded-full p-4 items-center justify-center shadow-sm border-2 border-blue-100">
+          <View className="rounded-full p-4 items-center justify-center shadow-sm border-2 border-blue-100 bg-white">
             <MaterialIcons name="card-giftcard" size={40} color="#3B82F6" />
           </View>
-          <Text className="text-2xl font-bold text-primary mt-3">
+          <Text className="text-2xl font-bold text-primary mt-3 text-center">
             Treasure Hunt
           </Text>
-          <Text className="text-sm text-text-secondary mt-1 text-center">
-            Scan the QR code for each company to receive a reward!
+          <Text className="text-sm text-text-secondary mt-1 text-center text-gray-500 px-4">
+            Skänni kõikide ettevõtete QR koodid ja osale loosimises!
           </Text>
-          <View className="flex-row justify-center items-center mt-3">
-            <Text className="text-base font-medium mr-3">
-              {scannedCount}/{total}
+
+          {/* Progress Bar */}
+          <View className="flex-row items-center justify-center mt-5 bg-blue-50 px-6 py-2.5 rounded-full min-w-[120px]">
+            <Text className="text-base font-bold text-blue-800 text-center">
+              {scannedCount} / {total}
             </Text>
-            <TouchableOpacity
-              onPress={syncPending}
-              className="px-3 py-2 rounded-lg bg-blue-600"
-            >
-              <Text className="text-white">
-                Sync ({pending.length})
-              </Text>
-            </TouchableOpacity>
+            {isFinished && (
+              <View className="ml-2 bg-white rounded-full">
+                 <MaterialIcons name="check-circle" size={20} color="#16a34a" />
+              </View>
+            )}
           </View>
+
+          {/* MAIN ACTION BUTTON */}
+          <TouchableOpacity
+            onPress={handleMainButtonPress}
+            className={`mt-5 ${buttonBg} w-full max-w-xs px-6 py-3.5 rounded-xl shadow-sm flex-row items-center justify-center`}
+          >
+            <MaterialIcons name={buttonIcon as any} size={24} color="white" />
+            <Text className="text-white font-bold ml-2 text-lg">
+              {buttonText}
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <TreasureHuntMap
@@ -139,17 +253,12 @@ export default function TreasureHuntScreen() {
           scannedIds={scanned}
           selectedId={selectedCompany?.id}
           participantId={participantId}
-          onSelect={(company) => {
-            openScanFor(company);
-          }}
+          onSelect={(company) => openScanFor(company)}
         />
 
-
-        <View style={{ height: 190 }} className="mt-2">
+        <View style={{ height: 190 }} className="mt-4">
           <FlatList
-            ref={(r) => {
-              carouselRef.current = r;
-            }}
+            ref={(r) => { carouselRef.current = r; }}
             data={companiesSeed}
             horizontal
             renderItem={renderCompact}
@@ -165,77 +274,124 @@ export default function TreasureHuntScreen() {
         </View>
       </ScrollView>
 
+      {/* --- SCANNER MODAL --- */}
       <Modal
         visible={modalVisible}
         animationType="slide"
         onRequestClose={() => setModalVisible(false)}
-        transparent
+        presentationStyle="pageSheet"
       >
-        <View style={{ flex: 1 }} className="bg-black/60">
-          <View className="flex-1 items-center justify-center">
-            <View
-              style={{ width: '92%', maxHeight: '80%' }}
-              className="bg-white rounded-2xl p-4"
+        <View className="flex-1 bg-black">
+          {/* Close Button */}
+          <View className="absolute top-4 left-4 z-10">
+            <TouchableOpacity
+              onPress={() => setModalVisible(false)}
+              className="bg-black/50 p-2 rounded-full"
             >
-              <Text className="text-lg font-semibold mb-1">
-                Scan the QR code
-              </Text>
-              <Text className="text-xs text-gray-500 mb-3">
-                {selectedCompany?.name}
-              </Text>
+              <MaterialIcons name="close" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
 
-              {/* QR placeholder */}
-              <View className="rounded-xl overflow-hidden mb-4 bg-black">
-                <View
-                  style={{ height: 220 }}
-                  className="items-center justify-center"
-                >
-                  <Text className="text-white text-sm opacity-70">
-                    QR cam space (TODO)
-                  </Text>
-                </View>
-              </View>
+          <View className="flex-1 items-center justify-center">
+             {!permission.granted ? (
+               <View className="p-6 bg-white rounded-xl items-center mx-4">
+                 <Text className="mb-4 text-center text-lg">Kaamera kasutamiseks on vaja luba</Text>
+                 <TouchableOpacity onPress={requestPermission} className="bg-blue-600 px-6 py-3 rounded-lg">
+                   <Text className="text-white font-semibold">Anna luba</Text>
+                 </TouchableOpacity>
+               </View>
+             ) : (
+               <CameraView
+                 style={StyleSheet.absoluteFillObject}
+                 facing="back"
+                 onBarcodeScanned={scannedRecent ? undefined : handleBarCodeScanned}
+               />
+             )}
 
-              <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 20 }}
-              >
-                <Text className="text-sm text-gray-700 mb-2">
-                  Can use simulate rn since its not ready yet lowk lowk
+             {/* Overlay UI */}
+             <View className="absolute bottom-10 w-[90%] bg-white/90 p-4 rounded-2xl shadow-lg">
+                <Text className="text-center font-semibold mb-1 text-lg">
+                  {selectedCompany?.name}
+                </Text>
+                <Text className="text-center text-sm text-gray-500 mb-4">
+                  Suuna kaamera QR koodile
                 </Text>
 
-                <TextInput
-                  placeholder="Sisesta kood (nt booth A1 või id)"
-                  value={manualCode}
-                  onChangeText={setManualCode}
-                  className="border border-gray-200 rounded-md p-3 mb-3"
-                />
-
-                <View className="flex-row justify-between">
+                {/* Fallback Manual Input */}
+                <View className="flex-row">
+                  <TextInput
+                    placeholder="Sisesta kood käsitsi..."
+                    value={manualCode}
+                    onChangeText={setManualCode}
+                    className="flex-1 bg-white border border-gray-300 rounded-l-lg px-3 py-3"
+                  />
                   <TouchableOpacity
                     onPress={handleManualScan}
-                    className="px-4 py-3 bg-green-600 rounded-md"
+                    className="bg-blue-600 px-5 justify-center rounded-r-lg"
                   >
-                    <Text className="text-white">Confirm</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      if (selectedCompany) simulateScan(selectedCompany);
-                      setModalVisible(false);
-                    }}
-                    className="px-4 py-3 bg-gray-200 rounded-md"
-                  >
-                    <Text>Simulate</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => setModalVisible(false)}
-                    className="px-4 py-3 bg-red-500 rounded-md"
-                  >
-                    <Text className="text-white">Cancel</Text>
+                    <Text className="text-white font-bold">OK</Text>
                   </TouchableOpacity>
                 </View>
-              </ScrollView>
+             </View>
+
+             <View pointerEvents="none" style={{
+                width: 260, height: 260, borderWidth: 2, borderColor: 'white', borderRadius: 24, opacity: 0.8
+             }} />
+          </View>
+        </View>
+      </Modal>
+
+      {/* --- WINNER REGISTRATION MODAL --- */}
+      <Modal
+        visible={winnerModalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setWinnerModalVisible(false)}
+      >
+        <View className="flex-1 bg-black/60 items-center justify-center p-4">
+          <View className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-xl">
+            <View className="items-center mb-5">
+              <View className="h-16 w-16 bg-green-100 rounded-full items-center justify-center mb-3">
+                <MaterialIcons name="emoji-events" size={36} color="#16a34a" />
+              </View>
+              <Text className="text-2xl font-bold text-center text-gray-900">Palju õnne!</Text>
+              
+              {/* UPDATED TEXT HERE */}
+              <Text className="text-gray-600 text-center mt-2 px-2">
+                Väga tubli töö! Oled külastanud kõiki ettevõtteid. Loosimises osalemiseks sisesta palun oma nimi.
+              </Text>
             </View>
+
+            <Text className="text-sm font-bold text-gray-700 mb-1.5 ml-1">Sinu nimi</Text>
+            <TextInput
+              value={fullName}
+              onChangeText={setFullName}
+              placeholder="Ees- ja perekonnanimi"
+              className="bg-gray-50 border border-gray-300 rounded-xl p-3.5 mb-5 text-base text-gray-900"
+              autoFocus
+            />
+
+            <TouchableOpacity
+              onPress={handleSubmitWinner}
+              disabled={isSubmitting}
+              className={`w-full py-3.5 rounded-xl flex-row justify-center items-center shadow-sm ${isSubmitting ? 'bg-gray-400' : 'bg-green-600'}`}
+            >
+              {isSubmitting ? (
+                <Text className="text-white font-semibold">Saadan...</Text>
+              ) : (
+                <>
+                  <Text className="text-white font-bold text-base mr-2">Kinnita ja osale</Text>
+                  <MaterialIcons name="arrow-forward" size={20} color="white" />
+                </>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setWinnerModalVisible(false)}
+              className="mt-4 py-2"
+            >
+              <Text className="text-center text-gray-500 font-medium">Sulge</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
