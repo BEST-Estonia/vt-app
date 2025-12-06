@@ -177,6 +177,99 @@ const BOOTHS: PlaceholderBooth[] = [
   { boothNumber: '125', x: 0.6649, y: 0.8728 },
 ];
 
+const COMPANY_BY_BOOTH: Record<
+  string,
+  { name: string; logoUri?: string | number | React.ComponentType<any> }
+> = {
+  '1': { name: 'Coop Pank AS', logoUri: require('./assets/coop.jpg') },
+  '5': { name: 'Enefit', logoUri: require('./assets/enefit-logo.png') },
+  '6': { name: 'Enefit', logoUri: require('./assets/enefit-logo.png') },
+  '10': { name: 'AS TREV-2 Grupp', logoUri: require('./assets/trev_2_grupp.jpg') },
+  '11': { name: 'Hurtigruten Estonia OÜ', logoUri: require('./assets/hurtigruten.jpg') },
+  '13': { name: 'LEONHARD WEISS OÜ', logoUri: require('./assets/Leonhard_Weiss_logo.png') },
+  '14': { name: 'ERGO Insurance SE', logoUri: require('./assets/ergo.jpg') },
+  '15': { name: 'KPMG Baltics OÜ', logoUri: require('./assets/kpmg.jpg') },
+  '16': { name: 'KPMG Baltics OÜ', logoUri: require('./assets/kpmg.jpg') },
+  '17': { name: 'Southwestern Advantage', logoUri: require('./assets/southwestern.png') },
+  '18': { name: 'Ericsson Eesti AS', logoUri: require('./assets/ericsson-logo.png') },
+  '19': { name: 'NOBE OÜ', logoUri: require('./assets/nobe.jpg') },
+  '20': { name: 'Pipedrive OÜ', logoUri: require('./assets/pipedrive-logo.png') },
+  '21': { name: 'Verston OÜ', logoUri: require('./assets/verston_logo.jpg') },
+  '22': { name: 'Tartu Ülikool', logoUri: require('./assets/tartu_ulikool.jpg') },
+  '23': { name: 'Ruukki Products AS', logoUri: require('./assets/Ruukki-Products-AS.png') },
+  '24': { name: 'AQ Lasertool OÜ', logoUri: require('./assets/lasertool.jpg') },
+  '25': { name: 'Scanfil OÜ', logoUri: require('./assets/scanfil.png') },
+  '26': { name: 'Infragreen OÜ', logoUri: require('./assets/infragreen.jpg') },
+  '27': { name: 'Tallinna Vesi AS', logoUri: require('./assets/tallinnavesi.png') },
+  '28': { name: 'AS Connecto Infra', logoUri: require('./assets/connecto.jpeg') },
+  '29': { name: 'Kaitseressursside Amet', logoUri: require('./assets/kaitseressursideamet.jpg') },
+  '30': { name: 'Tech Group AS', logoUri: require('./assets/techgroup.jpg') },
+  '31': { name: 'Swedbank AS', logoUri: require('./assets/swedbank-logo.png') },
+  '32': { name: 'Konkurentsiamet', logoUri: require('./assets/konkurentsiamet.jpg') },
+  '33': { name: 'Patendiamet', logoUri: require('./assets/patendiamet.jpg') },
+  '36': { name: 'INF Infra OÜ', logoUri: require('./assets/infinfra.jpg') },
+  '37': { name: 'INF Infra OÜ', logoUri: require('./assets/infinfra.jpg') },
+  '38': { name: 'PLAYTECH ESTONIA OÜ', logoUri: require('./assets/playtech.png') },
+  '39': { name: 'AS Tallinna Lennujaam', logoUri: require('./assets/tallinna-lennujaam.png') },
+  '40': { name: 'Utilitas OÜ', logoUri: require('./assets/utilitas_logo.jpg') },
+  '41': { name: 'Utilitas OÜ', logoUri: require('./assets/utilitas_logo.jpg') },
+  '42': { name: 'Gunvor Services AS', logoUri: require('./assets/gunvor.jpg') },
+  '43': { name: 'Gunvor Services AS', logoUri: require('./assets/gunvor.jpg') },
+  '44': { name: 'Threod Systems AS', logoUri: require('./assets/threod-systems.jpg') },
+  '46': { name: 'Bigbank AS', logoUri: require('./assets/Bigbank.png') },
+  '47': { name: 'Telia Eesti AS', logoUri: require('./assets/telia-logo.png') },
+  '48': { name: 'Smartecon OÜ', logoUri: require('./assets/smartecon_o_logo.jpg') },
+  '49': { name: 'Keskkonnaagentuur', logoUri: require('./assets/Keskkonnaagentuur.png') },
+  '55': { name: 'Rail Baltic Estonia OÜ', logoUri: require('./assets/rail_baltic_estonia_logo.jpg') },
+  '56': { name: 'Stoneridge Electronics AS', logoUri: require('./assets/stoneridge-electronics-as.jpg') },
+  '57': { name: 'Finantsinspektsioon', logoUri: require('./assets/Finantsinspektsioon.png') },
+  '58': { name: 'Rahapesu Andmebüroo', logoUri: require('./assets/Rahapseuandmeburoo_logo_ruut.png') },
+  '60': { name: 'Elering AS', logoUri: require('./assets/elering-logo.png') },
+  '61': { name: 'Fujitsu Estonia', logoUri: require('./assets/fujitsu-logo.png') },
+  '62': { name: 'Ehitus5ECO OÜ', logoUri: require('./assets/ehitus5eco_logo.png') },
+  '63': { name: 'Sisekaitseakadeemia/Siseturvalisuse karjäärikeskus', logoUri: require('./assets/sisekaitseakadeemia.jpg') },
+  '64': { name: 'HANZA SSC Tartu OÜ', logoUri: require('./assets/hanza-logo.png') },
+  '65': { name: 'AS Eesti Raudtee', logoUri: require('./assets/eesti-raudtee.jpg') },
+  '66': { name: 'AS Eesti Raudtee', logoUri: require('./assets/eesti-raudtee.jpg') },
+  '67': { name: 'Lennuliiklusteeninduse AS', logoUri: require('./assets/Lennuliiklusteeninduse-AS.png') },
+  '68': { name: 'Kaitsepolitseiamet', logoUri: require('./assets/Kaitsepolitseiamet.png') },
+  '69': { name: 'Siseministeeriumi infotehnoloogia- ja arenduskeskus (SMIT)', logoUri: require('./assets/SMIT.png') },
+  '70': { name: 'Nordecon AS', logoUri: require('./assets/nordecon.jpg') },
+  '71': { name: 'TRAFFEST OÜ', logoUri: require('./assets/traffest.png') },
+  '77': { name: 'Ettevõtluse ja Innovatsiooni Sihtasutus', logoUri: require('./assets/eis-Ettevotluse-ja-Innovatsiooni-Sihtasutus-1.png') },
+  '78': { name: 'Tammer OÜ', logoUri: require('./assets/tammer.png') },
+  '79': { name: 'Välisluureamet', logoUri: require('./assets/VALISLUUREAMET.jpeg') },
+  '80': { name: 'Välisluureamet', logoUri: require('./assets/VALISLUUREAMET.jpeg') },
+  '81': { name: 'Estanc AS', logoUri: require('./assets/estanc.png') },
+  '82': { name: 'BLRT GRUPP AS', logoUri: require('./assets/BLRT-Grupp-AS.png') },
+  '83': { name: 'FINEST AS', logoUri: require('./assets/finestmedia.jpg') },
+  '88': { name: 'AS Harju Elekter', logoUri: require('./assets/IKP23_Harju_Elekter_AS.png') },
+  '89': { name: 'Nordea Bank Abp Eesti filiaal', logoUri: require('./assets/nordea.jpg') },
+  '90': { name: 'Nordea Bank Abp Eesti filiaal', logoUri: require('./assets/nordea.jpg') },
+  '91': {
+    name: 'Helmes AS',
+    // Use the raster JPEG version
+    logoUri: require('./assets/helmes-logo.jpg'),
+  },
+  '94': { name: 'Compensa Vienna Insurance Group, ADB Eesti filiaal', logoUri: require('./assets/compensa.jpg') },
+  '96': { name: 'Registrite ja Infosüsteemide Keskus', logoUri: require('./assets/registrite-ja-infosusteemide-keskus.jpg') },
+  '98': { name: 'Kaitseliit', logoUri: require('./assets/kaitseliit.jpg') },
+  '100': { name: 'CV Keskus', logoUri: require('./assets/cvkeskus.png') },
+  '101': { name: 'AS KH Energia-Konsult', logoUri: require('./assets/khenergia.jpg') },
+  '103': { name: 'Nortal AS', logoUri: require('./assets/nortal.jpg') },
+  '104': { name: 'HEISI IT OÜ', logoUri: require('./assets/HEISI-IT-OU.png') },
+  '108': { name: 'ABB AS', logoUri: require('./assets/abb-logo.png') },
+  '109': { name: 'ABB AS', logoUri: require('./assets/abb-logo.png') },
+  '110': { name: 'GPV Estonia AS', logoUri: require('./assets/gpv.jpg') },
+  '111': { name: 'Fermi Energia AS', logoUri: require('./assets/fermi.png') },
+  '112': { name: 'Inbank', logoUri: require('./assets/inbank.jpg') },
+  '114': { name: 'CARIAD Estonia AS', logoUri: require('./assets/cariad.jpg') },
+  '115': { name: 'Ernst & Young Baltic AS', logoUri: require('./assets/ernst.jpg') },
+  '117': { name: 'Genius Sports', logoUri: require('./assets/geniussports.jpg') },
+  '121': { name: 'Shore Link OÜ', logoUri: require('./assets/shorelink.png') },
+};
+
+
 // --- GRAAF: peauksest koridoripunktideni ---
 const START_NODE_ID: NodeId = 'fuajee-uks';
 
@@ -219,6 +312,14 @@ const NODES: PathNode[] = [
   { id: 'tudengimaja-97-box', x: 0.651, y: 0.85, neighbors: ['tudengimaja-100-box', 'tudengimaja-95-box'] },
   { id: 'tudengimaja-vasak-all', x: 0.545, y: 0.89, neighbors: ['tudengimaja-89-box', 'tudengimaja-100-box'] },
 ];
+
+  function getInitials(name: string): string {
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) {
+      return parts[0].substring(0, 2).toUpperCase();
+    }
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
 
 // bfs type shift
 function findPath(startId: NodeId, endId: NodeId): PathNode[] {
@@ -289,12 +390,17 @@ function findNearestNodeId(x: number, y: number): NodeId | null {
 }
 
 
-// --- ZOOMI SEADED ---
-const MIN_SCALE = 0.8;
-const MAX_SCALE = 3;
+  // --- ZOOMI SEADED ---
+  const MIN_SCALE = 0.8;
+  const MAX_SCALE = 6;
+
+  type SelectedBoothState = {
+    booth: PlaceholderBooth;
+    companyName?: string;
+  };
 
 export default function MapScreen() {
-  const [selected, setSelected] = useState<PlaceholderBooth | null>(null);
+  const [selected, setSelected] = useState<SelectedBoothState | null>(null);
   const [pathNodes, setPathNodes] = useState<PathNode[]>([]);
   const [visibleSegments, setVisibleSegments] = useState(0);
   const [pathProgress, setPathProgress] = useState(1);
@@ -513,47 +619,134 @@ export default function MapScreen() {
             )}
 
             {/* BOKSID kaardi peal */}
-            {BOOTHS.map((b) => (
-              <Pressable
-                key={b.boothNumber}
-                  onPress={() => {
-                    setSelected(b);
+           {BOOTHS.map((b) => {
+            const company = COMPANY_BY_BOOTH[b.boothNumber];
 
-                    const nodeId = findNearestNodeId(b.x, b.y);
+            return (
+            <Pressable
+              key={b.boothNumber}
+              onPress={() => {
+                // salvesta valik koos ettevõtte nimega
+                setSelected({
+                  booth: b,
+                  companyName: company?.name,
+                });
 
-                    if (nodeId) {
-                      const path = findPath(START_NODE_ID, nodeId);
-                      setPathNodes(path);
+                const nodeId = findNearestNodeId(b.x, b.y);
 
-                      if (path.length > 1) {
-                        animatePath(700);
-                      } else {
-                        setPathProgress(1);
-                      }
-                    } else {
-                      setPathNodes([]);
-                      setPathProgress(0);
-                    }
+                if (nodeId) {
+                  const path = findPath(START_NODE_ID, nodeId);
+                  setPathNodes(path);
+
+                  if (path.length > 1) {
+                    animatePath(700);
+                  } else {
+                    setPathProgress(1);
+                  }
+                } else {
+                  setPathNodes([]);
+                  setPathProgress(0);
+                }
+              }}
+              style={{
+                position: 'absolute',
+                left: b.x * width - boothSize / 2,
+                top: b.y * baseHeight - boothSize / 2,
+                width: boothSize,
+                height: boothSize,
+                borderRadius: 2,
+                borderWidth: 0.5,
+                borderColor: '#1E66FF',
+                backgroundColor: 'rgba(30,102,255,0.18)',
+                justifyContent: 'center',
+                alignItems: 'center',
+                overflow: 'hidden', // kui logo läheb äärest välja
+              }}
+            >
+              {/* Kui logoUri olemas, näitame logo, muidu initsiaalid / boksi number */}
+              {company?.logoUri ? (
+                (() => {
+                  const src: any = company.logoUri;
+
+                  // remote URL string
+                  if (typeof src === 'string') {
+                    return (
+                      <Animated.Image
+                        source={{ uri: src }}
+                        style={{
+                          width: boothSize - 2,
+                          height: boothSize - 2,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                    );
+                  }
+
+                  // bundler asset (require) returns a number (asset id)
+                  if (typeof src === 'number') {
+                    return (
+                      <Animated.Image
+                        source={src}
+                        style={{
+                          width: boothSize - 2,
+                          height: boothSize - 2,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                    );
+                  }
+
+                  // If the require/import returned a React component (SVG transformer), render it
+                  // (some setups export the SVG as the default export/component)
+                  const SvgComp = (src && (src.default || src)) as any;
+                  if (typeof SvgComp === 'function') {
+                    return <SvgComp width={boothSize - 2} height={boothSize - 2} />;
+                  }
+
+                  // Fallback: try object with uri
+                  if (src && typeof src === 'object' && src.uri) {
+                    return (
+                      <Animated.Image
+                        source={{ uri: src.uri }}
+                        style={{
+                          width: boothSize - 2,
+                          height: boothSize - 2,
+                          resizeMode: 'contain',
+                        }}
+                      />
+                    );
+                  }
+
+                  // last resort, render initials
+                  return (
+                    <Text
+                      style={{
+                        fontSize: 5,
+                        fontWeight: '700',
+                      }}
+                    >
+                      {getInitials(company.name)}
+                    </Text>
+                  );
+                })()
+              ) : company ? (
+                <Text
+                  style={{
+                    fontSize: 5,
+                    fontWeight: '700',
                   }}
-                style={{
-                  position: 'absolute',
-                  left: b.x * width - boothSize / 2,
-                  top: b.y * baseHeight - boothSize / 2,
-                  width: boothSize,
-                  height: boothSize,
-                  borderRadius: 1,
-                  borderWidth: 0.5,
-                  borderColor: '#1E66FF',
-                  backgroundColor: 'rgba(30,102,255,0.18)',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
+                >
+                  {getInitials(company.name)}
+                </Text>
+              ) : (
                 <Text style={{ fontSize: 4, fontWeight: '600' }}>
                   {b.boothNumber}
                 </Text>
-              </Pressable>
-            ))}
+              )}
+            </Pressable>
+          );
+        })}
+
           </View>
         </Animated.View>
       </GestureDetector>
@@ -611,26 +804,32 @@ export default function MapScreen() {
               gap: 8,
             }}
           >
-            <Text style={{ fontSize: 18, fontWeight: '700' }}>
-              Boks {selected?.boothNumber}
+          <Text style={{ fontSize: 18, fontWeight: '700' }}>
+            Boks {selected?.booth.boothNumber}
+          </Text>
+          {!!selected?.companyName && (
+            <Text style={{ fontSize: 15, fontWeight: '500', marginTop: 4 }}>
+              {selected.companyName}
             </Text>
-            <Text style={{ fontSize: 14 }}>
-              Praegu placeholder. Hiljem loeme siia SEB / Swedbank / jne info
-              otse veebirakenduse andmebaasist ja kuvame logo + kirjelduse.
-            </Text>
-            <Pressable
-              onPress={() => setSelected(null)}
-              style={{
-                marginTop: 12,
-                alignSelf: 'flex-end',
-                paddingHorizontal: 16,
-                paddingVertical: 8,
-                borderRadius: 999,
-                backgroundColor: '#1E66FF',
-              }}
-            >
-              <Text style={{ color: 'white', fontWeight: '600' }}>Sulge</Text>
-            </Pressable>
+          )}
+          <Text style={{ fontSize: 14, marginTop: 8 }}>
+            Praegu placeholder. Hiljem loeme siia ettevõtte info
+            otse veebirakenduse andmebaasist ja kuvame logo + kirjelduse.
+          </Text>
+          <Pressable
+            onPress={() => setSelected(null)}
+            style={{
+              marginTop: 12,
+              alignSelf: 'flex-end',
+              paddingHorizontal: 16,
+              paddingVertical: 8,
+              borderRadius: 999,
+              backgroundColor: '#1E66FF',
+            }}
+          >
+            <Text style={{ color: 'white', fontWeight: '600' }}>Sulge</Text>
+          </Pressable>
+
           </View>
         </View>
       </Modal>

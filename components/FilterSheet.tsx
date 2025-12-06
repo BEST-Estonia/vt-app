@@ -198,6 +198,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#FFFFFF',
   },
+  chipText: { fontSize: 13, fontWeight: '600' },
   chipDefault: {},
   chipSelected: { backgroundColor: '#EFF6FF' },
   sortBtn: {
