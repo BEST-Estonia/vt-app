@@ -1,7 +1,7 @@
-// mapi jaoks
+// SVG tüübid: importi SVG faile nagu React-komponente
 declare module '*.svg' {
-  import type { SvgProps } from 'react-native-svg';
-  import type React from 'react';
+  import * as React from 'react';
+  import { SvgProps } from 'react-native-svg';
   const content: React.FC<SvgProps>;
   export default content;
 }
