@@ -1,5 +1,5 @@
 // app/(tabs)/map.tsx
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { Dimensions, Image, Modal, Pressable, Text, View } from 'react-native';
 import FloorMap from './assets/realplan1.svg';
 
@@ -406,115 +406,6 @@ const SECTIONS: Record<SectionKey, SectionRegion> = {
   },
 };
 
-// --- BOKSI MARKER ---
-type BoothMarkerProps = {
-  booth: PlaceholderBooth;
-  company?: { name: string; logoUri?: any };
-  width: number;
-  baseHeight: number;
-  size: number;
-  onPress: () => void;
-};
-
-const BoothMarker = memo(function BoothMarker({
-  booth,
-  company,
-  width,
-  baseHeight,
-  size,
-  onPress,
-}: BoothMarkerProps) {
-  const half = size / 2;
-  const left = booth.x * width - half;
-  const top = booth.y * baseHeight - half;
-
-  function getInitialsLocal(name: string): string {
-    const parts = name.trim().split(/\s+/);
-    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
-    return (parts[0][0] + parts[1][0]).toUpperCase();
-  }
-
-  const content = (() => {
-    if (!company) {
-      return <Text style={{ fontSize: 9, fontWeight: '600' }}>{booth.boothNumber}</Text>;
-    }
-
-    if (!company.logoUri) {
-      return <Text style={{ fontSize: 11, fontWeight: '700' }}>{getInitialsLocal(company.name)}</Text>;
-    }
-
-    const src: any = company.logoUri;
-
-    if (typeof src === 'string') {
-      return (
-        <Image
-          source={{ uri: src }}
-          style={{ width: size - 2, height: size - 2 }}
-          resizeMode="contain"
-        />
-      );
-    }
-
-    if (typeof src === 'number') {
-      return (
-        <Image
-          source={src}
-          style={{ width: size - 2, height: size - 2 }}
-          resizeMode="contain"
-        />
-      );
-    }
-
-    const SvgComp = (src && (src.default || src)) as any;
-    if (typeof SvgComp === 'function') {
-      return <SvgComp width={size - 2} height={size - 2} />;
-    }
-
-    if (src && typeof src === 'object' && src.uri) {
-      return (
-        <Image
-          source={{ uri: src.uri }}
-          style={{ width: size - 2, height: size - 2 }}
-          resizeMode="contain"
-        />
-      );
-    }
-
-    return <Text style={{ fontSize: 11, fontWeight: '700' }}>{getInitialsLocal(company.name)}</Text>;
-  })();
-
-  return (
-    <View
-      style={{
-        position: 'absolute',
-        left,
-        top,
-        width: size,
-        height: size,
-      }}
-    >
-      <Pressable
-        onPress={onPress}
-        hitSlop={10}
-        style={{
-          width: size,
-          height: size,
-          borderRadius: 3,
-          borderWidth: 0.5,
-          borderColor: '#1E66FF',
-          backgroundColor: 'rgba(30,102,255,0.18)',
-          justifyContent: 'center',
-          alignItems: 'center',
-          overflow: 'hidden',
-        }}
-      >
-        {content}
-      </Pressable>
-    </View>
-  );
-});
-
-// --- PÕHIKOMPONENT ---
 type SelectedBoothState = {
   booth: PlaceholderBooth;
   companyName?: string;
@@ -530,18 +421,13 @@ export default function MapScreen() {
   const baseHeight = (width * 1684) / 1190; // SVG viewBox ratio
   const boothSize = 16;
 
-  const containerHeight = screenHeight - 80; // Leave space only for bottom buttons
+  // Jätame veidi ruumi alumiste nuppude jaoks
+  const containerHeight = screenHeight - 80;
 
-  // Rotate map 90 degrees only when kohvikusaal section is active
-  const rotation = activeSection === 'kohvikusaal' ? 270 : 0;
-  const rotationRad = (rotation * Math.PI) / 180;
-  const rotCos = Math.cos(rotationRad);
-  const rotSin = Math.sin(rotationRad);
-
-  // Compute transform for active section
+  // --- Kaamera transform aktiivse sektsiooni põhjal ---
   const sectionRegion = SECTIONS[activeSection];
-  
-  // Convert normalized coordinates to pixel coordinates
+
+  // Normaliseeritud koordid -> px
   const x1 = sectionRegion.xMin * width;
   const x2 = sectionRegion.xMax * width;
   const y1 = sectionRegion.yMin * baseHeight;
@@ -549,7 +435,6 @@ export default function MapScreen() {
   const rectWidth = x2 - x1;
   const rectHeight = y2 - y1;
 
-  // Compute scale to fit section in container with padding
   const viewWidth = width;
   const viewHeight = containerHeight;
 
@@ -559,11 +444,9 @@ export default function MapScreen() {
   );
   if (!Number.isFinite(scale) || scale <= 0) scale = 1;
 
-  // Compute section center in map coordinates
   const centerX = (x1 + x2) / 2;
   const centerY = (y1 + y2) / 2;
 
-  // Compute translation so section center appears at container center
   const cx = viewWidth / 2;
   const cy = viewHeight / 2;
 
@@ -619,7 +502,7 @@ export default function MapScreen() {
         alignItems: 'center',
       }}
     >
-      {/* Map container with overflow hidden */}
+      {/* Kaardi konteiner */}
       <View
         style={{
           width,
@@ -629,67 +512,67 @@ export default function MapScreen() {
           backgroundColor: '#f0f0f0',
         }}
       >
-        {/* Transformed map view */}
+        {/* Transformeeritud kaardikiht (FloorMap + path) */}
         <View
           style={{
             position: 'absolute',
             width,
             height: baseHeight,
-            transform: [{ scale }, { rotate: `${rotation}deg` }],
             left: translateX,
             top: translateY,
+            transform: [{ scale }],
           }}
         >
           <View style={{ width, height: baseHeight }}>
             {/* SVG kaart */}
             <FloorMap width="100%" height="100%" />
 
-          {/* PATH fuajeest boksini */}
-          {pathNodes.length > 1 &&
-            pathNodes.map((node, index) => {
-              if (index === 0) return null;
+            {/* PATH fuajeest boksini */}
+            {pathNodes.length > 1 &&
+              pathNodes.map((node, index) => {
+                if (index === 0) return null;
 
-              const prev = pathNodes[index - 1];
+                const prev = pathNodes[index - 1];
 
-              const totalSegments = pathNodes.length - 1;
-              const maxIndexFloat = pathProgress * totalSegments;
+                const totalSegments = pathNodes.length - 1;
+                const maxIndexFloat = pathProgress * totalSegments;
 
-              const segmentIndex = index;
-              const startForThis = segmentIndex - 1;
+                const segmentIndex = index;
+                const startForThis = segmentIndex - 1;
 
-              if (maxIndexFloat <= startForThis) return null;
+                if (maxIndexFloat <= startForThis) return null;
 
-              const rawProgress = maxIndexFloat - startForThis;
-              const segProgress = Math.min(Math.max(rawProgress, 0), 1);
+                const rawProgress = maxIndexFloat - startForThis;
+                const segProgress = Math.min(Math.max(rawProgress, 0), 1);
 
-              const x1 = prev.x * width;
-              const y1 = prev.y * baseHeight;
-              const x2 = node.x * width;
-              const y2 = node.y * baseHeight;
+                const sx1 = prev.x * width;
+                const sy1 = prev.y * baseHeight;
+                const sx2 = node.x * width;
+                const sy2 = node.y * baseHeight;
 
-              const x2p = x1 + (x2 - x1) * segProgress;
-              const y2p = y1 + (y2 - y1) * segProgress;
+                const x2p = sx1 + (sx2 - sx1) * segProgress;
+                const y2p = sy1 + (sy2 - sy1) * segProgress;
 
-              const left = Math.min(x1, x2p);
-              const top = Math.min(y1, y2p);
-              const segmentWidth = Math.max(Math.abs(x2p - x1), 2);
-              const segmentHeight = Math.max(Math.abs(y2p - y1), 2);
+                const left = Math.min(sx1, x2p);
+                const top = Math.min(sy1, y2p);
+                const segmentWidth = Math.max(Math.abs(x2p - sx1), 2);
+                const segmentHeight = Math.max(Math.abs(y2p - sy1), 2);
 
-              return (
-                <View
-                  key={`${prev.id}-${node.id}`}
-                  style={{
-                    position: 'absolute',
-                    left,
-                    top,
-                    width: segmentWidth,
-                    height: segmentHeight,
-                    backgroundColor: 'rgba(16,185,129,0.7)',
-                    borderRadius: 999,
-                  }}
-                />
-              );
-            })}
+                return (
+                  <View
+                    key={`${prev.id}-${node.id}`}
+                    style={{
+                      position: 'absolute',
+                      left,
+                      top,
+                      width: segmentWidth,
+                      height: segmentHeight,
+                      backgroundColor: 'rgba(16,185,129,0.7)',
+                      borderRadius: 999,
+                    }}
+                  />
+                );
+              })}
 
             {/* PATH NODE ringid (algus/lõpp) */}
             {startNode && (
@@ -728,7 +611,7 @@ export default function MapScreen() {
           </View>
         </View>
 
-        {/* Overlay layer for booth markers (not scaled, positioned absolutely) */}
+        {/* Overlay boksid / logod – arvutame ekraanikoordinaadid sama transformiga */}
         <View
           pointerEvents="box-none"
           style={{
@@ -742,25 +625,18 @@ export default function MapScreen() {
           {BOOTHS.map((b) => {
             const company = COMPANY_BY_BOOTH[b.boothNumber];
 
-            // Check if booth is in active section
+            // Kas boks jääb aktiivse sektsiooni aknasse (puhtalt opacity jaoks)
             const inside =
               b.x >= sectionRegion.xMin &&
               b.x <= sectionRegion.xMax &&
               b.y >= sectionRegion.yMin &&
               b.y <= sectionRegion.yMax;
 
-            // Compute screen position with optional rotation: screen = t + R * (s * map)
-            const offset = OVERLAY_OFFSETS[activeSection] ?? { dx: 0, dy: 0 };
-            const mapX = (b.x + offset.dx) * width;
-            const mapY = (b.y + offset.dy) * baseHeight;
-            const sx = scale * mapX;
-            const sy = scale * mapY;
-
-            const rx = rotCos * sx - rotSin * sy;
-            const ry = rotSin * sx + rotCos * sy;
-
-            const screenX = translateX + rx;
-            const screenY = translateY + ry;
+            // map -> ekraan: screen = t + s * map
+            const mapX = b.x * width;
+            const mapY = b.y * baseHeight;
+            const screenX = translateX + scale * mapX;
+            const screenY = translateY + scale * mapY;
 
             const half = boothSize / 2;
             const left = screenX - half;
@@ -965,4 +841,3 @@ export default function MapScreen() {
     </View>
   );
 }
-
