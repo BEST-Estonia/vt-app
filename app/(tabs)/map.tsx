@@ -1,14 +1,6 @@
 // app/(tabs)/map.tsx
 import React, { memo, useState } from 'react';
 import { Dimensions, Image, Modal, Pressable, Text, View } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import Animated, {
-  SharedValue,
-  runOnJS,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming
-} from 'react-native-reanimated';
 import FloorMap from './assets/realplan1.svg';
 
 type PlaceholderBooth = {
@@ -39,7 +31,7 @@ const BOOTHS: PlaceholderBooth[] = [
   { boothNumber: '9', x: 0.4646, y: 0.1429 },
   { boothNumber: '10', x: 0.5347, y: 0.1427 },
   { boothNumber: '11', x: 0.5347, y: 0.1582 },
-  { boothNumber: '12', x: 0.5347, y: 0.17299999999999999 },
+  { boothNumber: '12', x: 0.5347, y: 0.173 },
   { boothNumber: '13', x: 0.5347, y: 0.1882 },
   { boothNumber: '14', x: 0.5347, y: 0.2033 },
 
@@ -75,40 +67,39 @@ const BOOTHS: PlaceholderBooth[] = [
   { boothNumber: '40', x: 0.277, y: 0.3935 },
   { boothNumber: '41', x: 0.298, y: 0.3935 },
 
-  { boothNumber: '42', x: 0.378, y: 0.5530 },
-  { boothNumber: '43', x: 0.378, y: 0.5379 },
-  { boothNumber: '44', x: 0.378, y: 0.5228 },
-  { boothNumber: '45', x: 0.378, y: 0.5077 },
-  { boothNumber: '46', x: 0.378, y: 0.4926 },
+  { boothNumber: '42', x: 0.353, y: 0.5280 },
+  { boothNumber: '43', x: 0.353, y: 0.5129 },
+  { boothNumber: '44', x: 0.353, y: 0.4978 },
+  { boothNumber: '45', x: 0.353, y: 0.4827 },
+  { boothNumber: '46', x: 0.353, y: 0.4676 },
 
-  { boothNumber: '47', x: 0.3529, y: 0.4819 },
-  { boothNumber: '48', x: 0.3319, y: 0.4819 },
-  { boothNumber: '49', x: 0.310, y: 0.4819 },
-  { boothNumber: '50', x: 0.2884, y: 0.4819 },
-  { boothNumber: '51', x: 0.267, y: 0.4819 },
-  { boothNumber: '52', x: 0.245, y: 0.4819 },
-  { boothNumber: '53', x: 0.224, y: 0.4819 },
-  { boothNumber: '54', x: 0.2025, y: 0.4819 },
-  { boothNumber: '55', x: 0.181, y: 0.4819 },
+  { boothNumber: '47', x: 0.3279, y: 0.4569 },
+  { boothNumber: '48', x: 0.3069, y: 0.4569 },
+  { boothNumber: '49', x: 0.285, y: 0.4569 },
+  { boothNumber: '50', x: 0.2634, y: 0.4569 },
+  { boothNumber: '51', x: 0.242, y: 0.4569 },
+  { boothNumber: '52', x: 0.22, y: 0.4569 },
+  { boothNumber: '53', x: 0.199, y: 0.4569 },
+  { boothNumber: '54', x: 0.1775, y: 0.4569 },
+  { boothNumber: '55', x: 0.156, y: 0.4569 },
 
-  { boothNumber: '56', x: 0.1549, y: 0.495 },
-  { boothNumber: '57', x: 0.1549, y: 0.5102 },
-  { boothNumber: '58', x: 0.1549, y: 0.5253 },
-  { boothNumber: '59', x: 0.1549, y: 0.5406 },
-  { boothNumber: '60', x: 0.1549, y: 0.5557 },
-  { boothNumber: '61', x: 0.1549, y: 0.5713 },
-  { boothNumber: '62', x: 0.1549, y: 0.586 },
+  { boothNumber: '56', x: 0.1299, y: 0.47 },
+  { boothNumber: '57', x: 0.1299, y: 0.4852 },
+  { boothNumber: '58', x: 0.1299, y: 0.5003 },
+  { boothNumber: '59', x: 0.1299, y: 0.5156 },
+  { boothNumber: '60', x: 0.1299, y: 0.5307 },
+  { boothNumber: '61', x: 0.1299, y: 0.5463 },
+  { boothNumber: '62', x: 0.1299, y: 0.561 },
 
+  { boothNumber: '63', x: 0.1442, y: 0.575 },
+  { boothNumber: '64', x: 0.1655, y: 0.575 },
+  { boothNumber: '65', x: 0.1871, y: 0.575 },
+  { boothNumber: '66', x: 0.2085, y: 0.575 },
+  { boothNumber: '67', x: 0.2301, y: 0.575 },
 
-  { boothNumber: '63', x: 0.1692, y: 0.6 },
-  { boothNumber: '64', x: 0.1905, y: 0.6 },
-  { boothNumber: '65', x: 0.2121, y: 0.6 },
-  { boothNumber: '66', x: 0.2335, y: 0.6 },
-  { boothNumber: '67', x: 0.2551, y: 0.6 },
+  { boothNumber: '68', x: 0.2561, y: 0.598 },
 
-  { boothNumber: '68', x: 0.2811, y: 0.623 },
-
-  { boothNumber: '69', x: 0.3079, y: 0.5914 },
+  { boothNumber: '69', x: 0.2829, y: 0.5664 },
 
   { boothNumber: '70', x: 0.3323, y: 0.5414 },
   { boothNumber: '71', x: 0.3323, y: 0.5260 },
@@ -250,7 +241,6 @@ const COMPANY_BY_BOOTH: Record<
   '90': { name: 'Nordea Bank Abp Eesti filiaal', logoUri: require('./assets/nordea.jpg') },
   '91': {
     name: 'Helmes AS',
-    // Use the raster JPEG version
     logoUri: require('./assets/helmes-logo.jpg'),
   },
   '94': { name: 'Compensa Vienna Insurance Group, ADB Eesti filiaal', logoUri: require('./assets/compensa.jpg') },
@@ -270,7 +260,6 @@ const COMPANY_BY_BOOTH: Record<
   '117': { name: 'Genius Sports', logoUri: require('./assets/geniussports.jpg') },
   '121': { name: 'Shore Link OÜ', logoUri: require('./assets/shorelink.png') },
 };
-
 
 // --- GRAAF: peauksest koridoripunktideni ---
 const START_NODE_ID: NodeId = 'fuajee-uks';
@@ -315,15 +304,7 @@ const NODES: PathNode[] = [
   { id: 'tudengimaja-vasak-all', x: 0.545, y: 0.89, neighbors: ['tudengimaja-89-box', 'tudengimaja-100-box'] },
 ];
 
-  function getInitials(name: string): string {
-    const parts = name.trim().split(/\s+/);
-    if (parts.length === 1) {
-      return parts[0].substring(0, 2).toUpperCase();
-    }
-    return (parts[0][0] + parts[1][0]).toUpperCase();
-  }
-
-// bfs type shift
+// BFS: leia tee algusest siht-node'ini
 function findPath(startId: NodeId, endId: NodeId): PathNode[] {
   const byId: Record<string, PathNode> = {};
   NODES.forEach((n) => {
@@ -366,7 +347,7 @@ function findPath(startId: NodeId, endId: NodeId): PathNode[] {
   return path.reverse();
 }
 
-// Leia lähim node antud (x, y) jaoks
+// Leia lähim graafi-node antud (x, y) kaardikoordinaatidele
 function findNearestNodeId(x: number, y: number): NodeId | null {
   if (NODES.length === 0) return null;
 
@@ -384,328 +365,230 @@ function findNearestNodeId(x: number, y: number): NodeId | null {
     }
   }
 
-  // soovi korral võid panna ka mingi max kauguse filtri
-  // const MAX_DIST_SQ = 0.05 * 0.05;
-  // if (bestDistSq > MAX_DIST_SQ) return null;
-
   return bestId;
 }
 
+// --- SEKTSIOONID ---
+// Need on umbkaudsed piirkonnad; vajadusel saad numbreid timmida.
+type SectionKey = 'fuajee' | 'aula' | 'tudengimaja' | 'kohvikusaal';
 
-  // --- ZOOMI SEADED ---
-  const MIN_SCALE = 0.8;
-  const MAX_SCALE = 6;
+type SectionRegion = {
+  xMin: number;
+  xMax: number;
+  yMin: number;
+  yMax: number;
+};
 
-  type SelectedBoothState = {
-    booth: PlaceholderBooth;
-    companyName?: string;
-  };
+const SECTIONS: Record<SectionKey, SectionRegion> = {
+  fuajee: {
+    xMin: 0.0,
+    xMax: 0.36,
+    yMin: -0.23,
+    yMax: 0.18,
+  },
+  aula: {
+    xMin: -0.2,
+    xMax: 0.1,
+    yMin: 0.07,
+    yMax: 0.34,
+  },
+  tudengimaja: {
+    xMin: 0.18,
+    xMax: 0.32,
+    yMin: 0.24,
+    yMax: 0.62,
+  },
+  kohvikusaal: {
+    xMin: -0.2,
+    xMax: 0.1,
+    yMin: 0.25,
+    yMax: 0.35,
+  },
+};
 
-  type BoothMarkerProps = {
-    b: PlaceholderBooth;
-    company?: { name: string; logoUri?: any };
-    width: number;
-    baseHeight: number;
-    boothSize: number;
-    scale: SharedValue<number>;
-    onPress: () => void;
-  };
+// --- BOKSI MARKER ---
+type BoothMarkerProps = {
+  booth: PlaceholderBooth;
+  company?: { name: string; logoUri?: any };
+  width: number;
+  baseHeight: number;
+  size: number;
+  onPress: () => void;
+};
 
-  const BoothMarker = memo(function BoothMarker({
-    b,
-    company,
-    width,
-    baseHeight,
-    boothSize,
-    scale,
-    onPress,
-  }: BoothMarkerProps) {
-    const keepSizeStyle = useAnimatedStyle(() => ({
-      transform: [{ scale: 1 / scale.value }],
-    }));
+const BoothMarker = memo(function BoothMarker({
+  booth,
+  company,
+  width,
+  baseHeight,
+  size,
+  onPress,
+}: BoothMarkerProps) {
+  const half = size / 2;
+  const left = booth.x * width - half;
+  const top = booth.y * baseHeight - half;
 
-    const left = b.x * width - boothSize / 2;
-    const top = b.y * baseHeight - boothSize / 2;
+  function getInitialsLocal(name: string): string {
+    const parts = name.trim().split(/\s+/);
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[1][0]).toUpperCase();
+  }
 
-    function getInitialsLocal(name: string): string {
-      const parts = name.trim().split(/\s+/);
-      if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
-      return (parts[0][0] + parts[1][0]).toUpperCase();
+  const content = (() => {
+    if (!company) {
+      return <Text style={{ fontSize: 9, fontWeight: '600' }}>{booth.boothNumber}</Text>;
     }
 
-    const content = (() => {
-      if (!company) {
-        return <Text style={{ fontSize: 9, fontWeight: '600' }}>{b.boothNumber}</Text>;
-      }
-
-      if (!company.logoUri) {
-        return <Text style={{ fontSize: 10, fontWeight: '700' }}>{getInitialsLocal(company.name)}</Text>;
-      }
-
-      const src: any = company.logoUri;
-
-      // remote URL
-      if (typeof src === 'string') {
-        return (
-          <Animated.Image
-            source={{ uri: src }}
-            style={{ width: boothSize - 2, height: boothSize - 2 }}
-            resizeMode="contain"
-          />
-        );
-      }
-
-      // require(...) asset id
-      if (typeof src === 'number') {
-        return (
-          <Animated.Image
-            source={src}
-            style={{ width: boothSize - 2, height: boothSize - 2 }}
-            resizeMode="contain"
-          />
-        );
-      }
-
-      // SVG component export
-      const SvgComp = (src && (src.default || src)) as any;
-      if (typeof SvgComp === 'function') {
-        return <SvgComp width={boothSize - 2} height={boothSize - 2} />;
-      }
-
-      // object with uri
-      if (src && typeof src === 'object' && src.uri) {
-        return (
-          <Animated.Image
-            source={{ uri: src.uri }}
-            style={{ width: boothSize - 2, height: boothSize - 2 }}
-            resizeMode="contain"
-          />
-        );
-      }
-
-      return <Text style={{ fontSize: 10, fontWeight: '700' }}>{getInitialsLocal(company.name)}</Text>;
-    })();
-
-    return (
-      <Animated.View
-        style={[
-          {
-            position: 'absolute',
-            left,
-            top,
-            width: boothSize,
-            height: boothSize,
-          },
-          keepSizeStyle,
-        ]}
-      >
-        <Pressable
-          onPress={onPress}
-          hitSlop={10}
-          style={{
-            width: boothSize,
-            height: boothSize,
-            borderRadius: 3,
-            borderWidth: 0.5,
-            borderColor: '#1E66FF',
-            backgroundColor: 'rgba(30,102,255,0.18)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            overflow: 'hidden',
-          }}
-        >
-          {content}
-        </Pressable>
-      </Animated.View>
-    );
-  });
-
-  // === OVERLAY BOOTH MARKER (non-scaled, crisp logos) ===
-  type BoothMarkerOverlayProps = {
-    b: PlaceholderBooth;
-    company?: { name: string; logoUri?: any };
-    boothSize: number;
-    scale: SharedValue<number>;
-    translateX: SharedValue<number>;
-    translateY: SharedValue<number>;
-    width: number;
-    baseHeight: number;
-  };
-
-  const BoothMarkerOverlay = memo(function BoothMarkerOverlay({
-    b,
-    company,
-    boothSize,
-    scale,
-    translateX,
-    translateY,
-    width,
-    baseHeight,
-  }: BoothMarkerOverlayProps) {
-    function getInitialsLocal(name: string): string {
-      const parts = name.trim().split(/\s+/);
-      if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
-      return (parts[0][0] + parts[1][0]).toUpperCase();
-    }
-
-    const cxLocal = width / 2;
-    const cyLocal = baseHeight / 2;
-    const halfSize = boothSize / 2;
-
-    // Compute screen position using same matrix math as map transform
-    const screenPositionStyle = useAnimatedStyle(() => {
-      const s = scale.value;
-
-      const mapX = b.x * width;
-      const mapY = b.y * baseHeight;
-
-      const screenX = s * mapX + translateX.value;
-      const screenY = s * mapY + translateY.value;
-
-      return {
-        left: screenX - halfSize,
-        top: screenY - halfSize,
-      };
-    });
-
-    const content = (() => {
-      if (!company) {
-        return <Text style={{ fontSize: 9, fontWeight: '600' }}>{b.boothNumber}</Text>;
-      }
-
-      if (!company.logoUri) {
-        return <Text style={{ fontSize: 11, fontWeight: '700' }}>{getInitialsLocal(company.name)}</Text>;
-      }
-
-      const src: any = company.logoUri;
-
-      // remote URL
-      if (typeof src === 'string') {
-        return (
-          <Image
-            source={{ uri: src }}
-            style={{ width: boothSize - 2, height: boothSize - 2 }}
-          />
-        );
-      }
-
-      // require(...) asset id
-      if (typeof src === 'number') {
-        return (
-          <Image
-            source={src}
-            style={{ width: boothSize - 2, height: boothSize - 2 }}
-          />
-        );
-      }
-
-      // SVG component export
-      const SvgComp = (src && (src.default || src)) as any;
-      if (typeof SvgComp === 'function') {
-        return <SvgComp width={boothSize - 2} height={boothSize - 2} />;
-      }
-
-      // object with uri
-      if (src && typeof src === 'object' && src.uri) {
-        return (
-          <Image
-            source={{ uri: src.uri }}
-            style={{ width: boothSize - 2, height: boothSize - 2 }}
-          />
-        );
-      }
-
+    if (!company.logoUri) {
       return <Text style={{ fontSize: 11, fontWeight: '700' }}>{getInitialsLocal(company.name)}</Text>;
-    })();
+    }
 
-    return (
-      <Animated.View
-        pointerEvents="none"
-        style={[
-          {
-            position: 'absolute',
-            width: boothSize,
-            height: boothSize,
-          },
-          screenPositionStyle,
-        ]}
+    const src: any = company.logoUri;
+
+    if (typeof src === 'string') {
+      return (
+        <Image
+          source={{ uri: src }}
+          style={{ width: size - 2, height: size - 2 }}
+          resizeMode="contain"
+        />
+      );
+    }
+
+    if (typeof src === 'number') {
+      return (
+        <Image
+          source={src}
+          style={{ width: size - 2, height: size - 2 }}
+          resizeMode="contain"
+        />
+      );
+    }
+
+    const SvgComp = (src && (src.default || src)) as any;
+    if (typeof SvgComp === 'function') {
+      return <SvgComp width={size - 2} height={size - 2} />;
+    }
+
+    if (src && typeof src === 'object' && src.uri) {
+      return (
+        <Image
+          source={{ uri: src.uri }}
+          style={{ width: size - 2, height: size - 2 }}
+          resizeMode="contain"
+        />
+      );
+    }
+
+    return <Text style={{ fontSize: 11, fontWeight: '700' }}>{getInitialsLocal(company.name)}</Text>;
+  })();
+
+  return (
+    <View
+      style={{
+        position: 'absolute',
+        left,
+        top,
+        width: size,
+        height: size,
+      }}
+    >
+      <Pressable
+        onPress={onPress}
+        hitSlop={10}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: 3,
+          borderWidth: 0.5,
+          borderColor: '#1E66FF',
+          backgroundColor: 'rgba(30,102,255,0.18)',
+          justifyContent: 'center',
+          alignItems: 'center',
+          overflow: 'hidden',
+        }}
       >
-        <View
-          style={{
-            width: boothSize,
-            height: boothSize,
-            borderRadius: 3,
-            borderWidth: 0.5,
-            borderColor: '#1E66FF',
-            backgroundColor: 'rgba(30,102,255,0.18)',
-            justifyContent: 'center',
-            alignItems: 'center',
-            overflow: 'hidden',
-          }}
-        >
-          {content}
-        </View>
-      </Animated.View>
-    );
-  });
+        {content}
+      </Pressable>
+    </View>
+  );
+});
+
+// --- PÕHIKOMPONENT ---
+type SelectedBoothState = {
+  booth: PlaceholderBooth;
+  companyName?: string;
+};
 
 export default function MapScreen() {
   const [selected, setSelected] = useState<SelectedBoothState | null>(null);
   const [pathNodes, setPathNodes] = useState<PathNode[]>([]);
-  const [visibleSegments, setVisibleSegments] = useState(0);
   const [pathProgress, setPathProgress] = useState(1);
+  const [activeSection, setActiveSection] = useState<SectionKey>('fuajee');
 
   const { width, height: screenHeight } = Dimensions.get('window');
   const baseHeight = (width * 1684) / 1190; // SVG viewBox ratio
   const boothSize = 16;
 
+  const containerHeight = screenHeight - 80; // Leave space only for bottom buttons
 
-  const ENTRANCE_X = 0.27;
-  const ENTRANCE_Y = 0.34;
-  const INITIAL_SCALE = 1.3;
+  // Rotate map 90 degrees only when kohvikusaal section is active
+  const rotation = activeSection === 'kohvikusaal' ? 270 : 0;
+  const rotationRad = (rotation * Math.PI) / 180;
+  const rotCos = Math.cos(rotationRad);
+  const rotSin = Math.sin(rotationRad);
 
-  const cx = width / 2;
-  const cy = baseHeight / 2;
+  // Compute transform for active section
+  const sectionRegion = SECTIONS[activeSection];
+  
+  // Convert normalized coordinates to pixel coordinates
+  const x1 = sectionRegion.xMin * width;
+  const x2 = sectionRegion.xMax * width;
+  const y1 = sectionRegion.yMin * baseHeight;
+  const y2 = sectionRegion.yMax * baseHeight;
+  const rectWidth = x2 - x1;
+  const rectHeight = y2 - y1;
 
-  const entrancePxX = ENTRANCE_X * width;
-  const entrancePxY = ENTRANCE_Y * baseHeight;
+  // Compute scale to fit section in container with padding
+  const viewWidth = width;
+  const viewHeight = containerHeight;
 
-  // screen = s*map + t
-  // tahame, et entrance läheks ekraani keskmesse => t = center - s*entrance
-  const INITIAL_TX = cx - INITIAL_SCALE * entrancePxX;
-  const INITIAL_TY = cy - INITIAL_SCALE * entrancePxY;
+  let scale = Math.min(
+    (viewWidth * 0.9) / rectWidth,
+    (viewHeight * 0.9) / rectHeight
+  );
+  if (!Number.isFinite(scale) || scale <= 0) scale = 1;
 
-  const scale = useSharedValue(INITIAL_SCALE);
-  const translateX = useSharedValue(INITIAL_TX);
-  const translateY = useSharedValue(INITIAL_TY);
-  const startScale = useSharedValue(INITIAL_SCALE);
-  const startTx = useSharedValue(INITIAL_TX);
-  const startTy = useSharedValue(INITIAL_TY);
+  // Compute section center in map coordinates
+  const centerX = (x1 + x2) / 2;
+  const centerY = (y1 + y2) / 2;
 
-  const ZOOM_STEP = 1.5; // double tap zoom step
-  const EPS = 0.05;
+  // Compute translation so section center appears at container center
+  const cx = viewWidth / 2;
+  const cy = viewHeight / 2;
+
+  const translateX = cx - scale * centerX;
+  const translateY = cy - scale * centerY;
 
   function animatePath(duration = 700) {
-  const start = Date.now();
+    const start = Date.now();
+    setPathProgress(0);
 
-  setPathProgress(0);
+    function step() {
+      const now = Date.now();
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
 
-  function step() {
-    const now = Date.now();
-    const t = Math.min((now - start) / duration, 1);
-    const eased = 1 - Math.pow(1 - t, 3);
+      setPathProgress(eased);
 
-    setPathProgress(eased);
-
-    if (t < 1) {
-      requestAnimationFrame(step);
+      if (t < 1) {
+        requestAnimationFrame(step);
+      }
     }
+
+    requestAnimationFrame(step);
   }
 
-  requestAnimationFrame(step);
-}
-
-  // Select booth: set selected state, find path, animate
   function selectBooth(booth: PlaceholderBooth) {
     const company = COMPANY_BY_BOOTH[booth.boothNumber];
     setSelected({ booth, companyName: company?.name });
@@ -724,101 +607,8 @@ export default function MapScreen() {
     }
   }
 
-  // pinch zoom
-  const pinch = Gesture.Pinch()
-    .onStart(() => {
-      startScale.value = scale.value;
-      startTx.value = translateX.value;
-      startTy.value = translateY.value;
-    })
-    .onUpdate((event) => {
-      let nextScale = startScale.value * event.scale;
-      if (nextScale < MIN_SCALE) nextScale = MIN_SCALE;
-      if (nextScale > MAX_SCALE) nextScale = MAX_SCALE;
-
-      // map point finger all (map coords)
-      const mx = (event.focalX - startTx.value) / startScale.value;
-      const my = (event.focalY - startTy.value) / startScale.value;
-
-      scale.value = nextScale;
-      translateX.value = event.focalX - mx * nextScale;
-      translateY.value = event.focalY - my * nextScale;
-    });
-
-  const pan = Gesture.Pan()
-    .minDistance(5)
-    .onChange((event) => {
-      translateX.value += event.changeX;
-      translateY.value += event.changeY;
-    });
-
-  // double tap zoom
-  const doubleTap = Gesture.Tap()
-    .numberOfTaps(2)
-    .maxDuration(250)
-    .maxDelay(300)
-    .maxDistance(20)
-    .onEnd((_event, success) => {
-      if (!success) return;
-
-      const next = Math.min(scale.value * 1.5, MAX_SCALE);
-      scale.value = withTiming(next);
-    });
-
-  const tapSelect = Gesture.Tap()
-    .maxDistance(10)
-    .onEnd((e) => {
-      const s = scale.value;
-
-      // screen -> map px
-      const mapX = (e.x - translateX.value) / s;
-      const mapY = (e.y - translateY.value) / s;
-
-      // hit radius screen px -> map px
-      const hit = (boothSize * 0.75) / s;
-
-      let best: PlaceholderBooth | null = null;
-      let bestD = 1e9;
-
-      for (const b of BOOTHS) {
-        const bx = b.x * width;
-        const by = b.y * baseHeight;
-        const dx = mapX - bx;
-        const dy = mapY - by;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < bestD) {
-          bestD = d;
-          best = b;
-        }
-      }
-
-      if (best && bestD <= hit) {
-        runOnJS(selectBooth)(best);
-      }
-    });
-
-  const panZoom = Gesture.Simultaneous(pinch, pan);
-
-  const gesture = Gesture.Exclusive(doubleTap, panZoom, tapSelect);
-
-
-  const animatedStyle = useAnimatedStyle(() => {
-    const s = scale.value;
-    return {
-      // screen = s * map + t (scale first, then translate)
-      transform: [
-        { scale: s },
-        { translateX: translateX.value },
-        { translateY: translateY.value },
-      ],
-    };
-  });
-
-  const containerHeight = Math.max(baseHeight, screenHeight * 0.7);
-
   const startNode = pathNodes.length > 0 ? pathNodes[0] : null;
-  const endNode =
-    pathNodes.length > 1 ? pathNodes[pathNodes.length - 1] : null;
+  const endNode = pathNodes.length > 1 ? pathNodes[pathNodes.length - 1] : null;
 
   return (
     <View
@@ -829,33 +619,32 @@ export default function MapScreen() {
         alignItems: 'center',
       }}
     >
-      <GestureDetector gesture={gesture}>
-        <View style={{ width, height: containerHeight, position: 'relative' }}>
-          {/* KAART (skaleerub) */}
-          <Animated.View
-            style={[
-              { position: 'absolute', left: 0, top: 0, width, height: baseHeight },
-              animatedStyle,
-            ]}
-          >
-            <View style={{ width, height: baseHeight }}>
-              {/* SVG kaart */}
-              <FloorMap width="100%" height="100%" />
+      {/* Map container with overflow hidden */}
+      <View
+        style={{
+          width,
+          height: containerHeight,
+          overflow: 'hidden',
+          position: 'relative',
+          backgroundColor: '#f0f0f0',
+        }}
+      >
+        {/* Transformed map view */}
+        <View
+          style={{
+            position: 'absolute',
+            width,
+            height: baseHeight,
+            transform: [{ scale }, { rotate: `${rotation}deg` }],
+            left: translateX,
+            top: translateY,
+          }}
+        >
+          <View style={{ width, height: baseHeight }}>
+            {/* SVG kaart */}
+            <FloorMap width="100%" height="100%" />
 
-          {/* MASK, mis katab parempoolse osa (legendi) */}
-          <View
-            pointerEvents="none"
-            style={{
-              position: 'absolute',
-              top: 0,
-              right: 0,
-              width: width * 0.25,
-              height: baseHeight,
-              backgroundColor: '#fff',
-            }}
-          />
-
-          {/* PATH, ringid, boksid – kõik jääb samaks */}
+          {/* PATH fuajeest boksini */}
           {pathNodes.length > 1 &&
             pathNodes.map((node, index) => {
               if (index === 0) return null;
@@ -877,7 +666,7 @@ export default function MapScreen() {
               const y1 = prev.y * baseHeight;
               const x2 = node.x * width;
               const y2 = node.y * baseHeight;
-              
+
               const x2p = x1 + (x2 - x1) * segProgress;
               const y2p = y1 + (y2 - y1) * segProgress;
 
@@ -902,9 +691,7 @@ export default function MapScreen() {
               );
             })}
 
-
-            {/*debug type shift*/}
-            {/* PATH NODE ringid (algus/lõpp ja vahepunktid) */}
+            {/* PATH NODE ringid (algus/lõpp) */}
             {startNode && (
               <View
                 key={`start-${startNode.id}`}
@@ -915,7 +702,7 @@ export default function MapScreen() {
                   width: 6,
                   height: 6,
                   borderRadius: 3,
-                  backgroundColor: '#ef4444', // punane algus
+                  backgroundColor: '#ef4444',
                   borderWidth: 1,
                   borderColor: '#ffffff',
                 }}
@@ -932,79 +719,201 @@ export default function MapScreen() {
                   width: 6,
                   height: 6,
                   borderRadius: 3,
-                  backgroundColor: '#22c55e', // sihtpunkt
+                  backgroundColor: '#22c55e',
                   borderWidth: 1,
                   borderColor: '#ffffff',
                 }}
               />
             )}
-
-            {/* BOKSID kaardi peal */}
-            {/* Markers moved to overlay outside scaled view */}
-            </View>
-          </Animated.View>
-
-          {/* OVERLAY LAYER: Non-scaled booth markers with crisp logos */}
-          <View
-            pointerEvents="none"
-            style={{
-              position: 'absolute',
-              left: 0,
-              top: 0,
-              width,
-              height: baseHeight,
-            }}
-          >
-        {BOOTHS.map((b) => (
-          <BoothMarkerOverlay
-            key={b.boothNumber}
-            b={b}
-            company={COMPANY_BY_BOOTH[b.boothNumber]}
-            width={width}
-            baseHeight={baseHeight}
-            boothSize={boothSize}
-            scale={scale}
-            translateX={translateX}
-            translateY={translateY}
-          />
-        ))}
           </View>
         </View>
-      </GestureDetector>
 
-      <View
-      pointerEvents="box-none"
-      style={{
-        position: 'absolute',
-        left: 16,
-        bottom: 24,
-      }}
-    >
-      <Pressable
-        onPress={() => {
-          scale.value = withTiming(INITIAL_SCALE);
-          translateX.value = withTiming(INITIAL_TX);
-          translateY.value = withTiming(INITIAL_TY);
-        }}
-        style={{
-          paddingHorizontal: 12,
-          paddingVertical: 8,
-          borderRadius: 999,
-          backgroundColor: 'rgba(15,23,42,0.9)',
-        }}
-        accessibilityLabel="Reset map view"
-      >
-        <Text
+        {/* Overlay layer for booth markers (not scaled, positioned absolutely) */}
+        <View
+          pointerEvents="box-none"
           style={{
-            color: 'white',
-            fontSize: 18,
-            lineHeight: 18,
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            width,
+            height: containerHeight,
           }}
         >
-          ⌖
-        </Text>
-      </Pressable>
-    </View>
+          {BOOTHS.map((b) => {
+            const company = COMPANY_BY_BOOTH[b.boothNumber];
+
+            // Check if booth is in active section
+            const inside =
+              b.x >= sectionRegion.xMin &&
+              b.x <= sectionRegion.xMax &&
+              b.y >= sectionRegion.yMin &&
+              b.y <= sectionRegion.yMax;
+
+            // Compute screen position with optional rotation: screen = t + R * (s * map)
+            const offset = OVERLAY_OFFSETS[activeSection] ?? { dx: 0, dy: 0 };
+            const mapX = (b.x + offset.dx) * width;
+            const mapY = (b.y + offset.dy) * baseHeight;
+            const sx = scale * mapX;
+            const sy = scale * mapY;
+
+            const rx = rotCos * sx - rotSin * sy;
+            const ry = rotSin * sx + rotCos * sy;
+
+            const screenX = translateX + rx;
+            const screenY = translateY + ry;
+
+            const half = boothSize / 2;
+            const left = screenX - half;
+            const top = screenY - half;
+
+            function getInitialsLocal(name: string): string {
+              const parts = name.trim().split(/\s+/);
+              if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+              return (parts[0][0] + parts[1][0]).toUpperCase();
+            }
+
+            let content: React.ReactNode;
+            if (!company) {
+              content = (
+                <Text style={{ fontSize: 9, fontWeight: '600' }}>
+                  {b.boothNumber}
+                </Text>
+              );
+            } else if (!company.logoUri) {
+              content = (
+                <Text style={{ fontSize: 11, fontWeight: '700' }}>
+                  {getInitialsLocal(company.name)}
+                </Text>
+              );
+            } else {
+              const src: any = company.logoUri;
+              if (typeof src === 'string') {
+                content = (
+                  <Image
+                    source={{ uri: src }}
+                    style={{ width: boothSize - 2, height: boothSize - 2 }}
+                    resizeMode="contain"
+                  />
+                );
+              } else if (typeof src === 'number') {
+                content = (
+                  <Image
+                    source={src}
+                    style={{ width: boothSize - 2, height: boothSize - 2 }}
+                    resizeMode="contain"
+                  />
+                );
+              } else if (src && (src.default || typeof src === 'function')) {
+                const SvgComp = (src.default || src) as any;
+                content = (
+                  <SvgComp width={boothSize - 2} height={boothSize - 2} />
+                );
+              } else if (src && typeof src === 'object' && src.uri) {
+                content = (
+                  <Image
+                    source={{ uri: src.uri }}
+                    style={{ width: boothSize - 2, height: boothSize - 2 }}
+                    resizeMode="contain"
+                  />
+                );
+              } else {
+                content = (
+                  <Text style={{ fontSize: 11, fontWeight: '700' }}>
+                    {getInitialsLocal(company.name)}
+                  </Text>
+                );
+              }
+            }
+
+            return (
+              <View
+                key={b.boothNumber}
+                style={{
+                  position: 'absolute',
+                  left,
+                  top,
+                  width: boothSize,
+                  height: boothSize,
+                  opacity: inside ? 1 : 0.3,
+                }}
+              >
+                <Pressable
+                  onPress={() => selectBooth(b)}
+                  hitSlop={10}
+                  style={{
+                    width: boothSize,
+                    height: boothSize,
+                    borderRadius: 3,
+                    borderWidth: 0.5,
+                    borderColor: '#1E66FF',
+                    backgroundColor: 'rgba(30,102,255,0.18)',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {content}
+                </Pressable>
+              </View>
+            );
+          })}
+        </View>
+      </View>
+
+      {/* SEKTSIOONI NUPUD ALL */}
+      <View
+        style={{
+          position: 'absolute',
+          bottom: 24,
+          left: 0,
+          right: 0,
+          alignItems: 'center',
+        }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            backgroundColor: 'rgba(15,23,42,0.9)',
+            borderRadius: 999,
+            paddingHorizontal: 8,
+            paddingVertical: 6,
+            gap: 8,
+          }}
+        >
+          {(
+            [
+              { key: 'fuajee', label: 'Fuajee' },
+              { key: 'aula', label: 'Aula' },
+              { key: 'tudengimaja', label: 'Tudengimaja' },
+              { key: 'kohvikusaal', label: 'Kohvikusaal' },
+            ] as { key: SectionKey; label: string }[]
+          ).map((item) => {
+            const isActive = activeSection === item.key;
+            return (
+              <Pressable
+                key={item.key}
+                onPress={() => setActiveSection(item.key)}
+                style={{
+                  paddingHorizontal: 10,
+                  paddingVertical: 6,
+                  borderRadius: 999,
+                  backgroundColor: isActive ? '#1E66FF' : 'transparent',
+                }}
+              >
+                <Text
+                  style={{
+                    color: 'white',
+                    fontSize: 12,
+                    fontWeight: isActive ? '700' : '500',
+                  }}
+                >
+                  {item.label}
+                </Text>
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
 
       {/* Modal boksi info jaoks */}
       <Modal visible={!!selected} transparent animationType="fade">
@@ -1025,35 +934,35 @@ export default function MapScreen() {
               gap: 8,
             }}
           >
-          <Text style={{ fontSize: 18, fontWeight: '700' }}>
-            Boks {selected?.booth.boothNumber}
-          </Text>
-          {!!selected?.companyName && (
-            <Text style={{ fontSize: 15, fontWeight: '500', marginTop: 4 }}>
-              {selected.companyName}
+            <Text style={{ fontSize: 18, fontWeight: '700' }}>
+              Boks {selected?.booth.boothNumber}
             </Text>
-          )}
-          <Text style={{ fontSize: 14, marginTop: 8 }}>
-            Praegu placeholder. Hiljem loeme siia ettevõtte info
-            otse veebirakenduse andmebaasist ja kuvame logo + kirjelduse.
-          </Text>
-          <Pressable
-            onPress={() => setSelected(null)}
-            style={{
-              marginTop: 12,
-              alignSelf: 'flex-end',
-              paddingHorizontal: 16,
-              paddingVertical: 8,
-              borderRadius: 999,
-              backgroundColor: '#1E66FF',
-            }}
-          >
-            <Text style={{ color: 'white', fontWeight: '600' }}>Sulge</Text>
-          </Pressable>
-
+            {!!selected?.companyName && (
+              <Text style={{ fontSize: 15, fontWeight: '500', marginTop: 4 }}>
+                {selected.companyName}
+              </Text>
+            )}
+            <Text style={{ fontSize: 14, marginTop: 8 }}>
+              Praegu placeholder. Hiljem loeme siia ettevõtte info otse
+              veebirakenduse andmebaasist ja kuvame logo + kirjelduse.
+            </Text>
+            <Pressable
+              onPress={() => setSelected(null)}
+              style={{
+                marginTop: 12,
+                alignSelf: 'flex-end',
+                paddingHorizontal: 16,
+                paddingVertical: 8,
+                borderRadius: 999,
+                backgroundColor: '#1E66FF',
+              }}
+            >
+              <Text style={{ color: 'white', fontWeight: '600' }}>Sulge</Text>
+            </Pressable>
           </View>
         </View>
       </Modal>
     </View>
   );
 }
+
