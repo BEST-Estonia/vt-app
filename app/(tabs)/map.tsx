@@ -1,7 +1,22 @@
 // app/(tabs)/map.tsx
+import { MaterialIcons } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, Dimensions, Image, Modal, Pressable, ScrollView, Text, View } from 'react-native';
+import {
+  Alert,
+  Animated,
+  Dimensions,
+  Image,
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import { companiesSeed, Company } from '../../data/companies';
 
 type SectionKey = 'fuajee' | 'aula' | 'tudengimaja' | 'kohvikusaal';
@@ -215,6 +230,13 @@ export default function MapScreen() {
   const [buttonLayouts, setButtonLayouts] = useState<Record<SectionKey, ButtonLayout>>({} as any);
   const slideAnim = useRef(new Animated.Value(0)).current;
   const widthAnim = useRef(new Animated.Value(60)).current;
+
+  // QR Scanner state
+  const [scanModalVisible, setScanModalVisible] = useState(false);
+  const [scanCompany, setScanCompany] = useState<Company | null>(null);
+  const [permission, requestPermission] = useCameraPermissions();
+  const [scannedRecent, setScannedRecent] = useState(false);
+  const [manualCode, setManualCode] = useState('');
 
   // Animate slider when section changes or layouts are measured
   useEffect(() => {
@@ -547,22 +569,179 @@ export default function MapScreen() {
               )}
             </ScrollView>
 
-            {/* Close button */}
-            <Pressable
-              onPress={() => setSelected(null)}
-              style={{
-                marginTop: 16,
-                alignSelf: 'center',
-                paddingHorizontal: 24,
-                paddingVertical: 10,
-                borderRadius: 999,
-                backgroundColor: '#1E66FF',
-              }}
-            >
-              <Text style={{ color: 'white', fontWeight: '600' }}>Sulge</Text>
-            </Pressable>
+            {/* Action buttons */}
+            <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
+              {/* QR Scanner button - only show if company exists */}
+              {selected?.company && (
+                <Pressable
+                  onPress={() => {
+                    setScanCompany(selected.company!);
+                    setManualCode('');
+                    setScannedRecent(false);
+                    setSelected(null);
+                    setScanModalVisible(true);
+                  }}
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingVertical: 10,
+                    borderRadius: 999,
+                    backgroundColor: '#10B981',
+                    gap: 6,
+                  }}
+                >
+                  <MaterialIcons name="qr-code-scanner" size={18} color="white" />
+                  <Text style={{ color: 'white', fontWeight: '600' }}>Skänni</Text>
+                </Pressable>
+              )}
+
+              {/* Close button */}
+              <Pressable
+                onPress={() => setSelected(null)}
+                style={{
+                  flex: 1,
+                  paddingVertical: 10,
+                  borderRadius: 999,
+                  backgroundColor: '#1E66FF',
+                  alignItems: 'center',
+                }}
+              >
+                <Text style={{ color: 'white', fontWeight: '600' }}>Sulge</Text>
+              </Pressable>
+            </View>
           </Pressable>
         </Pressable>
+      </Modal>
+
+      {/* QR Scanner Modal */}
+      <Modal visible={scanModalVisible} animationType="slide" onRequestClose={() => setScanModalVisible(false)}>
+        <View style={{ flex: 1, backgroundColor: 'black' }}>
+          {/* Close button */}
+          <View style={{ position: 'absolute', top: 50, left: 16, zIndex: 10 }}>
+            <TouchableOpacity
+              onPress={() => setScanModalVisible(false)}
+              style={{ backgroundColor: 'rgba(0,0,0,0.5)', padding: 8, borderRadius: 999 }}
+            >
+              <MaterialIcons name="close" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+
+          <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            {!permission?.granted ? (
+              <View style={{ padding: 24, backgroundColor: 'white', borderRadius: 16, marginHorizontal: 16 }}>
+                <Text style={{ marginBottom: 16, textAlign: 'center', fontSize: 16 }}>
+                  Kaamera kasutamiseks on vaja luba
+                </Text>
+                <TouchableOpacity
+                  onPress={requestPermission}
+                  style={{ backgroundColor: '#1E66FF', paddingHorizontal: 24, paddingVertical: 12, borderRadius: 8 }}
+                >
+                  <Text style={{ color: 'white', fontWeight: '600', textAlign: 'center' }}>Anna luba</Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <CameraView
+                style={StyleSheet.absoluteFillObject}
+                facing="back"
+                onBarcodeScanned={scannedRecent ? undefined : ({ data }) => {
+                  if (!scanCompany) return;
+                  const match =
+                    data === scanCompany.id ||
+                    data === scanCompany.boothCode ||
+                    data.toLowerCase() === scanCompany.name.toLowerCase();
+
+                  if (match) {
+                    setScannedRecent(true);
+                    Alert.alert('Õnnestus!', `Skännisid: ${scanCompany.name}`, [
+                      { text: 'OK', onPress: () => setScanModalVisible(false) },
+                    ]);
+                  }
+                }}
+              />
+            )}
+
+            {/* Scan frame */}
+            <View
+              pointerEvents="none"
+              style={{
+                width: 260,
+                height: 260,
+                borderWidth: 2,
+                borderColor: 'white',
+                borderRadius: 24,
+                opacity: 0.8,
+              }}
+            />
+
+            {/* Bottom info panel */}
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 40,
+                width: '90%',
+                backgroundColor: 'rgba(255,255,255,0.95)',
+                padding: 16,
+                borderRadius: 16,
+              }}
+            >
+              <Text style={{ textAlign: 'center', fontWeight: '600', fontSize: 16, marginBottom: 4 }}>
+                {scanCompany?.name}
+              </Text>
+              <Text style={{ textAlign: 'center', color: '#666', fontSize: 13, marginBottom: 12 }}>
+                Suuna kaamera QR koodile
+              </Text>
+              <View style={{ flexDirection: 'row' }}>
+                <TextInput
+                  placeholder="Sisesta kood käsitsi..."
+                  value={manualCode}
+                  onChangeText={setManualCode}
+                  style={{
+                    flex: 1,
+                    backgroundColor: 'white',
+                    borderWidth: 1,
+                    borderColor: '#ddd',
+                    borderTopLeftRadius: 8,
+                    borderBottomLeftRadius: 8,
+                    paddingHorizontal: 12,
+                    paddingVertical: 10,
+                  }}
+                />
+                <TouchableOpacity
+                  onPress={() => {
+                    if (!scanCompany || !manualCode.trim()) {
+                      Alert.alert('Sisesta kood');
+                      return;
+                    }
+                    const input = manualCode.trim();
+                    const match =
+                      input === scanCompany.id ||
+                      input === scanCompany.boothCode ||
+                      input.toLowerCase() === scanCompany.name.toLowerCase();
+
+                    if (match) {
+                      Alert.alert('Õnnestus!', `Skännisid: ${scanCompany.name}`, [
+                        { text: 'OK', onPress: () => setScanModalVisible(false) },
+                      ]);
+                    } else {
+                      Alert.alert('Viga', 'Kood ei vasta antud ettevõttele');
+                    }
+                  }}
+                  style={{
+                    backgroundColor: '#1E66FF',
+                    paddingHorizontal: 20,
+                    justifyContent: 'center',
+                    borderTopRightRadius: 8,
+                    borderBottomRightRadius: 8,
+                  }}
+                >
+                  <Text style={{ color: 'white', fontWeight: '600' }}>OK</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </View>
       </Modal>
     </View>
   );
