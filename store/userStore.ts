@@ -1,6 +1,9 @@
+// app/state/userStore.ts
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
+// Import the paid pool directly
+import { treasureHuntCompanies } from '@/data/treasureHuntCompanies';
 
 // Simple UUID generator
 function uuidv4() {
@@ -11,13 +14,26 @@ function uuidv4() {
   });
 }
 
+// Fisher-Yates Shuffle Algorithm to mix the companies
+function shuffleArray<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 type UserState = {
-  favorites: string[];
-  visited: string[];
-  schedule: string[];
+  favorites: string[]; 
+  visited: string[]; 
+  schedule: string[]; 
   participantId?: string;
-  scanned: string[];
+  scanned: string[]; 
   pendingScans: { companyId: string; timestamp: number; clientId: string }[];
+  
+  // The list of 12 specific companies for this user
+  activeHuntIds: string[]; 
 
   toggleFavorite: (companyId: string) => void;
   addVisited: (companyId: string) => void;
@@ -27,6 +43,9 @@ type UserState = {
   addScan: (companyId: string) => void;
   markScanSynced: (clientId: string) => void;
   clearAll: () => void;
+  
+  // Action to generate the list
+  initTreasureHunt: () => void; 
 };
 
 export const useUserStore = create<UserState>()(
@@ -38,6 +57,7 @@ export const useUserStore = create<UserState>()(
       participantId: undefined,
       scanned: [],
       pendingScans: [],
+      activeHuntIds: [], // Starts empty
 
       toggleFavorite: (companyId) =>
         set((s) => ({
@@ -70,16 +90,11 @@ export const useUserStore = create<UserState>()(
       addScan: (companyId) => {
         const s = get();
         if (s.scanned.includes(companyId)) return;
-
         const clientId = uuidv4();
         const timestamp = Date.now();
-
         set((state) => ({
           scanned: [...state.scanned, companyId],
-          pendingScans: [
-            ...state.pendingScans,
-            { companyId, timestamp, clientId },
-          ],
+          pendingScans: [...state.pendingScans, { companyId, timestamp, clientId }],
         }));
       },
 
@@ -88,6 +103,25 @@ export const useUserStore = create<UserState>()(
           pendingScans: s.pendingScans.filter((p) => p.clientId !== clientId),
         })),
 
+      // THE MAGIC LOGIC
+      initTreasureHunt: () => {
+        const s = get();
+        // If we already have a list, DO NOT change it.
+        // This ensures the user keeps the same companies on restart.
+        if (s.activeHuntIds.length > 0) return;
+
+        // 1. Get pool directly from the treasureHuntCompanies file
+        const pool = treasureHuntCompanies;
+
+        // 2. Shuffle them randomly
+        const shuffled = shuffleArray(pool);
+
+        // 3. Pick the first 12
+        const selected = shuffled.slice(0, 12).map(c => c.id);
+
+        set({ activeHuntIds: selected });
+      },
+
       clearAll: () =>
         set({
           favorites: [],
@@ -95,11 +129,11 @@ export const useUserStore = create<UserState>()(
           schedule: [],
           scanned: [],
           pendingScans: [],
-          // We usually DO NOT clear participantId so they stay the same user
+          activeHuntIds: [], // Reset so we can test reshuffling
         }),
     }),
     {
-      name: 'vt-app-storage', // unique name for storage
+      name: 'vt-app-storage',
       storage: createJSONStorage(() => AsyncStorage),
     }
   )

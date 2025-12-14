@@ -3,7 +3,7 @@ import { supabase } from '@/lib/supabase';
 import { useUserStore } from '@/store/userStore';
 import { MaterialIcons } from '@expo/vector-icons';
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Alert,
   FlatList,
@@ -20,47 +20,47 @@ import CompanyCard from '../../components/CompanyCard';
 import TreasureHuntMap from '../../components/TreasureHuntMap';
 
 export default function TreasureHuntScreen() {
-  // Store hooks
   const ensureParticipantId = useUserStore((s) => s.ensureParticipantId);
+  const initTreasureHunt = useUserStore((s) => s.initTreasureHunt);
   const participantId = useUserStore((s) => s.participantId);
-  const scanned = useUserStore((s) => s.scanned);
+  const scanned = useUserStore((s) => s.scanned) || [];
   const addScan = useUserStore((s) => s.addScan);
+  
+  const activeHuntIds = useUserStore((s) => s.activeHuntIds) || [];
 
-  // Local state
+  useEffect(() => {
+    ensureParticipantId();
+    initTreasureHunt(); 
+  }, [ensureParticipantId, initTreasureHunt]);
+
+  const huntCompanies = useMemo(() => {
+    return activeHuntIds
+      .map(id => companiesSeed.find(c => c.id === id))
+      .filter(Boolean) as Company[];
+  }, [activeHuntIds]);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [manualCode, setManualCode] = useState('');
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
-
-  // Camera permissions
   const [permission, requestPermission] = useCameraPermissions();
-  // To prevent multiple rapid scans
   const [scannedRecent, setScannedRecent] = useState(false);
-
-  // Giveaway / Winner state
   const [winnerModalVisible, setWinnerModalVisible] = useState(false);
   const [fullName, setFullName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  // Track locally if they have just submitted successfully
   const [hasRegisteredLocal, setHasRegisteredLocal] = useState(false);
 
   const carouselRef = useRef<FlatList<Company> | null>(null);
 
   useEffect(() => {
-    ensureParticipantId();
-  }, [ensureParticipantId]);
-
-  // Default selection
-  useEffect(() => {
-    if (!selectedCompany && companiesSeed.length > 0) {
-      setSelectedCompany(companiesSeed[0]);
+    if (!selectedCompany && huntCompanies.length > 0) {
+      setSelectedCompany(huntCompanies[0]);
     }
-  }, [selectedCompany]);
+  }, [selectedCompany, huntCompanies]);
 
-  // Check if user finished
-  const total = companiesSeed.length;
-  const scannedCount = scanned.length;
+  const total = huntCompanies.length; 
+  const scannedCount = huntCompanies.filter(c => scanned.includes(c.id)).length; 
   const remaining = total - scannedCount;
-  const isFinished = scannedCount === total && total > 0;
+  const isFinished = scannedCount >= total && total > 0;
 
   const openScanFor = (company: Company) => {
     if (scanned.includes(company.id)) {
@@ -75,8 +75,6 @@ export default function TreasureHuntScreen() {
 
   const handleBarCodeScanned = ({ data }: { data: string }) => {
     if (scannedRecent || !selectedCompany) return;
-
-    // VALIDATION LOGIC: matches ID, Booth code, or Name
     const match =
       data === selectedCompany.id ||
       data === selectedCompany.boothCode ||
@@ -98,7 +96,6 @@ export default function TreasureHuntScreen() {
       Alert.alert('Sisesta koodi või kasuta kaamerat');
       return;
     }
-
     const match =
       input === selectedCompany.id ||
       input === selectedCompany.boothCode ||
@@ -108,32 +105,23 @@ export default function TreasureHuntScreen() {
       Alert.alert('Kood ei vasta antud ettevõttele');
       return;
     }
-
     addScan(selectedCompany.id);
     setModalVisible(false);
   };
 
-  // --- DATABASE SUBMISSION LOGIC ---
   const handleSubmitWinner = async () => {
     if (!fullName.trim()) {
       Alert.alert('Viga', 'Palun sisesta oma täisnimi.');
       return;
     }
     setIsSubmitting(true);
-
     try {
-      // 1. Send data to Supabase
       const { error } = await supabase
         .from('giveaway_entries')
-        .insert([
-          {
-            participant_id: participantId,
-            full_name: fullName.trim()
-          }
-        ]);
+        .insert([{ participant_id: participantId, full_name: fullName.trim() }]);
 
       if (error) {
-        if (error.code === '23505') { // Unique violation code
+        if (error.code === '23505') {
            setHasRegisteredLocal(true);
            Alert.alert('Info', 'Oled juba registreerunud!');
            setWinnerModalVisible(false);
@@ -141,51 +129,38 @@ export default function TreasureHuntScreen() {
         }
         throw error;
       }
-
-      // 2. Success
-      setHasRegisteredLocal(true); // Mark as done locally
-      Alert.alert(
-        'Tehtud!',
-        'Oled edukalt loosimises kirjas. Edu!',
-        [{ text: 'OK', onPress: () => setWinnerModalVisible(false) }]
-      );
-
+      setHasRegisteredLocal(true);
+      Alert.alert('Tehtud!', 'Oled edukalt loosimises kirjas. Edu!', [
+        { text: 'OK', onPress: () => setWinnerModalVisible(false) }
+      ]);
     } catch (e) {
       console.error(e);
-      Alert.alert('Viga', 'Andmete saatmine ebaõnnestus. Kontrolli internetiühendust.');
+      Alert.alert('Viga', 'Andmete saatmine ebaõnnestus.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // --- MAIN BUTTON LOGIC ---
   let buttonText = `Kogu veel ${remaining} punkti`;
   let buttonIcon = "qr-code-scanner";
   let buttonBg = "bg-gray-500";
   let handleMainButtonPress = () => {
-      Alert.alert('Pole veel valmis!', 'Auhinna loosimises osalemiseks pead läbima kõik punktid.');
+      Alert.alert('Pole veel valmis!', `Auhinna loosimises osalemiseks pead läbima kõik ${total} punkti.`);
   };
 
   if (isFinished) {
       if (hasRegisteredLocal) {
-          // Finished AND already submitted
           buttonText = "Oled registreeritud!";
           buttonIcon = "check-circle";
           buttonBg = "bg-blue-600";
-          handleMainButtonPress = () => {
-               Alert.alert('Registreeritud!', 'Oled juba edukalt loosimises kirjas.');
-          };
+          handleMainButtonPress = () => Alert.alert('Registreeritud!', 'Oled juba edukalt loosimises kirjas.');
       } else {
-          // Finished but hasn't submitted yet
-          // Changed button text to "Kraba auhind" to match your request if needed, 
-          // or keep it "Osale loosimises" which is more descriptive.
-          buttonText = "Osale loosimises"; 
+          buttonText = "Osale loosimises";
           buttonIcon = "emoji-events";
           buttonBg = "bg-green-600";
           handleMainButtonPress = () => setWinnerModalVisible(true);
       }
   }
-
 
   const renderCompact = ({ item }: { item: Company }) => {
     const isScanned = scanned.includes(item.id);
@@ -195,203 +170,108 @@ export default function TreasureHuntScreen() {
         compact
         scanned={isScanned}
         onPress={() => openScanFor(item)}
+        showBoothCode={false}
       />
     );
   };
 
-  if (!permission) {
-    return <View className="flex-1 bg-white" />;
-  }
+  if (!permission) return <View className="flex-1 bg-white" />;
 
   return (
-    <SafeAreaView
-      className="flex-1 bg-white"
-      edges={['top', 'left', 'right', 'bottom']}
-    >
-      <ScrollView
-        contentContainerStyle={{ paddingBottom: 24 }}
-        showsVerticalScrollIndicator={false}
-      >
-        {/* HEADER */}
+    <SafeAreaView className="flex-1 bg-white" edges={['top', 'left', 'right', 'bottom']}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 24 }} showsVerticalScrollIndicator={false}>
         <View className="mt-8 p-6 mb-2 items-center">
-          <View className="rounded-full p-4 items-center justify-center shadow-sm border-2 border-blue-100 bg-white">
+          <View className="rounded-full p-4 items-center justify-center shadow-sm border-2 border-blue-100">
             <MaterialIcons name="card-giftcard" size={40} color="#3B82F6" />
           </View>
-          <Text className="text-2xl font-bold text-primary mt-3 text-center">
-            Treasure Hunt
-          </Text>
-          <Text className="text-sm text-text-secondary mt-1 text-center text-gray-500 px-4">
-            Skänni kõikide ettevõtete QR koodid ja osale loosimises!
+          <Text className="text-2xl font-bold text-primary mt-3">Treasure Hunt</Text>
+          {/* DYNAMIC TEXT HERE */}
+          <Text className="text-sm text-text-secondary mt-1 text-center">
+            Skänni oma {total} ettevõtet ja osale loosimises!
           </Text>
 
-          {/* Progress Bar */}
-          <View className="flex-row items-center justify-center mt-5 bg-blue-50 px-6 py-2.5 rounded-full min-w-[120px]">
-            <Text className="text-base font-bold text-blue-800 text-center">
-              {scannedCount} / {total}
+          <View className="flex-row items-center mt-3 bg-blue-50 px-4 py-2 rounded-full self-center">
+            <Text className="text-base font-semibold text-blue-800 flex-shrink">
+              {scannedCount}/{total} Kogutud
             </Text>
             {isFinished && (
-              <View className="ml-2 bg-white rounded-full">
-                 <MaterialIcons name="check-circle" size={20} color="#16a34a" />
-              </View>
+              <View className="ml-2"><MaterialIcons name="check-circle" size={20} color="green" /></View>
             )}
           </View>
 
-          {/* MAIN ACTION BUTTON */}
-          <TouchableOpacity
-            onPress={handleMainButtonPress}
-            className={`mt-5 ${buttonBg} w-full max-w-xs px-6 py-3.5 rounded-xl shadow-sm flex-row items-center justify-center`}
-          >
+          <TouchableOpacity onPress={handleMainButtonPress} className={`mt-4 ${buttonBg} w-full max-w-xs px-6 py-3 rounded-xl shadow-md flex-row items-center justify-center`}>
             <MaterialIcons name={buttonIcon as any} size={24} color="white" />
-            <Text className="text-white font-bold ml-2 text-lg">
-              {buttonText}
-            </Text>
+            <Text className="text-white font-bold ml-2 text-lg">{buttonText}</Text>
           </TouchableOpacity>
         </View>
 
         <TreasureHuntMap
-          companies={companiesSeed}
+          companies={huntCompanies}
           scannedIds={scanned}
           selectedId={selectedCompany?.id}
           participantId={participantId}
           onSelect={(company) => openScanFor(company)}
         />
 
-        <View style={{ height: 190 }} className="mt-4">
+        <View style={{ height: 190 }} className="mt-2">
           <FlatList
             ref={(r) => { carouselRef.current = r; }}
-            data={companiesSeed}
+            data={huntCompanies}
             horizontal
             renderItem={renderCompact}
             keyExtractor={(i) => i.id}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-              paddingHorizontal: 24,
-              alignItems: 'center',
-            }}
+            contentContainerStyle={{ paddingHorizontal: 24, alignItems: 'center' }}
             snapToInterval={156}
             decelerationRate="fast"
           />
         </View>
       </ScrollView>
-
-      {/* --- SCANNER MODAL --- */}
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
-        presentationStyle="pageSheet"
-      >
+      
+      {/* (MODALS are identical to previous version, omitted for brevity but should be kept in your file) */}
+      <Modal visible={modalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)} presentationStyle="pageSheet">
         <View className="flex-1 bg-black">
-          {/* Close Button */}
           <View className="absolute top-4 left-4 z-10">
-            <TouchableOpacity
-              onPress={() => setModalVisible(false)}
-              className="bg-black/50 p-2 rounded-full"
-            >
+            <TouchableOpacity onPress={() => setModalVisible(false)} className="bg-black/50 p-2 rounded-full">
               <MaterialIcons name="close" size={24} color="white" />
             </TouchableOpacity>
           </View>
-
           <View className="flex-1 items-center justify-center">
              {!permission.granted ? (
                <View className="p-6 bg-white rounded-xl items-center mx-4">
                  <Text className="mb-4 text-center text-lg">Kaamera kasutamiseks on vaja luba</Text>
-                 <TouchableOpacity onPress={requestPermission} className="bg-blue-600 px-6 py-3 rounded-lg">
-                   <Text className="text-white font-semibold">Anna luba</Text>
-                 </TouchableOpacity>
+                 <TouchableOpacity onPress={requestPermission} className="bg-blue-600 px-6 py-3 rounded-lg"><Text className="text-white font-semibold">Anna luba</Text></TouchableOpacity>
                </View>
              ) : (
-               <CameraView
-                 style={StyleSheet.absoluteFillObject}
-                 facing="back"
-                 onBarcodeScanned={scannedRecent ? undefined : handleBarCodeScanned}
-               />
+               <CameraView style={StyleSheet.absoluteFillObject} facing="back" onBarcodeScanned={scannedRecent ? undefined : handleBarCodeScanned} />
              )}
-
-             {/* Overlay UI */}
              <View className="absolute bottom-10 w-[90%] bg-white/90 p-4 rounded-2xl shadow-lg">
-                <Text className="text-center font-semibold mb-1 text-lg">
-                  {selectedCompany?.name}
-                </Text>
-                <Text className="text-center text-sm text-gray-500 mb-4">
-                  Suuna kaamera QR koodile
-                </Text>
-
-                {/* Fallback Manual Input */}
+                <Text className="text-center font-semibold mb-1 text-lg">{selectedCompany?.name}</Text>
+                <Text className="text-center text-sm text-gray-500 mb-4">Suuna kaamera QR koodile</Text>
                 <View className="flex-row">
-                  <TextInput
-                    placeholder="Sisesta kood käsitsi..."
-                    value={manualCode}
-                    onChangeText={setManualCode}
-                    className="flex-1 bg-white border border-gray-300 rounded-l-lg px-3 py-3"
-                  />
-                  <TouchableOpacity
-                    onPress={handleManualScan}
-                    className="bg-blue-600 px-5 justify-center rounded-r-lg"
-                  >
-                    <Text className="text-white font-bold">OK</Text>
-                  </TouchableOpacity>
+                  <TextInput placeholder="Sisesta kood käsitsi..." value={manualCode} onChangeText={setManualCode} className="flex-1 bg-white border border-gray-300 rounded-l-lg px-3 py-3" />
+                  <TouchableOpacity onPress={handleManualScan} className="bg-blue-600 px-5 justify-center rounded-r-lg"><Text className="text-white font-bold">OK</Text></TouchableOpacity>
                 </View>
              </View>
-
-             <View pointerEvents="none" style={{
-                width: 260, height: 260, borderWidth: 2, borderColor: 'white', borderRadius: 24, opacity: 0.8
-             }} />
+             <View pointerEvents="none" style={{ width: 260, height: 260, borderWidth: 2, borderColor: 'white', borderRadius: 24, opacity: 0.8 }} />
           </View>
         </View>
       </Modal>
 
-      {/* --- WINNER REGISTRATION MODAL --- */}
-      <Modal
-        visible={winnerModalVisible}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setWinnerModalVisible(false)}
-      >
+      <Modal visible={winnerModalVisible} transparent animationType="fade" onRequestClose={() => setWinnerModalVisible(false)}>
         <View className="flex-1 bg-black/60 items-center justify-center p-4">
           <View className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-xl">
             <View className="items-center mb-5">
-              <View className="h-16 w-16 bg-green-100 rounded-full items-center justify-center mb-3">
-                <MaterialIcons name="emoji-events" size={36} color="#16a34a" />
-              </View>
+              <View className="h-16 w-16 bg-green-100 rounded-full items-center justify-center mb-3"><MaterialIcons name="emoji-events" size={36} color="#16a34a" /></View>
               <Text className="text-2xl font-bold text-center text-gray-900">Palju õnne!</Text>
-              
-              {/* UPDATED TEXT HERE */}
-              <Text className="text-gray-600 text-center mt-2 px-2">
-                Väga tubli töö! Oled külastanud kõiki ettevõtteid. Loosimises osalemiseks sisesta palun oma nimi.
-              </Text>
+              <Text className="text-gray-600 text-center mt-2 px-2">Oled läbinud kõik punktid! Sisesta oma nimi, et osaleda loosimises.</Text>
             </View>
-
             <Text className="text-sm font-bold text-gray-700 mb-1.5 ml-1">Sinu nimi</Text>
-            <TextInput
-              value={fullName}
-              onChangeText={setFullName}
-              placeholder="Ees- ja perekonnanimi"
-              className="bg-gray-50 border border-gray-300 rounded-xl p-3.5 mb-5 text-base text-gray-900"
-              autoFocus
-            />
-
-            <TouchableOpacity
-              onPress={handleSubmitWinner}
-              disabled={isSubmitting}
-              className={`w-full py-3.5 rounded-xl flex-row justify-center items-center shadow-sm ${isSubmitting ? 'bg-gray-400' : 'bg-green-600'}`}
-            >
-              {isSubmitting ? (
-                <Text className="text-white font-semibold">Saadan...</Text>
-              ) : (
-                <>
-                  <Text className="text-white font-bold text-base mr-2">Kinnita ja osale</Text>
-                  <MaterialIcons name="arrow-forward" size={20} color="white" />
-                </>
-              )}
+            <TextInput value={fullName} onChangeText={setFullName} placeholder="Ees- ja perekonnanimi" className="bg-gray-50 border border-gray-300 rounded-xl p-3.5 mb-5 text-base text-gray-900" autoFocus />
+            <TouchableOpacity onPress={handleSubmitWinner} disabled={isSubmitting} className={`w-full py-3.5 rounded-xl flex-row justify-center items-center shadow-sm ${isSubmitting ? 'bg-gray-400' : 'bg-green-600'}`}>
+              {isSubmitting ? <Text className="text-white font-semibold">Saadan...</Text> : <><Text className="text-white font-bold text-base mr-2">Kinnita ja osale</Text><MaterialIcons name="arrow-forward" size={20} color="white" /></>}
             </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => setWinnerModalVisible(false)}
-              className="mt-4 py-2"
-            >
-              <Text className="text-center text-gray-500 font-medium">Sulge</Text>
-            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setWinnerModalVisible(false)} className="mt-4 py-2"><Text className="text-center text-gray-500 font-medium">Sulge</Text></TouchableOpacity>
           </View>
         </View>
       </Modal>
