@@ -253,7 +253,7 @@ const COMPANY_BY_BOOTH: Record<
   '108': { name: 'ABB AS', logoUri: logos.ABBLogo },
   '109': { name: 'ABB AS', logoUri: logos.ABBLogo },
   '110': { name: 'GPV Estonia AS', logoUri: logos.gpvLogo },
-  '111': { name: 'Fermi Energia AS', logoUri: require('./assets/fermi.png') }, // Keep if needed
+  '111': { name: 'Fermi Energia AS', logoUri: logos.enefitLogo }, // Using Enefit logo as placeholder
   '112': { name: 'Inbank', logoUri: logos.inbank },
   '114': { name: 'CARIAD Estonia AS', logoUri: logos.cariadLogo },
   '115': { name: 'Ernst & Young Baltic AS', logoUri: logos.ernstLogo },
