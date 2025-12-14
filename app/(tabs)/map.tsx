@@ -2,23 +2,25 @@
 import React, { useState } from 'react';
 import { Dimensions, Image, Modal, Pressable, Text, View } from 'react-native';
 import FloorMap from './assets/realplan1.svg';
+// Import the central logos object
+import { logos } from './data/logos';
 
 type PlaceholderBooth = {
   boothNumber: string;
-  x: number; // 0..1 suhteline x (viewBox 1190)
-  y: number; // 0..1 suhteline y (viewBox 1684)
+  x: number;
+  y: number;
 };
 
 type NodeId = string;
 
 type PathNode = {
   id: NodeId;
-  x: number; // 0..1 – sama koordinaatsüsteem mis boksidel
+  x: number;
   y: number;
   neighbors: NodeId[];
 };
 
-// --- BOKSIDE KOORDINAADID SVG põhjal ---
+// --- BOKSIDE KOORDINAADID ---
 const BOOTHS: PlaceholderBooth[] = [
   { boothNumber: '1', x: 0.5006, y: 0.2050 },
   { boothNumber: '2', x: 0.5006, y: 0.185 },
@@ -170,98 +172,96 @@ const BOOTHS: PlaceholderBooth[] = [
   { boothNumber: '125', x: 0.6649, y: 0.8728 },
 ];
 
+// Use centralized logos where available
 const COMPANY_BY_BOOTH: Record<
   string,
-  { name: string; logoUri?: string | number | React.ComponentType<any> }
+  { name: string; logoUri?: any }
 > = {
-  '1': { name: 'Coop Pank AS', logoUri: require('./assets/coop.jpg') },
-  '5': { name: 'Enefit', logoUri: require('./assets/enefit-logo.png') },
-  '6': { name: 'Enefit', logoUri: require('./assets/enefit-logo.png') },
-  '10': { name: 'AS TREV-2 Grupp', logoUri: require('./assets/trev_2_grupp.jpg') },
-  '11': { name: 'Hurtigruten Estonia OÜ', logoUri: require('./assets/hurtigruten.jpg') },
-  '13': { name: 'LEONHARD WEISS OÜ', logoUri: require('./assets/Leonhard_Weiss_logo.png') },
-  '14': { name: 'ERGO Insurance SE', logoUri: require('./assets/ergo.jpg') },
-  '15': { name: 'KPMG Baltics OÜ', logoUri: require('./assets/kpmg.jpg') },
-  '16': { name: 'KPMG Baltics OÜ', logoUri: require('./assets/kpmg.jpg') },
-  '17': { name: 'Southwestern Advantage', logoUri: require('./assets/southwestern.png') },
-  '18': { name: 'Ericsson Eesti AS', logoUri: require('./assets/ericsson-logo.png') },
-  '19': { name: 'NOBE OÜ', logoUri: require('./assets/nobe.jpg') },
-  '20': { name: 'Pipedrive OÜ', logoUri: require('./assets/pipedrive-logo.png') },
-  '21': { name: 'Verston OÜ', logoUri: require('./assets/verston_logo.jpg') },
-  '22': { name: 'Tartu Ülikool', logoUri: require('./assets/tartu_ulikool.jpg') },
-  '23': { name: 'Ruukki Products AS', logoUri: require('./assets/Ruukki-Products-AS.png') },
-  '24': { name: 'AQ Lasertool OÜ', logoUri: require('./assets/lasertool.jpg') },
-  '25': { name: 'Scanfil OÜ', logoUri: require('./assets/scanfil.png') },
-  '26': { name: 'Infragreen OÜ', logoUri: require('./assets/infragreen.jpg') },
-  '27': { name: 'Tallinna Vesi AS', logoUri: require('./assets/tallinnavesi.png') },
-  '28': { name: 'AS Connecto Infra', logoUri: require('./assets/connecto.jpeg') },
-  '29': { name: 'Kaitseressursside Amet', logoUri: require('./assets/kaitseressursideamet.jpg') },
-  '30': { name: 'Tech Group AS', logoUri: require('./assets/techgroup.jpg') },
-  '31': { name: 'Swedbank AS', logoUri: require('./assets/swedbank-logo.png') },
-  '32': { name: 'Konkurentsiamet', logoUri: require('./assets/konkurentsiamet.jpg') },
-  '33': { name: 'Patendiamet', logoUri: require('./assets/patendiamet.jpg') },
-  '36': { name: 'INF Infra OÜ', logoUri: require('./assets/infinfra.jpg') },
-  '37': { name: 'INF Infra OÜ', logoUri: require('./assets/infinfra.jpg') },
-  '38': { name: 'PLAYTECH ESTONIA OÜ', logoUri: require('./assets/playtech.png') },
-  '39': { name: 'AS Tallinna Lennujaam', logoUri: require('./assets/tallinna-lennujaam.png') },
-  '40': { name: 'Utilitas OÜ', logoUri: require('./assets/utilitas_logo.jpg') },
-  '41': { name: 'Utilitas OÜ', logoUri: require('./assets/utilitas_logo.jpg') },
-  '42': { name: 'Gunvor Services AS', logoUri: require('./assets/gunvor.jpg') },
-  '43': { name: 'Gunvor Services AS', logoUri: require('./assets/gunvor.jpg') },
-  '44': { name: 'Threod Systems AS', logoUri: require('./assets/threod-systems.jpg') },
-  '46': { name: 'Bigbank AS', logoUri: require('./assets/Bigbank.png') },
-  '47': { name: 'Telia Eesti AS', logoUri: require('./assets/telia-logo.png') },
-  '48': { name: 'Smartecon OÜ', logoUri: require('./assets/smartecon_o_logo.jpg') },
-  '49': { name: 'Keskkonnaagentuur', logoUri: require('./assets/Keskkonnaagentuur.png') },
-  '55': { name: 'Rail Baltic Estonia OÜ', logoUri: require('./assets/rail_baltic_estonia_logo.jpg') },
-  '56': { name: 'Stoneridge Electronics AS', logoUri: require('./assets/stoneridge-electronics-as.jpg') },
-  '57': { name: 'Finantsinspektsioon', logoUri: require('./assets/Finantsinspektsioon.png') },
-  '58': { name: 'Rahapesu Andmebüroo', logoUri: require('./assets/Rahapseuandmeburoo_logo_ruut.png') },
-  '60': { name: 'Elering AS', logoUri: require('./assets/elering-logo.png') },
-  '61': { name: 'Fujitsu Estonia', logoUri: require('./assets/fujitsu-logo.png') },
-  '62': { name: 'Ehitus5ECO OÜ', logoUri: require('./assets/ehitus5eco_logo.png') },
-  '63': { name: 'Sisekaitseakadeemia/Siseturvalisuse karjäärikeskus', logoUri: require('./assets/sisekaitseakadeemia.jpg') },
-  '64': { name: 'HANZA SSC Tartu OÜ', logoUri: require('./assets/hanza-logo.png') },
-  '65': { name: 'AS Eesti Raudtee', logoUri: require('./assets/eesti-raudtee.jpg') },
-  '66': { name: 'AS Eesti Raudtee', logoUri: require('./assets/eesti-raudtee.jpg') },
-  '67': { name: 'Lennuliiklusteeninduse AS', logoUri: require('./assets/Lennuliiklusteeninduse-AS.png') },
-  '68': { name: 'Kaitsepolitseiamet', logoUri: require('./assets/Kaitsepolitseiamet.png') },
-  '69': { name: 'Siseministeeriumi infotehnoloogia- ja arenduskeskus (SMIT)', logoUri: require('./assets/SMIT.png') },
-  '70': { name: 'Nordecon AS', logoUri: require('./assets/nordecon.jpg') },
-  '71': { name: 'TRAFFEST OÜ', logoUri: require('./assets/traffest.png') },
-  '77': { name: 'Ettevõtluse ja Innovatsiooni Sihtasutus', logoUri: require('./assets/eis-Ettevotluse-ja-Innovatsiooni-Sihtasutus-1.png') },
-  '78': { name: 'Tammer OÜ', logoUri: require('./assets/tammer.png') },
-  '79': { name: 'Välisluureamet', logoUri: require('./assets/VALISLUUREAMET.jpeg') },
-  '80': { name: 'Välisluureamet', logoUri: require('./assets/VALISLUUREAMET.jpeg') },
-  '81': { name: 'Estanc AS', logoUri: require('./assets/estanc.png') },
-  '82': { name: 'BLRT GRUPP AS', logoUri: require('./assets/BLRT-Grupp-AS.png') },
-  '83': { name: 'FINEST AS', logoUri: require('./assets/finestmedia.jpg') },
-  '88': { name: 'AS Harju Elekter', logoUri: require('./assets/IKP23_Harju_Elekter_AS.png') },
-  '89': { name: 'Nordea Bank Abp Eesti filiaal', logoUri: require('./assets/nordea.jpg') },
-  '90': { name: 'Nordea Bank Abp Eesti filiaal', logoUri: require('./assets/nordea.jpg') },
-  '91': {
-    name: 'Helmes AS',
-    logoUri: require('./assets/helmes-logo.jpg'),
-  },
-  '94': { name: 'Compensa Vienna Insurance Group, ADB Eesti filiaal', logoUri: require('./assets/compensa.jpg') },
-  '96': { name: 'Registrite ja Infosüsteemide Keskus', logoUri: require('./assets/registrite-ja-infosusteemide-keskus.jpg') },
-  '98': { name: 'Kaitseliit', logoUri: require('./assets/kaitseliit.jpg') },
-  '100': { name: 'CV Keskus', logoUri: require('./assets/cvkeskus.png') },
-  '101': { name: 'AS KH Energia-Konsult', logoUri: require('./assets/khenergia.jpg') },
-  '103': { name: 'Nortal AS', logoUri: require('./assets/nortal.jpg') },
-  '104': { name: 'HEISI IT OÜ', logoUri: require('./assets/HEISI-IT-OU.png') },
-  '108': { name: 'ABB AS', logoUri: require('./assets/abb-logo.png') },
-  '109': { name: 'ABB AS', logoUri: require('./assets/abb-logo.png') },
-  '110': { name: 'GPV Estonia AS', logoUri: require('./assets/gpv.jpg') },
-  '111': { name: 'Fermi Energia AS', logoUri: require('./assets/fermi.png') },
-  '112': { name: 'Inbank', logoUri: require('./assets/inbank.jpg') },
-  '114': { name: 'CARIAD Estonia AS', logoUri: require('./assets/cariad.jpg') },
-  '115': { name: 'Ernst & Young Baltic AS', logoUri: require('./assets/ernst.jpg') },
-  '117': { name: 'Genius Sports', logoUri: require('./assets/geniussports.jpg') },
-  '121': { name: 'Shore Link OÜ', logoUri: require('./assets/shorelink.png') },
+  '1': { name: 'Coop Pank AS', logoUri: logos.cooppankLogo },
+  '5': { name: 'Enefit', logoUri: logos.enefitLogo },
+  '6': { name: 'Enefit', logoUri: logos.enefitLogo },
+  '10': { name: 'AS TREV-2 Grupp', logoUri: logos.trev2Logo },
+  '11': { name: 'Hurtigruten Estonia OÜ', logoUri: logos.hurtigrutenLogo },
+  '13': { name: 'LEONHARD WEISS OÜ', logoUri: logos.leonhardweissLogo },
+  '14': { name: 'ERGO Insurance SE', logoUri: logos.ergoInsuranceLogo },
+  '15': { name: 'KPMG Baltics OÜ', logoUri: logos.kpmgBalticsLogo },
+  '16': { name: 'KPMG Baltics OÜ', logoUri: logos.kpmgBalticsLogo },
+  '17': { name: 'Southwestern Advantage', logoUri: logos.southwesternAdvantageLogo },
+  '18': { name: 'Ericsson Eesti AS', logoUri: logos.ericssonLogo },
+  '19': { name: 'NOBE OÜ', logoUri: logos.nobeLogo },
+  '20': { name: 'Pipedrive OÜ', logoUri: logos.pipedriveLogo },
+  '21': { name: 'Verston OÜ', logoUri: logos.verstonLogo },
+  '22': { name: 'Tartu Ülikool', logoUri: logos.tartuülikoolLogo },
+  '23': { name: 'Ruukki Products AS', logoUri: logos.ruukkiLogo },
+  '24': { name: 'AQ Lasertool OÜ', logoUri: logos.aqlasertoolLogo },
+  '25': { name: 'Scanfil OÜ', logoUri: logos.scanfilLogo },
+  '26': { name: 'Infragreen OÜ', logoUri: logos.infragreenLogo },
+  '27': { name: 'Tallinna Vesi AS', logoUri: logos.tallinnvesiLogo },
+  '28': { name: 'AS Connecto Infra', logoUri: logos.connectoLogo },
+  '29': { name: 'Kaitseressursside Amet', logoUri: logos.kaitseressursideametLogo },
+  '30': { name: 'Tech Group AS', logoUri: logos.techGroupLogo },
+  '31': { name: 'Swedbank AS', logoUri: logos.swedbankLogo },
+  '32': { name: 'Konkurentsiamet', logoUri: require('./assets/konkurentsiamet.jpg') }, // Keep if needed
+  '33': { name: 'Patendiamet', logoUri: logos.patendiAmet },
+  '36': { name: 'INF Infra OÜ', logoUri: logos.infinfraLogo },
+  '37': { name: 'INF Infra OÜ', logoUri: logos.infinfraLogo },
+  '38': { name: 'PLAYTECH ESTONIA OÜ', logoUri: logos.playtechLogo },
+  '39': { name: 'AS Tallinna Lennujaam', logoUri: logos.tallinnalennujaamLogo },
+  '40': { name: 'Utilitas OÜ', logoUri: logos.utilitasLogo },
+  '41': { name: 'Utilitas OÜ', logoUri: logos.utilitasLogo },
+  '42': { name: 'Gunvor Services AS', logoUri: logos.gunvorServicesLogo },
+  '43': { name: 'Gunvor Services AS', logoUri: logos.gunvorServicesLogo },
+  '44': { name: 'Threod Systems AS', logoUri: logos.threodSystemsLogo },
+  '46': { name: 'Bigbank AS', logoUri: logos.bigbankLogo },
+  '47': { name: 'Telia Eesti AS', logoUri: logos.telia },
+  '48': { name: 'Smartecon OÜ', logoUri: logos.smarteconLogo },
+  '49': { name: 'Keskkonnaagentuur', logoUri: logos.keskkonnaagentuurLogo },
+  '55': { name: 'Rail Baltic Estonia OÜ', logoUri: logos.railBalticLogo },
+  '56': { name: 'Stoneridge Electronics AS', logoUri: logos.stoneridgeLogo },
+  '57': { name: 'Finantsinspektsioon', logoUri: logos.finantsinspektsioonLogo },
+  '58': { name: 'Rahapesu Andmebüroo', logoUri: logos.rahapesuandmebürooLogo },
+  '60': { name: 'Elering AS', logoUri: logos.eleringLogo },
+  '61': { name: 'Fujitsu Estonia', logoUri: logos.fujitsuLogo },
+  '62': { name: 'Ehitus5ECO OÜ', logoUri: logos.ehitus5ecoLogo },
+  '63': { name: 'Sisekaitseakadeemia', logoUri: logos.sisekaitseakadeemiaLogo },
+  '64': { name: 'HANZA SSC Tartu OÜ', logoUri: require('./assets/hanza-logo.png') }, // Keep if needed
+  '65': { name: 'AS Eesti Raudtee', logoUri: logos.eestiRaudteeLogo },
+  '66': { name: 'AS Eesti Raudtee', logoUri: logos.eestiRaudteeLogo },
+  '67': { name: 'Lennuliiklusteeninduse AS', logoUri: logos.lennuliiklusteeninduseLogo },
+  '68': { name: 'Kaitsepolitseiamet', logoUri: logos.kaitsepolitseiametLogo },
+  '69': { name: 'SMIT', logoUri: logos.smitLogo },
+  '70': { name: 'Nordecon AS', logoUri: logos.nordeconLogo },
+  '71': { name: 'TRAFFEST OÜ', logoUri: logos.TRAFFESTOÜLogo },
+  '77': { name: 'Ettevõtluse ja Innovatsiooni Sihtasutus', logoUri: logos.eisLogo },
+  '78': { name: 'Tammer OÜ', logoUri: logos.tammerLogo },
+  '79': { name: 'Välisluureamet', logoUri: logos.välisluureametLogo },
+  '80': { name: 'Välisluureamet', logoUri: logos.välisluureametLogo },
+  '81': { name: 'Estanc AS', logoUri: logos.estancLogo },
+  '82': { name: 'BLRT GRUPP AS', logoUri: logos.blrtGruppLogo },
+  '83': { name: 'FINEST AS', logoUri: logos.finestLogo },
+  '88': { name: 'AS Harju Elekter', logoUri: logos.harjuElekterLogo },
+  '89': { name: 'Nordea Bank Abp Eesti filiaal', logoUri: logos.nordeaLogo },
+  '90': { name: 'Nordea Bank Abp Eesti filiaal', logoUri: logos.nordeaLogo },
+  '91': { name: 'Helmes AS', logoUri: logos.helmesLogo },
+  '94': { name: 'Compensa Vienna Insurance Group', logoUri: logos.compensaLogo },
+  '96': { name: 'Registrite ja Infosüsteemide Keskus', logoUri: logos.rikLogo },
+  '98': { name: 'Kaitseliit', logoUri: logos.kaitseliitLogo },
+  '100': { name: 'CV Keskus', logoUri: logos.cvkeskusLogo },
+  '101': { name: 'AS KH Energia-Konsult', logoUri: logos.khenergiaLogo },
+  '103': { name: 'Nortal AS', logoUri: logos.nortalAS },
+  '104': { name: 'HEISI IT OÜ', logoUri: logos.heisiLogo },
+  '108': { name: 'ABB AS', logoUri: logos.ABBLogo },
+  '109': { name: 'ABB AS', logoUri: logos.ABBLogo },
+  '110': { name: 'GPV Estonia AS', logoUri: logos.gpvLogo },
+  '111': { name: 'Fermi Energia AS', logoUri: logos.enefitLogo }, // Using Enefit logo as placeholder
+  '112': { name: 'Inbank', logoUri: logos.inbank },
+  '114': { name: 'CARIAD Estonia AS', logoUri: logos.cariadLogo },
+  '115': { name: 'Ernst & Young Baltic AS', logoUri: logos.ernstLogo },
+  '117': { name: 'Genius Sports', logoUri: logos.geniussportsLogo },
+  '121': { name: 'Shore Link OÜ', logoUri: logos.shorelinkLogo },
 };
 
-// --- GRAAF: peauksest koridoripunktideni ---
+// --- GRAAF ja muu loogika jääb samaks ---
 const START_NODE_ID: NodeId = 'fuajee-uks';
 
 const NODES: PathNode[] = [
@@ -304,7 +304,6 @@ const NODES: PathNode[] = [
   { id: 'tudengimaja-vasak-all', x: 0.545, y: 0.89, neighbors: ['tudengimaja-89-box', 'tudengimaja-100-box'] },
 ];
 
-// BFS: leia tee algusest siht-node'ini
 function findPath(startId: NodeId, endId: NodeId): PathNode[] {
   const byId: Record<string, PathNode> = {};
   NODES.forEach((n) => {
@@ -347,7 +346,6 @@ function findPath(startId: NodeId, endId: NodeId): PathNode[] {
   return path.reverse();
 }
 
-// Leia lähim graafi-node antud (x, y) kaardikoordinaatidele
 function findNearestNodeId(x: number, y: number): NodeId | null {
   if (NODES.length === 0) return null;
 
@@ -368,8 +366,6 @@ function findNearestNodeId(x: number, y: number): NodeId | null {
   return bestId;
 }
 
-// --- SEKTSIOONID ---
-// Need on umbkaudsed piirkonnad; vajadusel saad numbreid timmida.
 type SectionKey = 'fuajee' | 'aula' | 'tudengimaja' | 'kohvikusaal';
 
 type SectionRegion = {
@@ -418,16 +414,13 @@ export default function MapScreen() {
   const [activeSection, setActiveSection] = useState<SectionKey>('fuajee');
 
   const { width, height: screenHeight } = Dimensions.get('window');
-  const baseHeight = (width * 1684) / 1190; // SVG viewBox ratio
+  const baseHeight = (width * 1684) / 1190;
   const boothSize = 16;
 
-  // Jätame veidi ruumi alumiste nuppude jaoks
   const containerHeight = screenHeight - 80;
 
-  // --- Kaamera transform aktiivse sektsiooni põhjal ---
   const sectionRegion = SECTIONS[activeSection];
 
-  // Normaliseeritud koordid -> px
   const x1 = sectionRegion.xMin * width;
   const x2 = sectionRegion.xMax * width;
   const y1 = sectionRegion.yMin * baseHeight;
@@ -502,7 +495,6 @@ export default function MapScreen() {
         alignItems: 'center',
       }}
     >
-      {/* Kaardi konteiner */}
       <View
         style={{
           width,
@@ -512,7 +504,6 @@ export default function MapScreen() {
           backgroundColor: '#f0f0f0',
         }}
       >
-        {/* Transformeeritud kaardikiht (FloorMap + path) */}
         <View
           style={{
             position: 'absolute',
@@ -524,10 +515,8 @@ export default function MapScreen() {
           }}
         >
           <View style={{ width, height: baseHeight }}>
-            {/* SVG kaart */}
             <FloorMap width="100%" height="100%" />
 
-            {/* PATH fuajeest boksini */}
             {pathNodes.length > 1 &&
               pathNodes.map((node, index) => {
                 if (index === 0) return null;
@@ -574,7 +563,6 @@ export default function MapScreen() {
                 );
               })}
 
-            {/* PATH NODE ringid (algus/lõpp) */}
             {startNode && (
               <View
                 key={`start-${startNode.id}`}
@@ -611,7 +599,6 @@ export default function MapScreen() {
           </View>
         </View>
 
-        {/* Overlay boksid / logod – arvutame ekraanikoordinaadid sama transformiga */}
         <View
           pointerEvents="box-none"
           style={{
@@ -625,14 +612,12 @@ export default function MapScreen() {
           {BOOTHS.map((b) => {
             const company = COMPANY_BY_BOOTH[b.boothNumber];
 
-            // Kas boks jääb aktiivse sektsiooni aknasse (puhtalt opacity jaoks)
             const inside =
               b.x >= sectionRegion.xMin &&
               b.x <= sectionRegion.xMax &&
               b.y >= sectionRegion.yMin &&
               b.y <= sectionRegion.yMax;
 
-            // map -> ekraan: screen = t + s * map
             const mapX = b.x * width;
             const mapY = b.y * baseHeight;
             const screenX = translateX + scale * mapX;
@@ -736,7 +721,6 @@ export default function MapScreen() {
         </View>
       </View>
 
-      {/* SEKTSIOONI NUPUD ALL */}
       <View
         style={{
           position: 'absolute',
@@ -791,7 +775,6 @@ export default function MapScreen() {
         </View>
       </View>
 
-      {/* Modal boksi info jaoks */}
       <Modal visible={!!selected} transparent animationType="fade">
         <View
           style={{

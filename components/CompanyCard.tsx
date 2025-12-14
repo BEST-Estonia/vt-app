@@ -26,6 +26,7 @@ type Props = {
   onPress?: () => void;
   scanned?: boolean;
   compact?: boolean;
+  showBoothCode?: boolean;
 };
 
 export default function CompanyCard({
@@ -34,6 +35,7 @@ export default function CompanyCard({
   onPress,
   scanned = false,
   compact = false,
+  showBoothCode = true,
 }: Props) {
   
   // --- COMPACT VIEW (The Carousel Items) ---
@@ -82,12 +84,12 @@ export default function CompanyCard({
 
           <Text
             className="text-sm font-bold text-gray-900 text-center leading-5"
-            numberOfLines={2}
+            numberOfLines={1}
           >
             {company.name}
           </Text>
           
-          {company.boothCode ? (
+          {showBoothCode && company.boothCode ? (
             <Text className="text-xs text-gray-500 mt-1 font-medium">
               {company.boothCode}
             </Text>

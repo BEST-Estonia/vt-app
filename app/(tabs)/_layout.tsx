@@ -11,6 +11,7 @@ export default function TabsLayout() {
 
   return (
     <Tabs
+      initialRouteName="treasure-hunt"
       screenOptions={{
         headerShown: false,
         sceneStyle: { backgroundColor: '#FFFFFF' },
@@ -27,12 +28,19 @@ export default function TabsLayout() {
         tabBarLabelStyle: { fontSize: 12, fontWeight: '600' },
       }}
     >
+      {/* Hidden redirect screen */}
       <Tabs.Screen
-        name="map"
+        name="index"
         options={{
-          title: 'Map',
+          href: null, // Hides from tab bar
+        }}
+      />
+      <Tabs.Screen
+        name="treasure-hunt"
+        options={{
+          title: 'Hunt',
           tabBarIcon: ({ color, size }) => (
-            <Feather name="map" size={size} color={color} />
+            <Feather name="grid" size={size} color={color} />
           ),
         }}
       />
@@ -46,15 +54,6 @@ export default function TabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="treasure-hunt"
-        options={{
-          title: 'Hunt',
-          tabBarIcon: ({ color, size }) => (
-            <Feather name="grid" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
         name="my-fair"
         options={{
           title: 'My Fair',
@@ -63,6 +62,18 @@ export default function TabsLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="map"
+        options={{
+          title: 'Map',
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="map" size={size} color={color} />
+          ),
+        }}
+      />
+      {/* Hidden folders */}
+      <Tabs.Screen name="assets" options={{ href: null }} />
+      <Tabs.Screen name="data" options={{ href: null }} />
     </Tabs>
   );
 }
