@@ -237,25 +237,33 @@ export default function MapScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedRecent, setScannedRecent] = useState(false);
   const [manualCode, setManualCode] = useState('');
+  const scrollViewRef = useRef<ScrollView>(null);
 
   // Animate slider when section changes or layouts are measured
   useEffect(() => {
     const layout = buttonLayouts[activeSection];
     if (layout) {
-      Animated.parallel([
-        Animated.spring(slideAnim, {
-          toValue: layout.x,
-          useNativeDriver: false,
-          tension: 100,
-          friction: 12,
-        }),
-        Animated.spring(widthAnim, {
-          toValue: layout.width,
-          useNativeDriver: false,
-          tension: 100,
-          friction: 12,
-        }),
-      ]).start();
+      // Use immediate setValue if this is the first layout measurement
+      const allLayoutsReady = Object.keys(buttonLayouts).length === SECTION_ORDER.length;
+      if (!allLayoutsReady) {
+        slideAnim.setValue(layout.x);
+        widthAnim.setValue(layout.width);
+      } else {
+        Animated.parallel([
+          Animated.spring(slideAnim, {
+            toValue: layout.x,
+            useNativeDriver: false,
+            tension: 100,
+            friction: 12,
+          }),
+          Animated.spring(widthAnim, {
+            toValue: layout.width,
+            useNativeDriver: false,
+            tension: 100,
+            friction: 12,
+          }),
+        ]).start();
+      }
     }
   }, [activeSection, buttonLayouts]);
 
@@ -299,80 +307,125 @@ export default function MapScreen() {
         backgroundColor: '#fff',
       }}
     >
-      {/* Map container */}
-      <View
+      {/* Zoomable map container */}
+      <ScrollView
+        ref={scrollViewRef}
+        key={`map-${activeSection}`}
         style={{
           width,
           height: containerHeight,
-          overflow: 'hidden',
-          position: 'relative',
           backgroundColor: '#f0f0f0',
         }}
+        contentContainerStyle={{
+          width,
+          height: containerHeight,
+        }}
+        maximumZoomScale={3}
+        minimumZoomScale={1}
+        bouncesZoom={true}
+        showsHorizontalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
+        centerContent={true}
       >
-        {/* Section map image */}
-        <Image
-          source={currentMapImage}
+        <View
           style={{
-            width: '100%',
-            height: '100%',
+            width,
+            height: containerHeight,
+            position: 'relative',
           }}
-          resizeMode="contain"
-        />
+        >
+          {/* Section map image */}
+          <Image
+            source={currentMapImage}
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+            resizeMode="contain"
+          />
 
-        {/* Booth markers overlay */}
-        {currentBooths.map((booth) => {
-          const company = COMPANY_BY_BOOTH_CODE[booth.boothNumber];
-          // Kohvikusaali, aula ja tudengimaja boksid on suuremad
-          const currentBoothSize =
-            activeSection === 'kohvikusaal' || activeSection === 'aula' || activeSection === 'tudengimaja'
-              ? 22
-              : boothSize;
-          const left = booth.x * width - currentBoothSize / 2;
-          const top = booth.y * containerHeight - currentBoothSize / 2;
+          {/* Booth markers overlay */}
+          {currentBooths.map((booth) => {
+            const company = COMPANY_BY_BOOTH_CODE[booth.boothNumber];
+            // Kohvikusaali, aula ja tudengimaja boksid on suuremad
+            const currentBoothSize =
+              activeSection === 'kohvikusaal' || activeSection === 'aula' || activeSection === 'tudengimaja'
+                ? 22
+                : boothSize;
+            const left = booth.x * width - currentBoothSize / 2;
+            const top = booth.y * containerHeight - currentBoothSize / 2;
 
-          return (
-            <Pressable
-              key={booth.boothNumber}
-              onPress={() => selectBooth(booth)}
-              style={{
-                position: 'absolute',
-                left,
-                top,
-                width: currentBoothSize,
-                height: currentBoothSize,
-                borderRadius: 4,
-                backgroundColor: company ? '#fff' : 'rgba(100,100,100,0.5)',
-                borderWidth: 1,
-                borderColor: company ? '#1E66FF' : '#999',
-                justifyContent: 'center',
-                alignItems: 'center',
-                overflow: 'hidden',
-              }}
-            >
-              {company?.localLogo ? (
-                <Image
-                  source={company.localLogo}
-                  style={{
-                    width: currentBoothSize - 4,
-                    height: currentBoothSize - 4,
-                  }}
-                  resizeMode="contain"
-                />
-              ) : (
-                <Text
-                  style={{
-                    color: company ? '#1E66FF' : '#fff',
-                    fontSize: 8,
-                    fontWeight: '700',
-                  }}
-                >
-                  {booth.boothNumber}
-                </Text>
-              )}
-            </Pressable>
-          );
-        })}
-      </View>
+            return (
+              <Pressable
+                key={booth.boothNumber}
+                onPress={() => selectBooth(booth)}
+                style={{
+                  position: 'absolute',
+                  left,
+                  top,
+                  width: currentBoothSize,
+                  height: currentBoothSize,
+                  borderRadius: 4,
+                  backgroundColor: company ? '#fff' : 'rgba(100,100,100,0.5)',
+                  borderWidth: 1,
+                  borderColor: company ? '#1E66FF' : '#999',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  overflow: 'hidden',
+                }}
+              >
+                {company?.localLogo ? (
+                  <Image
+                    source={company.localLogo}
+                    style={{
+                      width: currentBoothSize - 4,
+                      height: currentBoothSize - 4,
+                    }}
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <Text
+                    style={{
+                      color: company ? '#1E66FF' : '#fff',
+                      fontSize: 8,
+                      fontWeight: '700',
+                    }}
+                  >
+                    {booth.boothNumber}
+                  </Text>
+                )}
+              </Pressable>
+            );
+          })}
+        </View>
+      </ScrollView>
+
+      {/* Zoom reset button - bottom left */}
+      <Pressable
+        onPress={() => {
+          // Reset zoom to initial state
+          (scrollViewRef.current as any)?.scrollResponderZoomTo({
+            x: 0,
+            y: 0,
+            width,
+            height: containerHeight,
+            animated: true,
+          });
+        }}
+        style={{
+          position: 'absolute',
+          bottom: 80,
+          left: 16,
+          width: 44,
+          height: 44,
+          borderRadius: 22,
+          backgroundColor: 'rgba(15,23,42,0.9)',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <MaterialIcons name="zoom-out-map" size={22} color="white" />
+      </Pressable>
 
       {/* Section buttons at bottom */}
       <View
