@@ -36,7 +36,9 @@ export default function SearchScreen() {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedHiring, setSelectedHiring] = useState<string[]>([]);
-  const [sortMode, setSortMode] = useState<SortMode>('Relevance');
+  
+  // CHANGED: Default is now 'A-Z'
+  const [sortMode, setSortMode] = useState<SortMode>('A-Z');
 
   const companies = useMemo(() => {
     return companiesSeed.map((c) => ({
@@ -81,7 +83,8 @@ export default function SearchScreen() {
   const clearAllFilters = () => {
     setSelectedIndustries([]);
     setSelectedHiring([]);
-    setSortMode('Relevance');
+    // CHANGED: Reset to 'A-Z' instead of 'Relevance'
+    setSortMode('A-Z');
   };
 
   return (

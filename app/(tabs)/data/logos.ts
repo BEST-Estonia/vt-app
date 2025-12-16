@@ -24,6 +24,7 @@ import fujitsuLogoImg from '../assets/fujitsu-logo.png';
 import geniussportsLogoImg from '../assets/geniussports-logo.png';
 import gpvLogoImg from '../assets/gpv-logo.png';
 import gunvorServicesLogoImg from '../assets/gunvor-services-logo.png';
+import hanzaLogoImg from '../assets/hanza-logo.png';
 import harjuElekterLogoImg from '../assets/harju-elekter-logo.png';
 import heisiLogoImg from '../assets/heisi-logo.png';
 import helmesLogoImg from '../assets/helmes-logo.jpg';
@@ -146,4 +147,5 @@ export const logos = {
   tallinnalennujaamLogo: tallinnalennujaamLogoImg,
   eisLogo: eisLogoImg,
   leonhardweissLogo: leonhardweissLogoImg,
+  hanzaLogoImg: hanzaLogoImg,
 };
