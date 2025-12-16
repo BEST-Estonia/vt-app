@@ -4,14 +4,12 @@ import {
   companyEvents,
   type Company,
   type CompanyEvent,
-  type CompanyLinkIcon,
 } from '@/data/companies';
 import { useUserStore } from '@/store/userStore';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo } from 'react';
 import {
-  Dimensions,
   Image,
   Linking,
   SafeAreaView,
@@ -19,10 +17,9 @@ import {
   StatusBar,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import {
-  SafeAreaView as SafeTopArea,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
@@ -31,358 +28,275 @@ export default function CompanyProfileScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
 
-  // Read and write from the shared store
+  // Store hooks
   const {
     favorites,
-    addVisited,
     toggleFavorite,
     schedule: scheduledEventIds,
     addToSchedule,
     removeFromSchedule,
   } = useUserStore();
 
-  // Resolve the company and events
+  // 1. Get Company Data
   const company: Company | undefined = useMemo(
     () => companiesSeed.find((c) => c.id === id),
     [id]
   );
 
-  const events: CompanyEvent[] = useMemo(
+  // 2. Get Events (Firmakülastus, Workshops, etc.)
+  const events = useMemo(
     () => companyEvents.filter((e) => e.companyId === id),
     [id]
   );
 
-  // Mark visited when viewing a company
-  React.useEffect(() => {
-    if (id) addVisited(id);
-  }, [addVisited, id]);
-
   if (!company) {
     return (
-      <SafeAreaView className="flex-1 items-center justify-center bg-white">
-        <Text className="text-gray-600">Company not found.</Text>
-        <TouchableOpacity className="mt-3" onPress={() => router.back()}>
-          <Text className="text-blue-600 font-semibold">Go back</Text>
+      <View className="flex-1 items-center justify-center bg-white">
+        <Text className="text-gray-500">Ettevõtet ei leitud.</Text>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          className="mt-4 bg-blue-600 px-6 py-2 rounded-full"
+        >
+          <Text className="text-white font-semibold">Tagasi</Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     );
   }
 
-  const isFavorite = favorites.includes(company.id);
+  const isFav = favorites.includes(company.id);
 
-  const openUrl = async (url?: string) => {
-    if (!url) return;
-    try {
-      await Linking.openURL(url);
-    } catch {}
+  // Helper for Link Icons
+  const getLinkIcon = (type: string) => {
+    switch (type) {
+      case 'linkedin': return 'linkedin';
+      case 'briefcase': return 'briefcase';
+      default: return 'globe';
+    }
   };
 
-  const { width } = Dimensions.get('window');
-  const isNarrow = width < 360;
-
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-
-      {/* Header */}
-      <SafeTopArea edges={['top']} style={{ backgroundColor: '#FFFFFF' }}>
-        <View className="flex-row items-center justify-between px-4 py-2 border-b border-gray-200 bg-white">
-          <TouchableOpacity onPress={() => router.back()} hitSlop={10}>
-            <Feather name="arrow-left" size={22} color="#111827" />
-          </TouchableOpacity>
-          <Text
-            className="text-[18px] font-semibold text-gray-900"
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            style={{ maxWidth: '80%', paddingRight: 4 }}
+    <View className="flex-1 bg-white">
+      <StatusBar barStyle="dark-content" />
+      
+      {/* NAVIGATION HEADER (White background, Dark icons) */}
+      <SafeAreaView className="bg-white z-10">
+        <View className="flex-row justify-between items-center px-4 py-2">
+          <TouchableOpacity
+            onPress={() => router.back()}
+            className="w-10 h-10 bg-gray-100 rounded-full items-center justify-center"
           >
-            {company.name}
-          </Text>
-          <View style={{ width: 22 }} />
+            <Feather name="arrow-left" size={24} color="#1F2937" />
+          </TouchableOpacity>
+          
+          <TouchableOpacity
+            onPress={() => toggleFavorite(company.id)}
+            className="w-10 h-10 bg-gray-100 rounded-full items-center justify-center"
+          >
+            <MaterialCommunityIcons
+              name={isFav ? 'heart' : 'heart-outline'}
+              size={24}
+              color={isFav ? '#EF4444' : '#1F2937'}
+            />
+          </TouchableOpacity>
         </View>
-      </SafeTopArea>
+      </SafeAreaView>
 
-      {/* Content */}
+      {/* CONTENT SCROLL */}
       <ScrollView
-        className="flex-1"
-        contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingTop: 12,
-          paddingBottom: Math.max(insets.bottom + 16, 28),
-        }}
+        className="flex-1 bg-white"
+        contentContainerStyle={{ paddingBottom: 40 }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Header card */}
-        <View className="rounded-2xl border border-gray-200 p-4 bg-white">
-          <View className="flex-row">
-            <View className="mr-3">
-              <View
-                className="h-14 w-14 rounded-xl overflow-hidden bg-white items-center justify-center"
-                style={{ borderWidth: 1, borderColor: '#E5E7EB', padding: 4 }}
-              >
-                {company.localLogo ? (
-                  <Image
-                    source={company.localLogo}
-                    style={{ width: '100%', height: '100%' }}
-                    resizeMode="contain"
-                  />
-                ) : (
-                  <Text className="text-[16px] font-bold text-blue-700">
-                    {company.initials}
-                  </Text>
-                )}
-              </View>
-            </View>
-
-            <View className="flex-1">
-              <Text className="text-[18px] font-bold text-gray-900 pr-1">
+        <View className="px-6 pt-2">
+          
+          {/* HEADER SECTION: Name Left, Logo Right */}
+          <View className="flex-row justify-between items-start mb-6">
+            
+            {/* Left Side: Info */}
+            <View className="flex-1 mr-4">
+              <Text className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
                 {company.name}
               </Text>
-              <Text className="text-[14px] text-gray-700 mt-1 pr-1">
-                {company.description}
-              </Text>
-
-              <View className="flex-row items-center mt-2">
-                <Feather name="map-pin" size={14} color="#6B7280" />
-                <Text className="ml-1 text-[13px] text-gray-600 pr-1">
-                  {company.boothCode ? `Booth ${company.boothCode}` : 'Booth TBA'}
-                </Text>
-              </View>
-
-              {/* Chips */}
-              <View className="flex-row flex-wrap mt-2">
-                {company.industries.map((i, idx) => (
-                  <View
-                    key={`ind-${idx}`}
-                    className="mr-2 mb-2 rounded-full bg-blue-50 px-2.5 py-1"
-                  >
-                    <Text className="text-[12px] font-medium text-blue-700">
-                      {i}
-                    </Text>
+              
+              <View className="flex-row flex-wrap items-center gap-2 mb-3">
+                {company.industries.map((ind) => (
+                  <View key={ind} className="bg-blue-50 px-2.5 py-1 rounded-md">
+                    <Text className="text-blue-700 text-xs font-medium">{ind}</Text>
                   </View>
                 ))}
+                {company.boothCode && (
+                  <View className="bg-green-50 px-2.5 py-1 rounded-md border border-green-100">
+                    <Text className="text-green-700 text-xs font-semibold">
+                      Boks {company.boothCode}
+                    </Text>
+                  </View>
+                )}
               </View>
-              <View className="flex-row flex-wrap">
-                {company.hiringTypes.map((h, idx) => (
-                  <View
-                    key={`hire-${idx}`}
-                    className="mr-2 mb-2 rounded-full bg-gray-100 px-2.5 py-1"
-                  >
-                    <Text className="text-[12px] font-medium text-gray-700">
-                      {h}
+
+              {/* Hiring Types */}
+              <View className="flex-row flex-wrap gap-2">
+                {company.hiringTypes.map((type) => (
+                  <View key={type} className="flex-row items-center border border-gray-200 px-3 py-1.5 rounded-full">
+                    <Feather name="check" size={12} color="#1E66FF" />
+                    <Text className="ml-1.5 text-xs text-gray-700 font-medium">
+                      {type}
                     </Text>
                   </View>
                 ))}
               </View>
             </View>
+
+            {/* Right Side: Logo Box */}
+            <View className="w-20 h-20 bg-white border border-gray-100 rounded-2xl items-center justify-center shadow-sm p-1">
+               {company.localLogo ? (
+                 <Image
+                   source={company.localLogo}
+                   className="w-full h-full"
+                   resizeMode="contain"
+                 />
+               ) : (
+                 <Text className="text-2xl font-bold text-gray-300">
+                   {company.initials}
+                 </Text>
+               )}
+            </View>
           </View>
 
-          {/* Actions row */}
-          <View className="mt-4 -mx-1 flex-row">
-            <ActionButton
-              icon={<Feather name="star" size={18} color="#1E66FF" />}
-              label={isFavorite ? 'Saved' : 'Save'}
-              onPress={() => toggleFavorite(company.id)}
-            />
-            <ActionButton
-              icon={<Feather name="navigation" size={18} color="#1E66FF" />}
-              label="Navigate"
-              onPress={() => {
-                // TODO: navigate to Map and highlight booth
-              }}
-            />
-            <ActionButton
-              icon={
-                <MaterialCommunityIcons
-                  name="qrcode-scan"
-                  size={18}
-                  color="#1E66FF"
+          <View className="h-[1px] bg-gray-100 mb-6" />
+
+          {/* ABOUT SECTION */}
+          <Text className="text-lg font-bold text-gray-900 mb-2">
+            Meist
+          </Text>
+          <Text className="text-base text-gray-600 leading-6 mb-6">
+            {company.description}
+            {company.about ? `\n\n${company.about}` : ''}
+          </Text>
+
+          {/* LINKS SECTION */}
+          {company.links && company.links.length > 0 && (
+            <View className="mb-8">
+              <Text className="text-lg font-bold text-gray-900 mb-3">
+                Kontaktid ja lingid
+              </Text>
+              <View className="gap-3">
+                {company.links.map((link, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => Linking.openURL(link.url)}
+                    className="flex-row items-center bg-gray-50 p-4 rounded-xl active:bg-gray-100"
+                  >
+                    <View className="w-10 h-10 bg-white items-center justify-center rounded-full shadow-sm mr-3">
+                      <Feather name={getLinkIcon(link.icon || 'globe') as any} size={20} color="#1E66FF" />
+                    </View>
+                    <View className="flex-1">
+                      <Text className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+                        {link.label}
+                      </Text>
+                      <Text className="text-base font-semibold text-gray-900" numberOfLines={1}>
+                        {link.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                      </Text>
+                    </View>
+                    <Feather name="external-link" size={18} color="#9CA3AF" />
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </View>
+          )}
+
+          {/* EVENTS / FIRMAKÜLASTUS SECTION */}
+          {events.length > 0 && (
+            <View>
+              <Text className="text-lg font-bold text-gray-900 mb-3">
+                Üritused ja Firmakülastused
+              </Text>
+              {events.map((event) => (
+                <EventCard
+                  key={event.id}
+                  event={event}
+                  isAdded={scheduledEventIds.includes(event.id)}
+                  onToggle={() => {
+                    if (scheduledEventIds.includes(event.id)) {
+                      removeFromSchedule(event.id);
+                    } else {
+                      addToSchedule(event.id);
+                    }
+                  }}
                 />
-              }
-              label="Scan"
-              onPress={() => {
-                // TODO: open scanner
-              }}
-            />
-          </View>
-        </View>
-
-        {/* About */}
-        {company.about && (
-          <Section title="About">
-            <Text className="text-[14px] leading-6 text-gray-700 pr-1">
-              {company.about}
-            </Text>
-          </Section>
-        )}
-
-        {/* Links */}
-        {company.links?.length ? (
-          <Section title="Links">
-            <View className="space-y-3">
-              {company.links.map((l, idx) => (
-                <TouchableOpacity
-                  key={idx}
-                  onPress={() => openUrl(l.url)}
-                  className="h-12 px-3 rounded-xl border border-gray-200 flex-row items-center justify-between bg-white"
-                  activeOpacity={0.85}
-                >
-                  <View className="flex-row items-center">
-                    <LinkIcon name={l.icon} />
-                    <Text className="ml-8 text-[14px] text-gray-800 pr-1">
-                      {l.label}
-                    </Text>
-                  </View>
-                  <Feather name="external-link" size={16} color="#6B7280" />
-                </TouchableOpacity>
               ))}
             </View>
-          </Section>
-        ) : null}
-
-        {/* Events & Sessions with Add/Added behavior */}
-        {events.length ? (
-          <Section title="Events & Sessions">
-            {events.map((e) => {
-              const added = scheduledEventIds.includes(e.id);
-              return (
-                <EventCard
-                  key={e.id}
-                  event={e}
-                  added={added}
-                  onAdd={() => addToSchedule(e.id)}
-                  onRemove={() => removeFromSchedule(e.id)}
-                />
-              );
-            })}
-          </Section>
-        ) : null}
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
-
-function Section({
-  title,
-  children,
-  containerClass,
-}: {
-  title: string;
-  children: React.ReactNode;
-  containerClass?: string;
-}) {
-  return (
-    <View className={`mt-6 ${containerClass ?? ''}`}>
-      <Text className="text-[16px] font-semibold text-gray-900 mb-2">
-        {title}
-      </Text>
-      {children}
-    </View>
-  );
-}
-
-function ActionButton({
-  icon,
-  label,
-  onPress,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  onPress: () => void;
-}) {
-  return (
-    <View className="flex-1 px-1">
-      <TouchableOpacity
-        onPress={onPress}
-        activeOpacity={0.85}
-        className="h-12 border border-blue-500 rounded-xl items-center justify-center bg-white"
-        style={{ paddingHorizontal: 10, minWidth: 0 }}
-      >
-        <View className="flex-row items-center">
-          {icon}
-          <Text
-            className="ml-2 text-[14px] font-semibold text-blue-600"
-            numberOfLines={1}
-            style={{ paddingRight: 2 }}
-          >
-            {label}
-          </Text>
+          )}
         </View>
-      </TouchableOpacity>
+      </ScrollView>
     </View>
   );
 }
 
-function LinkIcon({ name }: { name?: CompanyLinkIcon }) {
-  if (name === 'linkedin') return <Feather name="linkedin" size={16} color="#6B7280" />;
-  if (name === 'briefcase') return <Feather name="briefcase" size={16} color="#6B7280" />;
-  return <Feather name="globe" size={16} color="#6B7280" />;
-}
-
+// Simple Event Component
 function EventCard({
   event,
-  added,
-  onAdd,
-  onRemove,
+  isAdded,
+  onToggle,
 }: {
   event: CompanyEvent;
-  added: boolean;
-  onAdd: () => void;
-  onRemove: () => void;
+  isAdded: boolean;
+  onToggle: () => void;
 }) {
+  // Format time (e.g. 10:00 - 11:30)
   const start = new Date(event.startISO);
-  const end = event.endISO ? new Date(event.endISO) : undefined;
-  const pad = (n: number) => n.toString().padStart(2, '0');
-  const time =
-    end && !isNaN(end.getTime())
-      ? `${pad(start.getHours())}:${pad(start.getMinutes())} - ${pad(
-          end.getHours()
-        )}:${pad(end.getMinutes())}`
-      : `${pad(start.getHours())}:${pad(start.getMinutes())}`;
+  const end = event.endISO ? new Date(event.endISO) : null;
+  
+  const timeString = `${start.getHours()}:${String(start.getMinutes()).padStart(2, '0')}` + 
+    (end ? ` - ${end.getHours()}:${String(end.getMinutes()).padStart(2, '0')}` : '');
+
+  // Format date (e.g. 12. märts)
+  const dateString = start.toLocaleDateString('et-EE', { month: 'long', day: 'numeric' });
 
   return (
-    <View className="mb-3 rounded-2xl border border-gray-200 bg-white">
-      <View className="p-4">
-        <View className="flex-row items-center mb-2">
-          <View className="h-7 w-7 rounded-lg bg-blue-50 items-center justify-center mr-2">
-            <Feather name="calendar" size={16} color="#1E66FF" />
-          </View>
-          <Text className="text-[15px] font-semibold text-gray-900 pr-1">
-            {event.title}
-          </Text>
-        </View>
-
-        <View className="flex-row items-center mb-1">
-          <Feather name="clock" size={14} color="#6B7280" />
-          <Text className="ml-1 text-[13px] text-gray-700">{time}</Text>
-        </View>
-        <View className="flex-row items-center">
-          <Feather name="map-pin" size={14} color="#6B7280" />
-          <Text className="ml-1 text-[13px] text-gray-700">
+    <View className="bg-white border border-gray-200 rounded-2xl p-4 mb-3 shadow-sm">
+      <View className="flex-row justify-between items-start mb-2">
+        <View className="bg-blue-50 px-2 py-1 rounded-md">
+          <Text className="text-blue-700 text-xs font-bold uppercase">
             {event.locationText}
           </Text>
         </View>
-
-        {added ? (
-          <TouchableOpacity
-            className="mt-3 h-11 rounded-xl bg-gray-100 items-center justify-center border border-gray-300"
-            activeOpacity={0.9}
-            onPress={onRemove}
-          >
-            <Text className="text-gray-700 font-semibold">
-              Added • Tap to remove
-            </Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity
-            className="mt-3 h-11 rounded-xl bg-[#1E66FF] items-center justify-center"
-            activeOpacity={0.9}
-            onPress={onAdd}
-          >
-            <Text className="text-white font-semibold">Add to Schedule</Text>
-          </TouchableOpacity>
-        )}
+        <Text className="text-gray-500 text-xs font-medium">
+          {dateString}
+        </Text>
       </View>
+
+      <Text className="text-lg font-bold text-gray-900 mb-1">
+        {event.title}
+      </Text>
+      
+      <View className="flex-row items-center mb-4">
+        <Feather name="clock" size={14} color="#6B7280" />
+        <Text className="text-gray-500 text-sm ml-1.5">
+          {timeString}
+        </Text>
+      </View>
+
+      <TouchableOpacity
+        onPress={onToggle}
+        className={`flex-row items-center justify-center py-2.5 rounded-xl border ${
+          isAdded 
+            ? 'bg-transparent border-gray-300' 
+            : 'bg-blue-600 border-blue-600'
+        }`}
+      >
+        <Feather 
+          name={isAdded ? "check" : "plus"} 
+          size={18} 
+          color={isAdded ? "#374151" : "white"} 
+        />
+        <Text 
+          className={`ml-2 font-semibold ${
+            isAdded ? 'text-gray-700' : 'text-white'
+          }`}
+        >
+          {isAdded ? 'Minu kavas' : 'Lisa kavasse'}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
