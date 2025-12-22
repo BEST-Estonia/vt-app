@@ -2,6 +2,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
 import { CameraView, useCameraPermissions } from 'expo-camera';
+import { useLocalSearchParams } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   Alert,
@@ -224,12 +225,14 @@ const SECTION_ORDER: SectionKey[] = ['fuajee', 'kohvikusaal', 'aula', 'tudengima
 type ButtonLayout = { x: number; width: number };
 
 export default function MapScreen() {
+  const { boothCode } = useLocalSearchParams<{ boothCode?: string }>();
   const [selected, setSelected] = useState<SelectedBoothState | null>(null);
   const [activeSection, setActiveSection] = useState<SectionKey>('fuajee');
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [buttonLayouts, setButtonLayouts] = useState<Record<SectionKey, ButtonLayout>>({} as any);
   const slideAnim = useRef(new Animated.Value(0)).current;
   const widthAnim = useRef(new Animated.Value(60)).current;
+  const pulse = useRef(new Animated.Value(1)).current;
 
   // QR Scanner state
   const [scanModalVisible, setScanModalVisible] = useState(false);
@@ -295,6 +298,71 @@ export default function MapScreen() {
   const currentMapImage = SECTION_MAPS[activeSection];
   const currentBooths = SECTION_BOOTHS[activeSection];
 
+  // If we arrived with a boothCode param, pre-select and switch to that section
+  useEffect(() => {
+    if (!boothCode) return;
+
+    // Normalize boothCode (could be string | string[])
+    const code = Array.isArray(boothCode) ? boothCode[0] : boothCode;
+
+    // find which section contains this booth
+    let foundSection: SectionKey | null = null;
+    let foundBooth: BoothData | null = null;
+
+    for (const sectionKey of Object.keys(SECTION_BOOTHS) as SectionKey[]) {
+      const booth = SECTION_BOOTHS[sectionKey].find((b) => b.boothNumber === code);
+      if (booth) {
+        foundSection = sectionKey;
+        foundBooth = booth;
+        break;
+      }
+    }
+
+    if (foundSection && foundBooth) {
+      setActiveSection(foundSection);
+      const company = COMPANY_BY_BOOTH_CODE[foundBooth.boothNumber];
+      setSelected({ booth: foundBooth, company });
+    }
+  }, [boothCode]);
+
+  // Pulse animation for highlighted booth (based on boothCode param)
+  useEffect(() => {
+    if (!boothCode) {
+      pulse.setValue(1);
+      return;
+    }
+
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 1.12,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 600,
+          useNativeDriver: true,
+        }),
+      ])
+    );
+
+    loop.start();
+
+    const timeoutId = setTimeout(() => {
+      // stop pulsing after ~5 seconds
+      pulse.stopAnimation(() => {
+        pulse.setValue(1);
+      });
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeoutId);
+      loop.stop();
+      pulse.setValue(1);
+    };
+  }, [boothCode, pulse]);
+
   function selectBooth(booth: BoothData) {
     const company = COMPANY_BY_BOOTH_CODE[booth.boothNumber];
     setSelected({ booth, company });
@@ -348,53 +416,64 @@ export default function MapScreen() {
           {currentBooths.map((booth) => {
             const company = COMPANY_BY_BOOTH_CODE[booth.boothNumber];
             // Kohvikusaali, aula ja tudengimaja boksid on suuremad
-            const currentBoothSize =
+            const baseSize =
               activeSection === 'kohvikusaal' || activeSection === 'aula' || activeSection === 'tudengimaja'
                 ? 22
                 : boothSize;
-            const left = booth.x * width - currentBoothSize / 2;
-            const top = booth.y * containerHeight - currentBoothSize / 2;
+
+            const isHighlighted = boothCode === booth.boothNumber;
+            const size = baseSize;
+
+            const left = booth.x * width - size / 2;
+            const top = booth.y * containerHeight - size / 2;
 
             return (
-              <Pressable
+              <Animated.View
                 key={booth.boothNumber}
-                onPress={() => selectBooth(booth)}
                 style={{
                   position: 'absolute',
                   left,
                   top,
-                  width: currentBoothSize,
-                  height: currentBoothSize,
-                  borderRadius: 4,
-                  backgroundColor: company ? '#fff' : 'rgba(100,100,100,0.5)',
-                  borderWidth: 1,
-                  borderColor: company ? '#1E66FF' : '#999',
+                  width: size,
+                  height: size,
+                  borderRadius: 6,
+                  backgroundColor: company
+                    ? '#fff'
+                    : 'rgba(100,100,100,0.5)',
+                  borderWidth: isHighlighted ? 3 : 1,
+                  borderColor: isHighlighted ? '#22C55E' : company ? '#1E66FF' : '#999',
                   justifyContent: 'center',
                   alignItems: 'center',
                   overflow: 'hidden',
+                  transform: isHighlighted ? [{ scale: pulse }] : undefined,
                 }}
               >
-                {company?.localLogo ? (
-                  <Image
-                    source={company.localLogo}
-                    style={{
-                      width: currentBoothSize - 4,
-                      height: currentBoothSize - 4,
-                    }}
-                    resizeMode="contain"
-                  />
-                ) : (
-                  <Text
-                    style={{
-                      color: company ? '#1E66FF' : '#fff',
-                      fontSize: 8,
-                      fontWeight: '700',
-                    }}
-                  >
-                    {booth.boothNumber}
-                  </Text>
-                )}
-              </Pressable>
+                <Pressable
+                  style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+                  onPress={() => selectBooth(booth)}
+                >
+                  {company?.localLogo ? (
+                    <Image
+                      source={company.localLogo}
+                      style={{
+                        width: size - 4,
+                        height: size - 4,
+                      }}
+                      resizeMode="contain"
+                    />
+                  ) : (
+                    <Text
+                      style={{
+                        color: isHighlighted ? '#22C55E' : company ? '#1E66FF' : '#fff',
+                        fontSize: 8,
+                        fontWeight: '700',
+                      }}
+                    >
+                      {booth.boothNumber}
+                    </Text>
+                  )}
+                </Pressable>
+              </Animated.View>
             );
           })}
         </View>
