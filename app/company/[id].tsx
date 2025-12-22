@@ -108,57 +108,57 @@ export default function CompanyProfileScreen() {
         showsVerticalScrollIndicator={false}
       >
         <View className="px-6 pt-2">
-          
           {/* HEADER SECTION: Name Left, Logo Right */}
-          <View className="flex-row justify-between items-start mb-6">
-            
-            {/* Left Side: Info */}
-            <View className="flex-1 mr-4">
-              <Text className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
-                {company.name}
-              </Text>
-              
-              <View className="flex-row flex-wrap items-center gap-2 mb-3">
-                {company.industries.map((ind) => (
-                  <View key={ind} className="bg-blue-50 px-2.5 py-1 rounded-md">
-                    <Text className="text-blue-700 text-xs font-medium">{ind}</Text>
-                  </View>
-                ))}
-                {company.boothCode && (
-                  <View className="bg-green-50 px-2.5 py-1 rounded-md border border-green-100">
-                    <Text className="text-green-700 text-xs font-semibold">
-                      Boks {company.boothCode}
-                    </Text>
-                  </View>
+          <View className="mb-6">
+            <View className="flex-row justify-between items-start mb-2">
+              {/* Left Side: Info */}
+              <View className="flex-1 mr-4">
+                <Text className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+                  {company.name}
+                </Text>
+                
+                <View className="flex-row flex-wrap items-center gap-2 mb-3">
+                  {company.industries.map((ind) => (
+                    <View key={ind} className="bg-blue-50 px-2.5 py-1 rounded-md">
+                      <Text className="text-blue-700 text-xs font-medium">{ind}</Text>
+                    </View>
+                  ))}
+                  {company.boothCode && (
+                    <View className="bg-green-50 px-2.5 py-1 rounded-md border border-green-100">
+                      <Text className="text-green-700 text-xs font-semibold">
+                        Boks {company.boothCode}
+                      </Text>
+                    </View>
+                  )}
+                </View>
+
+                {/* Hiring Types */}
+                <View className="flex-row flex-wrap gap-2">
+                  {company.hiringTypes.map((type) => (
+                    <View key={type} className="flex-row items-center border border-gray-200 px-3 py-1.5 rounded-full">
+                      <Feather name="check" size={12} color="#1E66FF" />
+                      <Text className="ml-1.5 text-xs text-gray-700 font-medium">
+                        {type}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+
+              {/* Right Side: Logo Box */}
+              <View className="w-20 h-20 bg-white border border-gray-100 rounded-2xl items-center justify-center shadow-sm p-1">
+                {company.localLogo ? (
+                  <Image
+                    source={company.localLogo}
+                    className="w-full h-full"
+                    resizeMode="contain"
+                  />
+                ) : (
+                  <Text className="text-2xl font-bold text-gray-300">
+                    {company.initials}
+                  </Text>
                 )}
               </View>
-
-              {/* Hiring Types */}
-              <View className="flex-row flex-wrap gap-2">
-                {company.hiringTypes.map((type) => (
-                  <View key={type} className="flex-row items-center border border-gray-200 px-3 py-1.5 rounded-full">
-                    <Feather name="check" size={12} color="#1E66FF" />
-                    <Text className="ml-1.5 text-xs text-gray-700 font-medium">
-                      {type}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            </View>
-
-            {/* Right Side: Logo Box */}
-            <View className="w-20 h-20 bg-white border border-gray-100 rounded-2xl items-center justify-center shadow-sm p-1">
-               {company.localLogo ? (
-                 <Image
-                   source={company.localLogo}
-                   className="w-full h-full"
-                   resizeMode="contain"
-                 />
-               ) : (
-                 <Text className="text-2xl font-bold text-gray-300">
-                   {company.initials}
-                 </Text>
-               )}
             </View>
           </View>
 
@@ -227,6 +227,24 @@ export default function CompanyProfileScreen() {
             </View>
           )}
         </View>
+
+        
+      <View className="w-full px-6 mt-2 mb-4">
+        <TouchableOpacity className="flex-row items-center justify-center w-full bg-blue-600 py-3.5 rounded-2xl shadow-sm active:bg-blue-700"
+        onPress={() => {
+          if (!company.boothCode) return;
+          router.push({
+            pathname: '/(tabs)/map',
+            params: { boothCode: company.boothCode },
+          });
+        }}>
+          <Feather name="map" size={18} color="white" />
+          <Text className="ml-2 text-white font-semibold text-base">
+            Näita kaardil
+          </Text>
+        </TouchableOpacity>
+      </View>
+
       </ScrollView>
     </View>
   );
@@ -253,7 +271,7 @@ function EventCard({
   const dateString = start.toLocaleDateString('et-EE', { month: 'long', day: 'numeric' });
 
   return (
-    <View className="bg-white border border-gray-200 rounded-2xl p-4 mb-3 shadow-sm">
+    <View className="bg-white border border-gray-200 rounded-2xl p-4 mb-6 shadow-sm">
       <View className="flex-row justify-between items-start mb-2">
         <View className="bg-blue-50 px-2 py-1 rounded-md">
           <Text className="text-blue-700 text-xs font-bold uppercase">
