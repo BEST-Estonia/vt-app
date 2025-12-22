@@ -10,8 +10,8 @@ import {
   Dimensions,
   Image,
   Modal,
+  PanResponder,
   Pressable,
-  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -233,6 +233,15 @@ export default function MapScreen() {
   const slideAnim = useRef(new Animated.Value(0)).current;
   const widthAnim = useRef(new Animated.Value(60)).current;
   const pulse = useRef(new Animated.Value(1)).current;
+  const scale = useRef(new Animated.Value(1)).current;
+  const translateX = useRef(new Animated.Value(0)).current;
+  const translateY = useRef(new Animated.Value(0)).current;
+  const lastScale = useRef(1);
+  const lastTranslate = useRef({ x: 0, y: 0 });
+  const [isPanning, setIsPanning] = useState(false);
+  const [isPinching, setIsPinching] = useState(false);
+  const minScale = 1;
+  const maxScale = 3;
 
   // QR Scanner state
   const [scanModalVisible, setScanModalVisible] = useState(false);
@@ -240,7 +249,6 @@ export default function MapScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedRecent, setScannedRecent] = useState(false);
   const [manualCode, setManualCode] = useState('');
-  const scrollViewRef = useRef<ScrollView>(null);
 
   // Animate slider when section changes or layouts are measured
   useEffect(() => {
@@ -297,6 +305,11 @@ export default function MapScreen() {
 
   const currentMapImage = SECTION_MAPS[activeSection];
   const currentBooths = SECTION_BOOTHS[activeSection];
+
+  // Helper to clamp a value
+  const clamp = (value: number, min: number, max: number) => {
+    return Math.min(Math.max(value, min), max);
+  };
 
   // If we arrived with a boothCode param, pre-select and switch to that section
   useEffect(() => {
@@ -368,6 +381,129 @@ export default function MapScreen() {
     setSelected({ booth, company });
   }
 
+  // Pan and pinch gesture handling using PanResponder
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onMoveShouldSetPanResponder: (_evt, gestureState) => {
+        const { dx, dy } = gestureState;
+        return Math.abs(dx) > 2 || Math.abs(dy) > 2;
+      },
+      onPanResponderGrant: () => {
+        setIsPanning(true);
+      },
+      onPanResponderMove: (evt, gestureState) => {
+        const touches = evt.nativeEvent.touches;
+
+        // Current effective scale (falls back to last committed scale)
+        const currentScale = (scale as any)._value ?? lastScale.current;
+        // How far we allow the content to move from center.
+        // You can tweak the 0.5 factor (smaller = tighter bounds).
+        const maxOffsetX = (width * (currentScale - 1)) * 0.5;
+        const maxOffsetY = (containerHeight * (currentScale - 1)) * 0.5;
+
+        // Two-finger pinch + pan
+        if (touches.length === 2) {
+          if (!isPinching) {
+            setIsPinching(true);
+          }
+
+          const [t1, t2] = touches;
+          const dx = t1.pageX - t2.pageX;
+          const dy = t1.pageY - t2.pageY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if ((scale as any)._last === undefined) {
+            (scale as any)._last = lastScale.current;
+            (scale as any)._startDistance = distance;
+          }
+
+          const startDistance = (scale as any)._startDistance as number;
+          const baseScale = (scale as any)._last as number;
+          if (startDistance > 0) {
+            const nextScale = clamp((distance / startDistance) * baseScale, minScale, maxScale);
+            scale.setValue(nextScale);
+          }
+
+          // Pan by the movement of the gesture center
+          const centerX = (t1.pageX + t2.pageX) / 2;
+          const centerY = (t1.pageY + t2.pageY) / 2;
+          if ((translateX as any)._startCenterX === undefined) {
+            (translateX as any)._startCenterX = centerX;
+            (translateY as any)._startCenterY = centerY;
+            (translateX as any)._baseX = lastTranslate.current.x;
+            (translateY as any)._baseY = lastTranslate.current.y;
+          }
+
+          const startCenterX = (translateX as any)._startCenterX as number;
+          const startCenterY = (translateY as any)._startCenterY as number;
+          const baseX = (translateX as any)._baseX as number;
+          const baseY = (translateY as any)._baseY as number;
+
+          let nextX = baseX + (centerX - startCenterX);
+          let nextY = baseY + (centerY - startCenterY);
+          nextX = clamp(nextX, -maxOffsetX, maxOffsetX);
+          nextY = clamp(nextY, -maxOffsetY, maxOffsetY);
+          translateX.setValue(nextX);
+          translateY.setValue(nextY);
+        } else if (touches.length === 1 && !isPinching) {
+          // Single finger pan
+          let nextX = lastTranslate.current.x + gestureState.dx;
+          let nextY = lastTranslate.current.y + gestureState.dy;
+          nextX = clamp(nextX, -maxOffsetX, maxOffsetX);
+          nextY = clamp(nextY, -maxOffsetY, maxOffsetY);
+          translateX.setValue(nextX);
+          translateY.setValue(nextY);
+        }
+      },
+      onPanResponderRelease: (_evt, gestureState) => {
+        setIsPanning(false);
+        setIsPinching(false);
+
+        lastScale.current = (scale as any)._value ?? lastScale.current;
+        lastTranslate.current = {
+          x: (translateX as any)._value ?? lastTranslate.current.x,
+          y: (translateY as any)._value ?? lastTranslate.current.y,
+        };
+
+        delete (scale as any)._last;
+        delete (scale as any)._startDistance;
+        delete (translateX as any)._startCenterX;
+        delete (translateY as any)._startCenterY;
+        delete (translateX as any)._baseX;
+        delete (translateY as any)._baseY;
+      },
+      onPanResponderTerminationRequest: () => true,
+      onPanResponderTerminate: () => {
+        setIsPanning(false);
+        setIsPinching(false);
+      },
+    })
+  ).current;
+
+  const resetTransform = () => {
+    lastScale.current = 1;
+    lastTranslate.current = { x: 0, y: 0 };
+
+    Animated.parallel([
+      Animated.timing(scale, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateX, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateY, {
+        toValue: 0,
+        duration: 200,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
   return (
     <View
       style={{
@@ -375,31 +511,26 @@ export default function MapScreen() {
         backgroundColor: '#fff',
       }}
     >
-      {/* Zoomable map container */}
-      <ScrollView
-        ref={scrollViewRef}
-        key={`map-${activeSection}`}
+      {/* Zoomable map container (custom pan + pinch) */}
+      <View
         style={{
           width,
           height: containerHeight,
           backgroundColor: '#f0f0f0',
+          overflow: 'hidden',
         }}
-        contentContainerStyle={{
-          width,
-          height: containerHeight,
-        }}
-        maximumZoomScale={3}
-        minimumZoomScale={1}
-        bouncesZoom={true}
-        showsHorizontalScrollIndicator={false}
-        showsVerticalScrollIndicator={false}
-        centerContent={true}
+        {...panResponder.panHandlers}
       >
-        <View
+        <Animated.View
           style={{
             width,
             height: containerHeight,
             position: 'relative',
+            transform: [
+              { translateX },
+              { translateY },
+              { scale },
+            ],
           }}
         >
           {/* Section map image */}
@@ -476,20 +607,13 @@ export default function MapScreen() {
               </Animated.View>
             );
           })}
-        </View>
-      </ScrollView>
+        </Animated.View>
+      </View>
 
       {/* Zoom reset button - bottom left */}
       <Pressable
         onPress={() => {
-          // Reset zoom to initial state
-          (scrollViewRef.current as any)?.scrollResponderZoomTo({
-            x: 0,
-            y: 0,
-            width,
-            height: containerHeight,
-            animated: true,
-          });
+          resetTransform();
         }}
         style={{
           position: 'absolute',
@@ -601,7 +725,7 @@ export default function MapScreen() {
             }}
             onPress={(e) => e.stopPropagation()}
           >
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <View>
               {/* Company logo */}
               {selected?.company?.localLogo && (
                 <View style={{ alignItems: 'center', marginBottom: 16 }}>
@@ -699,7 +823,7 @@ export default function MapScreen() {
                   {selected.company.description}
                 </Text>
               )}
-            </ScrollView>
+            </View>
 
             {/* Action buttons */}
             <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
