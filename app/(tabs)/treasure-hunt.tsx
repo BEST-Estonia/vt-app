@@ -6,15 +6,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-    Alert,
-    FlatList,
-    Modal,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  FlatList,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CompanyCard from '../../components/CompanyCard';
@@ -122,23 +122,31 @@ export default function TreasureHuntScreen() {
     try {
       const { error } = await supabase
         .from('giveaway_entries')
-        .insert([{ participant_id: participantId, full_name: fullName.trim() }]);
+        .upsert(
+          { participant_id: participantId, full_name: fullName.trim() },
+          { onConflict: 'participant_id' }
+        );
 
       if (error) {
-        if (error.code === '23505') {
-           setHasRegisteredLocal(true);
-           Alert.alert(t('treasure.info.alreadyRegisteredTitle'), t('treasure.info.alreadyRegisteredBody'));
-           setWinnerModalVisible(false);
-           return;
-        }
-        throw error;
+        console.log('[treasure] submit error:', {
+          code: (error as any).code,
+          message: (error as any).message,
+          details: (error as any).details,
+          hint: (error as any).hint,
+        });
+        Alert.alert(
+          t('treasure.error.submitTitle'),
+          `${t('treasure.error.submitBody')}${(error as any).message ? `\n${(error as any).message}` : ''}`
+        );
+        return;
       }
+
       setHasRegisteredLocal(true);
       Alert.alert(t('treasure.success.registeredTitle'), t('treasure.success.registeredBody'), [
         { text: 'OK', onPress: () => setWinnerModalVisible(false) }
       ]);
     } catch (e) {
-      console.error(e);
+      console.log('[treasure] submit error (exception):', e);
       Alert.alert(t('treasure.error.submitTitle'), t('treasure.error.submitBody'));
     } finally {
       setIsSubmitting(false);
