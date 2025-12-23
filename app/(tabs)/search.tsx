@@ -3,7 +3,6 @@ import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import {
   Image,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
@@ -11,10 +10,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  SafeAreaView as SafeTopArea,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import CompanyCard from '@/components/CompanyCard';
 import FilterSheet from '@/components/FilterSheet';
@@ -25,12 +21,14 @@ import {
   companiesSeed,
   type SortMode
 } from '@/data/companies';
+import { useI18n } from '@/lib/i18n';
 import { useUserStore } from '@/store/userStore';
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { favorites, toggleFavorite } = useUserStore();
+  const { t } = useI18n();
 
   const [query, setQuery] = useState('');
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -88,56 +86,54 @@ export default function SearchScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }} edges={["top", "bottom"]}>
+      <StatusBar barStyle="dark-content" />
 
       {/* Header */}
-      <SafeTopArea edges={['top']} style={{ backgroundColor: '#FFFFFF' }}>
-        <View className="px-5 pt-6 pb-3 border-b border-gray-200 bg-white">
-          <View className="flex-row items-center justify-between">
-            <View className="flex-row items-center">
-              <Image
-                source={require('./assets/vt-logo.png')}
-                style={{ width: 28, height: 28, marginRight: 8 }}
-                resizeMode="contain"
-              />
-              <Text className="text-[22px] font-bold text-gray-900">
-                Search Companies
-              </Text>
-            </View>
-            <TouchableOpacity
-              className="h-9 w-9 rounded-full items-center justify-center"
-              activeOpacity={0.7}
-              onPress={() => setFiltersOpen(true)}
-            >
-              <Feather name="sliders" size={20} color="#111827" />
-            </TouchableOpacity>
-          </View>
-
-          {/* Search bar */}
-          <View className="mt-3 h-12 flex-row items-center rounded-xl border border-gray-300 bg-white px-3">
-            <Feather name="search" size={18} color="#6B7280" />
-            <TextInput
-              value={query}
-              onChangeText={setQuery}
-              placeholder="Search companies..."
-              placeholderTextColor="#9CA3AF"
-              className="ml-2 flex-1 text-[16px] text-gray-900"
-              returnKeyType="search"
+      <View className="px-5 pt-6 pb-3 border-b border-gray-200 bg-white">
+        <View className="flex-row items-center justify-between">
+          <View className="flex-row items-center">
+            <Image
+              source={require('./assets/vt-logo.png')}
+              style={{ width: 28, height: 28, marginRight: 8 }}
+              resizeMode="contain"
             />
-            {query.length > 0 && (
-              <TouchableOpacity onPress={() => setQuery('')}>
-                <Feather name="x" size={16} color="#6B7280" />
-              </TouchableOpacity>
-            )}
+            <Text className="text-[22px] font-bold text-gray-900">
+              {t('header.search')}
+            </Text>
           </View>
+          <TouchableOpacity
+            className="h-9 w-9 rounded-full items-center justify-center"
+            activeOpacity={0.7}
+            onPress={() => setFiltersOpen(true)}
+          >
+            <Feather name="sliders" size={20} color="#111827" />
+          </TouchableOpacity>
         </View>
-      </SafeTopArea>
+
+        {/* Search bar */}
+        <View className="mt-3 h-12 flex-row items-center rounded-xl border border-gray-300 bg-white px-3">
+          <Feather name="search" size={18} color="#6B7280" />
+          <TextInput
+            value={query}
+            onChangeText={setQuery}
+            placeholder={t('search.placeholder')}
+            placeholderTextColor="#9CA3AF"
+            className="ml-2 flex-1 text-[16px] text-gray-900"
+            returnKeyType="search"
+          />
+          {query.length > 0 && (
+            <TouchableOpacity onPress={() => setQuery('')}>
+              <Feather name="x" size={16} color="#6B7280" />
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
 
       {/* Results count */}
       <View className="px-5 py-3">
         <Text className="text-[14px] text-gray-600">
-          {filtered.length} companies found
+          {t('search.resultsCount', { count: filtered.length })}
         </Text>
       </View>
 

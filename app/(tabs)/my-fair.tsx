@@ -1,30 +1,30 @@
+import LanguageSheet from '@/components/LanguageSheet';
 import {
   companiesSeed,
   companyEvents,
   type Company,
   type CompanyEvent,
 } from '@/data/companies';
+import { useI18n } from '@/lib/i18n';
 import { useUserStore } from '@/store/userStore';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
   Image,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {
-  SafeAreaView as SafeTopArea,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function MyFairScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { t } = useI18n();
+  const [languageOpen, setLanguageOpen] = React.useState(false);
 
   const { favorites, visited, schedule, clearAll } = useUserStore();
 
@@ -61,25 +61,22 @@ export default function MyFairScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-white">
-      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-      <SafeTopArea edges={['top']} style={{ backgroundColor: '#FFFFFF' }}>
-        {/* --- HEADER UPDATED --- */}
-        <View className="flex-row items-center justify-between px-5 py-3 border-b border-gray-200">
-          <View className="flex-row items-center">
-            <Image
-              source={require('./assets/vt-logo.png')}
-              style={{ width: 28, height: 28, marginRight: 8 }}
-              resizeMode="contain"
-            />
-            <Text className="text-[22px] font-bold text-gray-900">My Fair</Text>
-          </View>
-          <TouchableOpacity hitSlop={8} onPress={() => {}}>
-            <Feather name="settings" size={20} color="#111827" />
-          </TouchableOpacity>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }} edges={["top", "bottom"]}>
+      <StatusBar barStyle="dark-content" />
+      {/* --- HEADER --- */}
+      <View className="flex-row items-center justify-between px-5 py-3 border-b border-gray-200">
+        <View className="flex-row items-center">
+          <Image
+            source={require('./assets/vt-logo.png')}
+            style={{ width: 28, height: 28, marginRight: 8 }}
+            resizeMode="contain"
+          />
+          <Text className="text-[22px] font-bold text-gray-900">{t('header.myFair')}</Text>
         </View>
-        {/* --- HEADER END --- */}
-      </SafeTopArea>
+        <TouchableOpacity hitSlop={8} onPress={() => setLanguageOpen(true)}>
+          <Feather name="settings" size={20} color="#111827" />
+        </TouchableOpacity>
+      </View>
 
       <ScrollView
         className="flex-1"
@@ -93,15 +90,15 @@ export default function MyFairScreen() {
         {/* Favorites */}
         <SectionHeader
           icon={<Feather name="star" size={18} color="#1E66FF" />}
-          title="Favorites"
+          title={t('myFair.favorites')}
           count={favCompanies.length}
         />
         {favCompanies.length === 0 ? (
           <EmptyState
             icon={<Feather name="star" size={26} color="#9CA3AF" />}
-            title="No favorites yet"
-            caption="Star companies you're interested in to see them here."
-            cta="Explore"
+            title={t('myFair.noFavoritesTitle')}
+            caption={t('myFair.noFavoritesCaption')}
+            cta={t('myFair.exploreCta')}
             onPress={goExploreCompanies}
           />
         ) : (
@@ -121,16 +118,16 @@ export default function MyFairScreen() {
         {/* Visited Booths */}
         <SectionHeader
           icon={<Feather name="map-pin" size={18} color="#1E66FF" />}
-          title="Visited Booths"
+          title={t('myFair.visitedBooths')}
           count={visitedCompanies.length}
           containerClass="mt-6"
         />
         {visitedCompanies.length === 0 ? (
           <EmptyState
             icon={<Feather name="map" size={26} color="#9CA3AF" />}
-            title="No visits"
-            caption="Scan QR codes at company booths to see them here."
-            cta="Explore"
+            title={t('myFair.noVisitsTitle')}
+            caption={t('myFair.noVisitsCaption')}
+            cta={t('myFair.exploreCta')}
             onPress={goExploreCompanies}
           />
         ) : (
@@ -150,16 +147,16 @@ export default function MyFairScreen() {
         {/* My Schedule */}
         <SectionHeader
           icon={<Feather name="calendar" size={18} color="#1E66FF" />}
-          title="My Schedule"
+          title={t('myFair.mySchedule')}
           count={scheduleEvents.length}
           containerClass="mt-6"
         />
         {scheduleEvents.length === 0 ? (
           <EmptyState
             icon={<Feather name="calendar" size={26} color="#9CA3AF" />}
-            title="No events scheduled"
-            caption="Add events and sessions to your schedule to see them here."
-            cta="Browse Events"
+            title={t('myFair.noEventsTitle')}
+            caption={t('myFair.noEventsCaption')}
+            cta={t('myFair.browseEventsCta')}
             onPress={goBrowseCompanies}
           />
         ) : (
@@ -180,12 +177,14 @@ export default function MyFairScreen() {
             <View className="flex-row items-center">
               <Feather name="trash-2" size={16} color="#1E66FF" />
               <Text className="ml-2 text-[15px] font-semibold text-blue-600">
-                Clear All Data
+                {t('myFair.clearAllData')}
               </Text>
             </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <LanguageSheet visible={languageOpen} onClose={() => setLanguageOpen(false)} />
     </SafeAreaView>
   );
 }
@@ -354,7 +353,7 @@ function EventRow({ event }: { event: CompanyEvent }) {
           <View className="h-7 w-7 rounded-lg bg-blue-50 items-center justify-center mr-2">
             <Feather name="calendar" size={16} color="#1E66FF" />
           </View>
-          <Text className="text-[1What's next] font-semibold text-gray-900">
+          <Text className="text-[16px] font-semibold text-gray-900">
             {event.title}
           </Text>
         </View>

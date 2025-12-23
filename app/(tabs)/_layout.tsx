@@ -1,4 +1,5 @@
 // app/(tabs)/_layout.tsx
+import { useI18n } from '@/lib/i18n';
 import { Feather } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
@@ -6,6 +7,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
+  const { t } = useI18n();
   const baseHeight = 60; // visual height for the bar itself
   const bottomPad = Math.max(insets.bottom, 12); // ensure at least 12px padding
 
@@ -38,7 +40,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="treasure-hunt"
         options={{
-          title: 'Hunt',
+          title: t('tabs.hunt'),
           tabBarIcon: ({ color, size }) => (
             <Feather name="grid" size={size} color={color} />
           ),
@@ -47,7 +49,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="search"
         options={{
-          title: 'Search',
+          title: t('tabs.search'),
           tabBarIcon: ({ color, size }) => (
             <Feather name="search" size={size} color={color} />
           ),
@@ -56,7 +58,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="my-fair"
         options={{
-          title: 'My Fair',
+          title: t('tabs.myFair'),
           tabBarIcon: ({ color, size }) => (
             <Feather name="user" size={size} color={color} />
           ),
@@ -65,7 +67,7 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="map"
         options={{
-          title: 'Map',
+          title: t('tabs.map'),
           tabBarIcon: ({ color, size }) => (
             <Feather name="map" size={size} color={color} />
           ),

@@ -29,6 +29,7 @@ type UserState = {
   visited: string[]; 
   schedule: string[]; 
   participantId?: string;
+  language: 'et' | 'en';
   scanned: string[]; 
   pendingScans: { companyId: string; timestamp: number; clientId: string }[];
   
@@ -43,6 +44,7 @@ type UserState = {
   addScan: (companyId: string) => void;
   markScanSynced: (clientId: string) => void;
   clearAll: () => void;
+  setLanguage: (lang: 'et' | 'en') => void;
   
   // Action to generate the list
   initTreasureHunt: () => void; 
@@ -55,6 +57,7 @@ export const useUserStore = create<UserState>()(
       visited: [],
       schedule: [],
       participantId: undefined,
+      language: 'et',
       scanned: [],
       pendingScans: [],
       activeHuntIds: [], // Starts empty
@@ -131,6 +134,9 @@ export const useUserStore = create<UserState>()(
           pendingScans: [],
           activeHuntIds: [], // Reset so we can test reshuffling
         }),
+      setLanguage: (lang: 'et' | 'en') => {
+        set({ language: lang });
+      },
     }),
     {
       name: 'vt-app-storage',

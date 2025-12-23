@@ -1,0 +1,89 @@
+{
+  "header": {
+    "myFair": "Minu mess",
+    "search": "Otsi ettevõtteid"
+  },
+  "myFair": {
+    "favorites": "Lemmikud",
+    "noFavoritesTitle": "Lemmikuid pole",
+    "noFavoritesCaption": "Tähista huvipakkuvaid ettevõtteid, et neid siin näha.",
+    "exploreCta": "Avasta",
+
+    "visitedBooths": "Külastatud boksid",
+    "noVisitsTitle": "Külastusi pole",
+    "noVisitsCaption": "Skanni ettevõtete QR-koode, et näha neid siin.",
+
+    "mySchedule": "Minu kava",
+    "noEventsTitle": "Sündmusi pole kavasse lisatud",
+    "noEventsCaption": "Lisa üritusi ja sessioone oma kavasse, et neid siin näha.",
+    "browseEventsCta": "Sirvi üritusi",
+
+    "clearAllData": "Kustuta kogu andmestik"
+  },
+  "search": {
+    "searchCompanies": "Otsi ettevõtteid",
+    "placeholder": "Otsi ettevõtteid...",
+    "resultsCount": "{count} ettevõtet leitud"
+  },
+  "settings": {
+    "languageTitle": "Keel",
+    "estonian": "Eesti",
+    "english": "Inglise"
+  },
+  "tabs": {
+    "hunt": "Aardejaht",
+    "search": "Otsing",
+    "myFair": "Minu mess",
+    "map": "Kaart"
+  },
+  "treasure": {
+    "title": "Aardejaht",
+    "subtitle": "Skänni oma {total} ettevõtet ja osale loosimises!",
+    "progress": "{scanned}/{total} Kogutud",
+    "button": {
+      "collectMore": "Kogu veel {remaining} punkti",
+      "enterGiveaway": "Osale loosimises",
+      "registered": "Oled registreeritud!"
+    },
+    "alreadyScannedTitle": "Juba skannitud!",
+    "alreadyScannedBody": "Oled selle punkti juba läbinud.",
+    "scanSuccessTitle": "Õnnestus!",
+    "scanSuccessBody": "Oled leidnud: {name}",
+    "notFinishedTitle": "Pole veel valmis!",
+    "notFinishedBody": "Auhinna loosimises osalemiseks pead läbima kõik {total} punkti.",
+    "camera": {
+      "permissionTitle": "Kaamera kasutamiseks on vaja luba",
+      "grantPermission": "Anna luba",
+      "scanPrompt": "Suuna kaamera QR koodile"
+    },
+    "manual": {
+      "placeholder": "Sisesta kood käsitsi...",
+      "ok": "OK",
+      "enterCode": "Sisesta kood või kasuta kaamerat",
+      "codeMismatch": "Kood ei vasta antud ettevõttele"
+    },
+    "winner": {
+      "title": "Palju õnne!",
+      "body": "Oled läbinud kõik punktid! Sisesta oma nimi, et osaleda loosimises.",
+      "nameLabel": "Sinu nimi",
+      "namePlaceholder": "Ees- ja perekonnanimi",
+      "submitLoading": "Saadan...",
+      "submitCta": "Kinnita ja osale",
+      "close": "Sulge"
+    },
+    "error": {
+      "enterNameTitle": "Viga",
+      "enterNameBody": "Palun sisesta oma täisnimi.",
+      "submitTitle": "Viga",
+      "submitBody": "Andmete saatmine ebaõnnestus."
+    },
+    "info": {
+      "alreadyRegisteredTitle": "Info",
+      "alreadyRegisteredBody": "Oled juba registreerunud!"
+    },
+    "success": {
+      "registeredTitle": "Registreeritud!",
+      "registeredBody": "Oled edukalt loosimises kirjas. Edu!"
+    }
+  }
+}
