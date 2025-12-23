@@ -1,0 +1,89 @@
+{
+  "header": {
+    "myFair": "My Fair",
+    "search": "Search Companies"
+  },
+  "myFair": {
+    "favorites": "Favorites",
+    "noFavoritesTitle": "No favorites yet",
+    "noFavoritesCaption": "Star companies you're interested in to see them here.",
+    "exploreCta": "Explore",
+
+    "visitedBooths": "Visited Booths",
+    "noVisitsTitle": "No visits",
+    "noVisitsCaption": "Scan QR codes at company booths to see them here.",
+
+    "mySchedule": "My Schedule",
+    "noEventsTitle": "No events scheduled",
+    "noEventsCaption": "Add events and sessions to your schedule to see them here.",
+    "browseEventsCta": "Browse Events",
+
+    "clearAllData": "Clear All Data"
+  },
+  "search": {
+    "searchCompanies": "Search Companies",
+    "placeholder": "Search companies...",
+    "resultsCount": "{count} companies found"
+  },
+  "settings": {
+    "languageTitle": "Language",
+    "estonian": "Estonian",
+    "english": "English"
+  },
+  "tabs": {
+    "hunt": "Hunt",
+    "search": "Search",
+    "myFair": "My Fair",
+    "map": "Map"
+  },
+  "treasure": {
+    "title": "Treasure Hunt",
+    "subtitle": "Scan {total} companies to enter the giveaway!",
+    "progress": "{scanned}/{total} collected",
+    "button": {
+      "collectMore": "Collect {remaining} more",
+      "enterGiveaway": "Enter giveaway",
+      "registered": "Registered!"
+    },
+    "alreadyScannedTitle": "Already scanned",
+    "alreadyScannedBody": "You've already completed this checkpoint.",
+    "scanSuccessTitle": "Success!",
+    "scanSuccessBody": "You found: {name}",
+    "notFinishedTitle": "Not finished yet",
+    "notFinishedBody": "You must complete all {total} points to enter the draw.",
+    "camera": {
+      "permissionTitle": "Camera permission is required",
+      "grantPermission": "Grant permission",
+      "scanPrompt": "Point the camera at the QR code"
+    },
+    "manual": {
+      "placeholder": "Enter code manually...",
+      "ok": "OK",
+      "enterCode": "Enter a code or use the camera",
+      "codeMismatch": "Code does not match this company"
+    },
+    "winner": {
+      "title": "Congratulations!",
+      "body": "You've completed all points! Enter your name to join the giveaway.",
+      "nameLabel": "Your name",
+      "namePlaceholder": "First and last name",
+      "submitLoading": "Submitting...",
+      "submitCta": "Confirm and enter",
+      "close": "Close"
+    },
+    "error": {
+      "enterNameTitle": "Error",
+      "enterNameBody": "Please enter your full name.",
+      "submitTitle": "Error",
+      "submitBody": "Failed to submit your data."
+    },
+    "info": {
+      "alreadyRegisteredTitle": "Info",
+      "alreadyRegisteredBody": "You're already registered."
+    },
+    "success": {
+      "registeredTitle": "Registered!",
+      "registeredBody": "You're successfully entered. Good luck!"
+    }
+  }
+}
