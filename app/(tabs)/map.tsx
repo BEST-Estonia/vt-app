@@ -3,7 +3,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { useLocalSearchParams } from 'expo-router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Alert,
   Animated,
@@ -228,6 +228,7 @@ export default function MapScreen() {
   const { boothCode } = useLocalSearchParams<{ boothCode?: string }>();
   const [selected, setSelected] = useState<SelectedBoothState | null>(null);
   const [activeSection, setActiveSection] = useState<SectionKey>('fuajee');
+  const [highlightBoothCode, setHighlightBoothCode] = useState<string | null>(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [buttonLayouts, setButtonLayouts] = useState<Record<SectionKey, ButtonLayout>>({} as any);
   const slideAnim = useRef(new Animated.Value(0)).current;
@@ -249,6 +250,8 @@ export default function MapScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedRecent, setScannedRecent] = useState(false);
   const [manualCode, setManualCode] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
 
   // Animate slider when section changes or layouts are measured
   useEffect(() => {
@@ -304,7 +307,20 @@ export default function MapScreen() {
   const boothSize = 19;
 
   const currentMapImage = SECTION_MAPS[activeSection];
-  const currentBooths = SECTION_BOOTHS[activeSection];
+  const currentBooths = SECTION_BOOTHS[activeSection] ?? [];
+
+  const searchableCompanies = useMemo(() => {
+    return companiesSeed.filter((c) => !!c.boothCode);
+  }, []);
+
+  const filteredCompanies = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+    return searchableCompanies
+      .filter((c) => c.name.toLowerCase().includes(q))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 20);
+  }, [searchQuery, searchableCompanies]);
 
   // Helper to clamp a value
   const clamp = (value: number, min: number, max: number) => {
@@ -335,13 +351,16 @@ export default function MapScreen() {
       setActiveSection(foundSection);
       const company = COMPANY_BY_BOOTH_CODE[foundBooth.boothNumber];
       setSelected({ booth: foundBooth, company });
+      setHighlightBoothCode(foundBooth.boothNumber);
     }
   }, [boothCode]);
 
-  // Pulse animation for highlighted booth (based on boothCode param)
+  // Pulse animation for highlighted booth (based on highlightBoothCode)
   useEffect(() => {
-    if (!boothCode) {
-      pulse.setValue(1);
+    // Reset to base scale on every highlight change
+    pulse.setValue(1);
+
+    if (!highlightBoothCode) {
       return;
     }
 
@@ -363,7 +382,6 @@ export default function MapScreen() {
     loop.start();
 
     const timeoutId = setTimeout(() => {
-      // stop pulsing after ~5 seconds
       pulse.stopAnimation(() => {
         pulse.setValue(1);
       });
@@ -371,14 +389,39 @@ export default function MapScreen() {
 
     return () => {
       clearTimeout(timeoutId);
-      loop.stop();
-      pulse.setValue(1);
+      pulse.stopAnimation(() => {
+        pulse.setValue(1);
+      });
     };
-  }, [boothCode, pulse]);
+  }, [highlightBoothCode]);
 
   function selectBooth(booth: BoothData) {
     const company = COMPANY_BY_BOOTH_CODE[booth.boothNumber];
     setSelected({ booth, company });
+    setHighlightBoothCode(booth.boothNumber);
+  }
+
+  function focusCompanyOnMap(company: Company) {
+    if (!company.boothCode) return;
+
+    const code = company.boothCode;
+    let foundSection: SectionKey | null = null;
+    let foundBooth: BoothData | null = null;
+
+    for (const sectionKey of Object.keys(SECTION_BOOTHS) as SectionKey[]) {
+      const booth = SECTION_BOOTHS[sectionKey].find((b) => b.boothNumber === code);
+      if (booth) {
+        foundSection = sectionKey;
+        foundBooth = booth;
+        break;
+      }
+    }
+
+    if (foundSection && foundBooth) {
+      setActiveSection(foundSection);
+      setSelected({ booth: foundBooth, company });
+      setHighlightBoothCode(foundBooth.boothNumber);
+    }
   }
 
   // Pan and pinch gesture handling using PanResponder
@@ -511,6 +554,38 @@ export default function MapScreen() {
         backgroundColor: '#fff',
       }}
     >
+      {/* Top search bar trigger */}
+      <View
+        style={{
+          position: 'absolute',
+          top: 50,
+          left: 16,
+          right: 16,
+          zIndex: 30,
+        }}
+      >
+        <Pressable
+          onPress={() => setSearchOpen(true)}
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            paddingHorizontal: 14,
+            paddingVertical: 11,
+            borderRadius: 999,
+            backgroundColor: 'rgba(255, 255, 255, 0.96)',
+            borderWidth: 1,
+            borderColor: '#1E66FF',
+            shadowColor: '#1E66FF',
+            shadowOpacity: 0.25,
+            shadowRadius: 10,
+            shadowOffset: { width: 0, height: 3 },
+          }}
+        >
+          <Text style={{ color: '#5b6f9fff', fontSize: 14, fontWeight: '500' }}>
+            Otsing
+          </Text>
+        </Pressable>
+      </View>
       {/* Zoomable map container (custom pan + pinch) */}
       <View
         style={{
@@ -544,7 +619,7 @@ export default function MapScreen() {
           />
 
           {/* Booth markers overlay */}
-          {currentBooths.map((booth) => {
+          {(currentBooths ?? []).map((booth) => {
             const company = COMPANY_BY_BOOTH_CODE[booth.boothNumber];
             // Kohvikusaali, aula ja tudengimaja boksid on suuremad
             const baseSize =
@@ -552,7 +627,7 @@ export default function MapScreen() {
                 ? 22
                 : boothSize;
 
-            const isHighlighted = boothCode === booth.boothNumber;
+            const isHighlighted = highlightBoothCode === booth.boothNumber;
             const size = baseSize;
 
             const left = booth.x * width - size / 2;
@@ -576,7 +651,7 @@ export default function MapScreen() {
                   justifyContent: 'center',
                   alignItems: 'center',
                   overflow: 'hidden',
-                  transform: isHighlighted ? [{ scale: pulse }] : undefined,
+                  transform: [{ scale: isHighlighted ? pulse : 1 }],
                 }}
               >
                 <Pressable
@@ -704,6 +779,113 @@ export default function MapScreen() {
         </View>
       </View>
 
+      {/* Company search overlay */}
+      {searchOpen && (
+        <View
+          style={{
+            position: 'absolute',
+            top: 40,
+            left: 0,
+            right: 0,
+            paddingHorizontal: 16,
+            paddingTop: 8,
+            zIndex: 40,
+          }}
+        >
+          <View
+            style={{
+              borderRadius: 16,
+              backgroundColor: 'rgba(255,255,255,0.98)',
+              padding: 12,
+              maxHeight: 360,
+              shadowColor: '#000',
+              shadowOpacity: 0.12,
+              shadowRadius: 10,
+              shadowOffset: { width: 0, height: 4 },
+            }}
+          >
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 8,
+              }}
+            >
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    borderRadius: 999,
+                    backgroundColor: '#F3F4F6',
+                    paddingHorizontal: 10,
+                    paddingVertical: 4,
+                  }}
+                >
+                  <TextInput
+                    value={searchQuery}
+                    onChangeText={setSearchQuery}
+                    placeholder="Otsi ettevõtet nime järgi..."
+                    placeholderTextColor="#9CA3AF"
+                    style={{
+                      flex: 1,
+                      paddingVertical: 4,
+                      color: '#111827',
+                      fontSize: 14,
+                    }}
+                    autoFocus
+                  />
+                  {searchQuery.length > 0 && (
+                    <Pressable
+                      onPress={() => setSearchQuery('')}
+                      style={{ paddingHorizontal: 4, paddingVertical: 2 }}
+                    >
+                      <Text style={{ color: '#6B7280', fontSize: 13 }}>×</Text>
+                    </Pressable>
+                  )}
+                </View>
+              <Pressable
+                onPress={() => {
+                  setSearchOpen(false);
+                  setSearchQuery('');
+                }}
+                style={{ marginLeft: 8, padding: 4 }}
+              >
+                <Text style={{ color: '#6B7280', fontSize: 13 }}>Sulge</Text>
+              </Pressable>
+            </View>
+
+            {filteredCompanies.length === 0 ? (
+              <Text style={{ color: '#9CA3AF', fontSize: 13 }}>Tulemusi ei leitud</Text>
+            ) : (
+              <View>
+                {filteredCompanies.map((c) => (
+                  <Pressable
+                    key={c.id}
+                    onPress={() => {
+                      focusCompanyOnMap(c);
+                      setSearchOpen(false);
+                    }}
+                    style={{
+                      paddingVertical: 8,
+                      borderBottomWidth: 0.5,
+                      borderBottomColor: '#E5E7EB',
+                    }}
+                  >
+                    <Text style={{ color: '#111827', fontSize: 14, fontWeight: '500' }}>
+                      {c.name}
+                    </Text>
+                    {c.boothCode && (
+                      <Text style={{ color: '#6B7280', fontSize: 12 }}>Boks {c.boothCode}</Text>
+                    )}
+                  </Pressable>
+                ))}
+              </View>
+            )}
+          </View>
+        </View>
+      )}
+
       {/* Booth info modal */}
       <Modal visible={!!selected} transparent animationType="fade">
         <Pressable
@@ -827,8 +1009,8 @@ export default function MapScreen() {
 
             {/* Action buttons */}
             <View style={{ flexDirection: 'row', gap: 12, marginTop: 16 }}>
-              {/* QR Scanner button - only show if company exists */}
-              {selected?.company && (
+              {/* QR Scanner button – ainult aardejahi firmadele */}
+              {selected?.company?.isTreasureHunt && (
                 <Pressable
                   onPress={() => {
                     setScanCompany(selected.company!);
@@ -853,7 +1035,7 @@ export default function MapScreen() {
                 </Pressable>
               )}
 
-              {/* Close button */}
+              {/* Sulge nupp – kõigile firmadele */}
               <Pressable
                 onPress={() => setSelected(null)}
                 style={{
