@@ -67,7 +67,7 @@ export default function MyFairScreen() {
       <View className="flex-row items-center justify-between px-5 py-3 border-b border-gray-200">
         <View className="flex-row items-center">
           <Image
-            source={require('./assets/vt-logo.png')}
+            source={require('./_assets/vt-logo.png')}
             style={{ width: 28, height: 28, marginRight: 8 }}
             resizeMode="contain"
           />

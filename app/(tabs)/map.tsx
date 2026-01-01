@@ -1,4 +1,5 @@
 // app/(tabs)/map.tsx
+import { companiesSeed, Company } from '@/data/companies';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Asset } from 'expo-asset';
 import { CameraView, useCameraPermissions } from 'expo-camera';
@@ -18,7 +19,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { companiesSeed, Company } from '../../data/companies';
 
 type SectionKey = 'fuajee' | 'aula' | 'tudengimaja' | 'kohvikusaal';
 

@@ -1,6 +1,6 @@
-// app/(tabs)/data/treasureHuntCompanies.ts
-import { logos } from '../app/(tabs)/data/logos';
+// data/treasureHuntCompanies.ts
 import { Company } from './companies';
+import { logos } from './logos';
 
 export const treasureHuntCompanies: Company[] = [
   {

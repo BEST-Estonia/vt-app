@@ -1,5 +1,5 @@
 // data/companies.ts
-import { logos } from '@/app/(tabs)/data/logos';
+import { logos } from './logos';
 import { treasureHuntCompanies } from './treasureHuntCompanies';
 
 export type CompanyLinkIcon = 'globe' | 'linkedin' | 'briefcase';
