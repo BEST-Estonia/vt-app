@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "vt-app",
+    "name": "Võti Tulevikku",
     "slug": "vt-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,7 +9,11 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.itjuht.vtapp",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan QR codes for the fair's Treasure Hunt game."
+      }
     },
     "android": {
       "adaptiveIcon": {
