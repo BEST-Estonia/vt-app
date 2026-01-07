@@ -12,7 +12,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.itjuht.vtapp",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app uses the camera to scan QR codes for the fair's Treasure Hunt game."
+        "NSCameraUsageDescription": "This app uses the camera to scan QR codes for the fair's Treasure Hunt game.",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
