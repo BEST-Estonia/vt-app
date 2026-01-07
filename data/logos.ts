@@ -46,7 +46,7 @@ import nortalLogoImg from '../app/(tabs)/_assets/nortal-logo.jpg';
 import patendiAmetLogoImg from '../app/(tabs)/_assets/patendiamet-logo.png';
 import pipedriveLogoImg from '../app/(tabs)/_assets/pipedrive-logo.png';
 import playtechLogoImg from '../app/(tabs)/_assets/playtech-logo.png';
-import rahapesuandmebürooLogoImg from '../app/(tabs)/_assets/rahapesuandmebüroo-logo.png';
+import rahapesuandmebürooLogoImg from '../app/(tabs)/_assets/rahapesuandmeburoo-logo.png';
 import railBalticLogoImg from '../app/(tabs)/_assets/railbaltic-logo.png';
 import rikLogoImg from '../app/(tabs)/_assets/rik-logo.png';
 import ruukkiLogoImg from '../app/(tabs)/_assets/ruukki-logo.png';
