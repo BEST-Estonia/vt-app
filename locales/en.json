@@ -8,16 +8,13 @@
     "noFavoritesTitle": "No favorites yet",
     "noFavoritesCaption": "Star companies you're interested in to see them here.",
     "exploreCta": "Explore",
-
     "visitedBooths": "Visited Booths",
     "noVisitsTitle": "No visits",
     "noVisitsCaption": "Scan QR codes at company booths to see them here.",
-
     "mySchedule": "My Schedule",
     "noEventsTitle": "No events scheduled",
     "noEventsCaption": "Add events and sessions to your schedule to see them here.",
     "browseEventsCta": "Browse Events",
-
     "clearAllData": "Clear All Data"
   },
   "search": {
@@ -52,8 +49,8 @@
     "notFinishedTitle": "Not finished yet",
     "notFinishedBody": "You must complete all {total} points to enter the draw.",
     "camera": {
-      "permissionTitle": "Camera permission is required",
-      "grantPermission": "Grant permission",
+      "permissionTitle": "To scan company QR codes, the app needs access to your camera. Tap 'Continue' to proceed.",
+      "grantPermission": "Continue",
       "scanPrompt": "Point the camera at the QR code"
     },
     "manual": {

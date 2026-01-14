@@ -46,7 +46,7 @@ import nortalLogoImg from '../app/(tabs)/_assets/nortal-logo.jpg';
 import patendiAmetLogoImg from '../app/(tabs)/_assets/patendiamet-logo.png';
 import pipedriveLogoImg from '../app/(tabs)/_assets/pipedrive-logo.png';
 import playtechLogoImg from '../app/(tabs)/_assets/playtech-logo.png';
-import rahapesuandmebürooLogoImg from '../app/(tabs)/_assets/rahapesuandmeburoo-logo.png';
+import rahapesuandmeburooLogoImg from '../app/(tabs)/_assets/rahapesuandmeburoo-logo.png';
 import railBalticLogoImg from '../app/(tabs)/_assets/railbaltic-logo.png';
 import rikLogoImg from '../app/(tabs)/_assets/rik-logo.png';
 import ruukkiLogoImg from '../app/(tabs)/_assets/ruukki-logo.png';
@@ -61,15 +61,15 @@ import swedbankLogoImg from '../app/(tabs)/_assets/swedbank.png';
 import tallinnalennujaamLogoImg from '../app/(tabs)/_assets/tallinna-lennujaam-logo.png';
 import tallinnvesiLogoImg from '../app/(tabs)/_assets/tallinnvesi-logo.png';
 import tammerLogoImg from '../app/(tabs)/_assets/tammer-logo.png';
-import tartuülikoolLogoImg from '../app/(tabs)/_assets/tartuülikool-logo.png';
+import tartuulikoolLogoImg from '../app/(tabs)/_assets/tartuulikool-logo.png';
 import techGroupLogoImg from '../app/(tabs)/_assets/techGroup-logo.png';
 import teliaLogoImg from '../app/(tabs)/_assets/telia-logo.png';
 import threodSystemsLogoImg from '../app/(tabs)/_assets/threodsystems-logo.png';
 import traffestLogoImg from '../app/(tabs)/_assets/traffest-logo.png';
 import trev2LogoImg from '../app/(tabs)/_assets/trev2-logo.jpg';
 import utilitasLogoImg from '../app/(tabs)/_assets/utilitas-logo.png';
+import valisluureametLogoImg from '../app/(tabs)/_assets/valisluureamet-logo.png';
 import verstonLogoImg from '../app/(tabs)/_assets/verston-logo.jpg';
-import välisluureametLogoImg from '../app/(tabs)/_assets/välisluureamet-logo.png';
 
 export const logos = {
   // --- Treasure Hunt Companies ---
@@ -77,7 +77,7 @@ export const logos = {
   cariadLogo: cariadLogoImg,
   gunvorServicesLogo: gunvorServicesLogoImg,
   ABBLogo: abbLogoImg,
-  TRAFFESTOÜLogo: traffestLogoImg,
+  TRAFFESTOULogo: traffestLogoImg,
   eestiRaudteeLogo: eestiRaudteeLogoImg,
   southwesternAdvantageLogo: southwesternLogoImg,
   pipedriveLogo: pipedriveLogoImg,
@@ -115,7 +115,7 @@ export const logos = {
   ericssonLogo: ericssonLogoImg,
   playtechLogo: playtechLogoImg,
   infragreenLogo: infragreenLogoImg,
-  rahapesuandmebürooLogo: rahapesuandmebürooLogoImg,
+  rahapesuandmeburooLogo: rahapesuandmeburooLogoImg,
   kaitseressursideametLogo: kaitseressursideametLogoImg,
   tammerLogo: tammerLogoImg,
   eleringLogo: eleringLogoImg,
@@ -131,7 +131,7 @@ export const logos = {
   keskkonnaagentuurLogo: keskkonnaagentuurLogoImg,
   shorelinkLogo: shorelinkLogoImg,
   bigbankLogo: bigbankLogoImg,
-  välisluureametLogo: välisluureametLogoImg,
+  valisluureametLogo: valisluureametLogoImg,
   ernstLogo: ernstLogoImg,
   lennuliiklusteeninduseLogo: lennuliiklusteeninduse,
   fujitsuLogo: fujitsuLogoImg,
@@ -141,7 +141,7 @@ export const logos = {
   geniussportsLogo: geniussportsLogoImg,
   scanfilLogo: scanfilLogoImg,
   aqlasertoolLogo: aqlasertoolLogoImg,
-  tartuülikoolLogo: tartuülikoolLogoImg,
+  tartuulikoolLogo: tartuulikoolLogoImg,
   ruukkiLogo: ruukkiLogoImg,
   tallinnalennujaamLogo: tallinnalennujaamLogoImg,
   eisLogo: eisLogoImg,

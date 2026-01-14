@@ -8,6 +8,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Alert,
   FlatList,
+  Linking,
   Modal,
   ScrollView,
   StyleSheet,
@@ -128,12 +129,6 @@ export default function TreasureHuntScreen() {
         );
 
       if (error) {
-        console.log('[treasure] submit error:', {
-          code: (error as any).code,
-          message: (error as any).message,
-          details: (error as any).details,
-          hint: (error as any).hint,
-        });
         Alert.alert(
           t('treasure.error.submitTitle'),
           `${t('treasure.error.submitBody')}${(error as any).message ? `\n${(error as any).message}` : ''}`
@@ -146,14 +141,13 @@ export default function TreasureHuntScreen() {
         { text: 'OK', onPress: () => setWinnerModalVisible(false) }
       ]);
     } catch (e) {
-      console.log('[treasure] submit error (exception):', e);
       Alert.alert(t('treasure.error.submitTitle'), t('treasure.error.submitBody'));
     } finally {
       setIsSubmitting(false);
     }
   };
 
-    let buttonText = t('treasure.button.collectMore', { remaining });
+  let buttonText = t('treasure.button.collectMore', { remaining });
   let buttonIcon = "qr-code-scanner";
   let buttonBg = "bg-gray-500";
   let handleMainButtonPress = () => {
@@ -161,7 +155,7 @@ export default function TreasureHuntScreen() {
   };
 
   if (isFinished) {
-        if (hasRegisteredLocal) {
+      if (hasRegisteredLocal) {
           buttonText = t('treasure.button.registered');
           buttonIcon = "check-circle";
           buttonBg = "bg-blue-600";
@@ -187,6 +181,15 @@ export default function TreasureHuntScreen() {
     );
   };
 
+  // Helper function to handle the permission button click
+  const handlePermissionRequest = async () => {
+    if (permission?.canAskAgain) {
+      await requestPermission();
+    } else {
+      Linking.openSettings();
+    }
+  };
+
   if (!permission) return <View className="flex-1 bg-white" />;
 
   return (
@@ -197,7 +200,6 @@ export default function TreasureHuntScreen() {
             <MaterialIcons name="card-giftcard" size={40} color="#3B82F6" />
           </View>
           <Text className="text-2xl font-bold text-primary mt-3">{t('treasure.title')}</Text>
-          {/* DYNAMIC TEXT HERE */}
           <Text className="text-sm text-text-secondary mt-1 text-center">{t('treasure.subtitle', { total })}</Text>
 
           <View className="flex-row items-center mt-3 bg-blue-50 px-4 py-2 rounded-full self-center">
@@ -236,7 +238,6 @@ export default function TreasureHuntScreen() {
         </View>
       </ScrollView>
       
-      {/* (MODALS are identical to previous version, omitted for brevity but should be kept in your file) */}
       <Modal visible={modalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)} presentationStyle="pageSheet">
         <View className="flex-1 bg-black">
           <View className="absolute top-4 left-4 z-10">
@@ -246,9 +247,21 @@ export default function TreasureHuntScreen() {
           </View>
           <View className="flex-1 items-center justify-center">
              {!permission.granted ? (
-               <View className="p-6 bg-white rounded-xl items-center mx-4">
-                 <Text className="mb-4 text-center text-lg">{t('treasure.camera.permissionTitle')}</Text>
-                 <TouchableOpacity onPress={requestPermission} className="bg-blue-600 px-6 py-3 rounded-lg"><Text className="text-white font-semibold">{t('treasure.camera.grantPermission')}</Text></TouchableOpacity>
+               <View className="p-8 bg-white rounded-3xl items-center mx-6 shadow-2xl">
+                 <View className="bg-blue-50 p-4 rounded-full mb-4">
+                    <MaterialIcons name="photo-camera" size={32} color="#2563eb" />
+                 </View>
+                 <Text className="mb-6 text-center text-gray-800 text-lg leading-6 font-medium">
+                   {t('treasure.camera.permissionTitle')}
+                 </Text>
+                 <TouchableOpacity 
+                   onPress={handlePermissionRequest} 
+                   className="bg-blue-600 w-full py-4 rounded-2xl shadow-sm active:bg-blue-700"
+                 >
+                   <Text className="text-white text-center font-bold text-lg">
+                     {t('treasure.camera.grantPermission')}
+                   </Text>
+                 </TouchableOpacity>
                </View>
              ) : (
                <CameraView style={StyleSheet.absoluteFillObject} facing="back" onBarcodeScanned={scannedRecent ? undefined : handleBarCodeScanned} />
@@ -270,7 +283,7 @@ export default function TreasureHuntScreen() {
         <View className="flex-1 bg-black/60 items-center justify-center p-4">
           <View className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-xl">
             <View className="items-center mb-5">
-              <View className="h-16 w-16 bg-green-100 rounded-full items-center justify-center mb-3"><MaterialIcons name="emoji-events" size={36} color="#16a34a" /></View>
+              <div className="h-16 w-16 bg-green-100 rounded-full items-center justify-center mb-3"><MaterialIcons name="emoji-events" size={36} color="#16a34a" /></div>
               <Text className="text-2xl font-bold text-center text-gray-900">{t('treasure.winner.title')}</Text>
               <Text className="text-gray-600 text-center mt-2 px-2">{t('treasure.winner.body')}</Text>
             </View>

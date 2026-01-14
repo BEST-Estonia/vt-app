@@ -8,16 +8,13 @@
     "noFavoritesTitle": "Lemmikuid pole",
     "noFavoritesCaption": "Tähista huvipakkuvaid ettevõtteid, et neid siin näha.",
     "exploreCta": "Avasta",
-
     "visitedBooths": "Külastatud boksid",
     "noVisitsTitle": "Külastusi pole",
     "noVisitsCaption": "Skanni ettevõtete QR-koode, et näha neid siin.",
-
     "mySchedule": "Minu kava",
     "noEventsTitle": "Sündmusi pole kavasse lisatud",
     "noEventsCaption": "Lisa üritusi ja sessioone oma kavasse, et neid siin näha.",
     "browseEventsCta": "Sirvi üritusi",
-
     "clearAllData": "Kustuta kogu andmestik"
   },
   "search": {
@@ -52,8 +49,8 @@
     "notFinishedTitle": "Pole veel valmis!",
     "notFinishedBody": "Auhinna loosimises osalemiseks pead läbima kõik {total} punkti.",
     "camera": {
-      "permissionTitle": "Kaamera kasutamiseks on vaja luba",
-      "grantPermission": "Anna luba",
+      "permissionTitle": "QR koodide skännimiseks on vaja kaamera luba. Vajuta 'Edasi', et jätkata.",
+      "grantPermission": "Edasi",
       "scanPrompt": "Suuna kaamera QR koodile"
     },
     "manual": {

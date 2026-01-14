@@ -16,6 +16,12 @@
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "appleId": "nadimmetwalli@gmail.com",
+        "ascAppId": "6757499925",
+        "appleTeamId": "P7JSMJ9ZH9"
+      }
+    }
   }
 }
