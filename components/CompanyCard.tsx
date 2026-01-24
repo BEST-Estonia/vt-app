@@ -1,11 +1,61 @@
 // app/components/CompanyCard.tsx
-import type { Company } from '@/data/companies';
-import { MaterialIcons } from '@expo/vector-icons';
-import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import type { Company } from "@/data/companies";
+import { useI18n } from "@/lib/i18n";
+import { MaterialIcons } from "@expo/vector-icons";
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
-function Tag({ label, type }: { label: string; type: 'blue' | 'gray' }) {
-  if (type === 'blue') {
+// Industry and hiring type translations
+const INDUSTRY_TRANSLATIONS = {
+  en: {
+    Technology: "Technology",
+    Finance: "Finance",
+    Healthcare: "Healthcare",
+    Consulting: "Consulting",
+    Engineering: "Engineering",
+    Energy: "Energy",
+    Retail: "Retail",
+    Education: "Education",
+    Transportation: "Transportation",
+    Government: "Government",
+    Construction: "Construction",
+    Manufacturing: "Manufacturing",
+    Tourism: "Tourism",
+    Other: "Other",
+  },
+  et: {
+    Technology: "Tehnoloogia",
+    Finance: "Finants",
+    Healthcare: "Tervishoiu",
+    Consulting: "Konsulteerimine",
+    Engineering: "Tehisehitus",
+    Energy: "Energia",
+    Retail: "Jaemüük",
+    Education: "Haridus",
+    Transportation: "Transport",
+    Government: "Valitsus",
+    Construction: "Ehitus",
+    Manufacturing: "Tootmine",
+    Tourism: "Turisim",
+    Other: "Muu",
+  },
+};
+
+const HIRING_TRANSLATIONS = {
+  en: {
+    Internship: "Internship",
+    "Full-time": "Full-time",
+    Graduate: "Graduate",
+  },
+  et: {
+    Internship: "Praktika",
+    "Full-time": "Täiskohaga",
+    Graduate: "Magistrant",
+  },
+};
+
+function Tag({ label, type }: { label: string; type: "blue" | "gray" }) {
+  if (type === "blue") {
     return (
       <View className="mr-2 mb-2 rounded-full bg-blue-50 px-2.5 py-1">
         <Text className="text-[12px] font-medium text-blue-700">{label}</Text>
@@ -37,7 +87,8 @@ export default function CompanyCard({
   compact = false,
   showBoothCode = true,
 }: Props) {
-  
+  const { lang } = useI18n();
+
   // --- COMPACT VIEW (The Carousel Items) ---
   if (compact) {
     return (
@@ -48,10 +99,8 @@ export default function CompanyCard({
         style={{ width: 140 }}
       >
         <View className="bg-white rounded-2xl p-4 items-center shadow-sm border border-gray-100">
-          
           {/* Logo Container Wrapper for positioning Checkmark */}
           <View className="relative mb-3">
-            
             {/* The Logo Circle */}
             <View
               style={{ width: 80, height: 80 }}
@@ -60,7 +109,7 @@ export default function CompanyCard({
               {company.localLogo ? (
                 <Image
                   source={company.localLogo}
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: "100%", height: "100%" }}
                   resizeMode="contain"
                 />
               ) : (
@@ -72,9 +121,7 @@ export default function CompanyCard({
 
             {/* Checkmark - Moved OUTSIDE the overflow-hidden view so it floats on top */}
             {scanned && (
-              <View 
-                className="absolute -top-1 -right-1 z-10 bg-white rounded-full p-0.5 shadow-sm"
-              >
+              <View className="absolute -top-1 -right-1 z-10 bg-white rounded-full p-0.5 shadow-sm">
                 <View className="h-7 w-7 rounded-full bg-green-600 items-center justify-center">
                   <MaterialIcons name="check" size={16} color="white" />
                 </View>
@@ -88,7 +135,7 @@ export default function CompanyCard({
           >
             {company.name}
           </Text>
-          
+
           {showBoothCode && company.boothCode ? (
             <Text className="text-xs text-gray-500 mt-1 font-medium">
               {company.boothCode}
@@ -111,13 +158,11 @@ export default function CompanyCard({
           {/* Logo Column */}
           <View className="mr-3">
             <View className="relative">
-              <View
-                className="h-14 w-14 rounded-xl overflow-hidden bg-white items-center justify-center border border-gray-200 p-1.5"
-              >
+              <View className="h-14 w-14 rounded-xl overflow-hidden bg-white items-center justify-center border border-gray-200 p-1.5">
                 {company.localLogo ? (
                   <Image
                     source={company.localLogo}
-                    style={{ width: '100%', height: '100%' }}
+                    style={{ width: "100%", height: "100%" }}
                     resizeMode="contain"
                   />
                 ) : (
@@ -151,23 +196,42 @@ export default function CompanyCard({
                 hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
               >
                 <MaterialIcons
-                  name={company.isFavorite ? 'star' : 'star-border'}
+                  name={company.isFavorite ? "star" : "star-border"}
                   size={24}
-                  color={company.isFavorite ? '#F59E0B' : '#9CA3AF'}
+                  color={company.isFavorite ? "#F59E0B" : "#9CA3AF"}
                 />
               </TouchableOpacity>
             </View>
 
-            <Text className="mb-3 text-[14px] leading-5 text-gray-600" numberOfLines={2}>
-              {company.description}
+            <Text
+              className="mb-3 text-[14px] leading-5 text-gray-600"
+              numberOfLines={2}
+            >
+              {company.description[lang]}
             </Text>
 
             <View className="flex-row flex-wrap gap-2">
               {company.industries.slice(0, 2).map((tag, idx) => (
-                <Tag key={`ind-${idx}`} label={tag} type="blue" />
+                <Tag
+                  key={`ind-${idx}`}
+                  label={
+                    INDUSTRY_TRANSLATIONS[lang][
+                      tag as keyof (typeof INDUSTRY_TRANSLATIONS)["en"]
+                    ] || tag
+                  }
+                  type="blue"
+                />
               ))}
               {company.hiringTypes.slice(0, 1).map((tag, idx) => (
-                <Tag key={`hire-${idx}`} label={tag} type="gray" />
+                <Tag
+                  key={`hire-${idx}`}
+                  label={
+                    HIRING_TRANSLATIONS[lang][
+                      tag as keyof (typeof HIRING_TRANSLATIONS)["en"]
+                    ] || tag
+                  }
+                  type="gray"
+                />
               ))}
             </View>
           </View>

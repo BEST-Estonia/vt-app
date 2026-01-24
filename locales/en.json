@@ -27,6 +27,28 @@
     "estonian": "Estonian",
     "english": "English"
   },
+  "industries": {
+    "Technology": "Technology",
+    "Finance": "Finance",
+    "Healthcare": "Healthcare",
+    "Consulting": "Consulting",
+    "Engineering": "Engineering",
+    "Energy": "Energy",
+    "Retail": "Retail",
+    "Education": "Education",
+    "Transportation": "Transportation",
+    "Government": "Government",
+    "Construction": "Construction",
+    "Manufacturing": "Manufacturing",
+    "Tourism": "Tourism",
+    "Other": "Other"
+  },
+  "hiringTypes": {
+    "Internship": "Internship",
+    "Full-time": "Full-time",
+    "Part-time": "Part-time",
+    "Graduate": "Graduate"
+  },
   "tabs": {
     "hunt": "Hunt",
     "search": "Search",

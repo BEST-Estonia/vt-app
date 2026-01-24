@@ -27,6 +27,28 @@
     "estonian": "Eesti",
     "english": "Inglise"
   },
+  "industries": {
+    "Technology": "Tehnoloogia",
+    "Finance": "Majandus",
+    "Healthcare": "Tervishoiu",
+    "Consulting": "Konsulteerimine",
+    "Engineering": "Tehisehitus",
+    "Energy": "Energia",
+    "Retail": "Jaemüük",
+    "Education": "Haridus",
+    "Transportation": "Transport",
+    "Government": "Valitsus",
+    "Construction": "Ehitus",
+    "Manufacturing": "Tootmine",
+    "Tourism": "Turisim",
+    "Other": "Muu"
+  },
+  "hiringTypes": {
+    "Internship": "Praktika",
+    "Full-time": "Täiskohaga",
+    "Part-time": "Osalise tööajaga",
+    "Graduate": "Magistrant"
+  },
   "tabs": {
     "hunt": "Aardejaht",
     "search": "Otsing",
