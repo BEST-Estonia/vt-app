@@ -100,15 +100,31 @@ export const COMPANY_DESCRIPTIONS = {
 
     "73": "Ehitusettevõte.",
     "th-1": "Osale meie aardejahis!",
-    "th-2": "Autotööstuse tarkvara ja tehnoloogia",
+
+    "th-2":
+      "CARIAD Estonia on Volkswageni grupi tarkvaraettevõtte CARIAD ettevõte. CARIAD aitab Volkswageni grupil kujuneda globaalseks autotehnoloogia eestvedajaks, ehitades tarkvaraplatvorme ja digitaalseid teenuseid sellistele ikoonilistele brändidele nagu Audi, Volkswagen ja Porche. CARIADil on tarkvaraettevõtted Saksamaal, USAs, Hiinas, Eestis ja Indias, kus ühtekokku ligi 5000 eksperti töötavad selle nimel, et autosõidukogemus muutuks kõigile veel turvalisemaks, jätkusuutlikumas ja mugavamaks. \n\nCARIAD Estonia panustab CARIADi missiooni ja eesmärkidesse kahe ärisuunaga. Ettevõte keskendub CARIADi arendatud digitaalsete teenuste stabiilse toimimise tagamisele, neid teenuseid kasutavad igapäevaselt miljonid Volkswagen grupi brändide kliendid üle terve maailma. CARIAD Estonia rahvusvaheline IT spetsialistide meeskond koosneb teiste seas 24/7 IT tuge pakkuvatest inseneridest, tarkvaraarendjatest, IT operatsioonide spetsialisidest, Site Reliability inseneridest. CARIAD Estonia pakub CARIADi grupile tuge veel teiste globaalsete tehnoloogiaettevõtetega koostöö arendamisel, vastutades väljaspool Saksamaad asuvate CARIADi grupi tütarettevõtete haldamise eest.",
+
     "th-3": "Globaalne energiakauplemise",
     "th-4": "Jõu ja automatiseerimise tehnoloogiad",
-    "th-5": "Veoliikluse juhtimine",
-    "th-6": "Inseneeria ja ehitus",
-    "th-7": "Konsulteerimine ja haridus",
-    "th-8": "Müügi CRM ja konveieri juhtimine",
-    "th-9": "Audit, maksude ja konsultatsioon",
-    "th-10": "Üks suurimaid tööstushoiusid Baltikumis",
+
+    "th-5":
+      "TRAFFEST on Eesti juhtiv intelligentsete transpordisüsteemide (ITS) ja tänavavalgustuse arendaja, ehitaja ning hooldaja. Oleme valdkonnas tegutsenud üle 34 aasta, pakkudes liiklejatele nutikaid ja kvaliteetseid lahendusi üle kogu Eesti.",
+
+    "th-6":
+      "Eesti Raudtee on raudteetaristu ettevõtte, kust töötab 700 erineva valdkonna professionaali. Meil on väärikas ajalugu ja ees põnev ning ambitsioonikas tulevik. Usume, et läbi meie tegevuse saame kujundada paremat ning rohelisemat tulevikku nii reisijatele, kaubavedajatele kui ka keskkonnale. Meie töötajaid ühendab suur pühendumus ja soov teha suuri asju suure mõjuga.",
+
+    "th-7":
+      "Southwestern Advantage on USA otsemüügifirma, kus on juba aastast 1868 pakutud üliõpilastele suvist võimalust saada oma ala tipptegijate poolt põhjalik ettevõtlus- ja müügikoolitus ning seejärel veeta suvi Ameerikas reisides, ukselt uksele hariduslikke raamatuid müües ning õpinguteks raha kogudes.",
+
+    "th-8":
+      "Founded in Estonia in 2010, Pipedrive is an AI-first sales CRM designed to help small businesses grow. With intelligent automation and powerful insights, Pipedrive empowers teams to close deals faster and build stronger customer relationships. Today, over 100,000 companies worldwide trust Pipedrive to drive their business success. What started as a small startup has grown into a global company with 10 offices around the world. In 2020, Pipedrive became Estonia’s fifth unicorn following an investment led by Vista Equity Partners.",
+
+    "th-9":
+      "KPMG. Make the Difference. \n\nKPMG on ülemaailmne auditi-, õigus-, maksu- ja ärinõustamisteenuseid pakkuvate ettevõtete võrgustik.",
+
+    "th-10":
+      "BLRT Grupp on Läänemere regiooni üks suurimaid tööstuskontserne. \n\nTäna on BLRT Grupp koondanud oma katuse alla üle 50 tütarettevõtte, mis arendavad aktiivselt oma tegevust Eesti, Läti, Leedu, Poola, Ukraina, Soome ja Norra turul.",
+
     "th-11": "Üldehituste ja projektijuhtimise",
     "th-12": "Siseminsteriaumi infotehnoloogia- ja arenduskeskus",
     "th-13": "Inseneeriburoo",
@@ -215,15 +231,30 @@ export const COMPANY_DESCRIPTIONS = {
 
     "73": "Construction company.",
     "th-1": "Participate in our treasure hunt!",
-    "th-2": "Automotive software & technology",
+    "th-2":
+      "CARIAD Estonia is part of CARIAD, the automotive software company of the Volkswagen Group. Building automotive software platforms and digital customer functions for iconic brands like Audi, Volkswagen and Porsche, CARIAD supports the Volkswagen Group in becoming the global automotive tech driver. CARIAD has software centers in Germany, the USA, China, Estonia and India, where around 5,000 experts work on making the automotive experience safer, more sustainable and more comfortable for everyone. \n\nCARIAD Estonia contributes to the mission and goals of CARIAD with two core business areas. It is maintaining operational stability of digital services developed by CARIAD that are used by millions of Volkswagen Group’s connected customers worldwide. The international team of IT experts at CARIAD Estonia consists of 24/7 Support Engineers, DevOps Engineers, Operations Engineers and Site Reliability Engineers among others. CARIAD Estonia also supports the CARIAD Group in partnering with other tech companies globally in the role of shareholding entity for non-German CARIAD subsidiaries.",
+
     "th-3": "Global energy trading",
     "th-4": "Power and automation technologies",
-    "th-5": "Traffic management",
-    "th-6": "Engineering and construction",
-    "th-7": "Consulting and education",
-    "th-8": "Sales CRM and pipeline management",
-    "th-9": "Audit, Tax and Advisory services",
-    "th-10": "One of the largest industrial holdings in the Baltics",
+
+    "th-5":
+      "TRAFFEST is Estonia’s leading provider of intelligent transportation systems (ITS) and street lighting solutions. We design, build, and maintain these systems, delivering smart and high-quality solutions for road users across Estonia for over 34 years.",
+
+    "th-6":
+      "Estonian Railways is a railway infrastructure company where 700 professionals from various fields work. We have a dignified history and an exciting and ambitious future ahead. We believe that through our activities we can shape a better and greener future for passengers, freight carriers, and the environment. Our employees are united by great dedication and a desire to do big things with a great impact.",
+
+    "th-7":
+      "Southwestern Advantage is a USA direct-selling company that has, since 1868, offered students a summer opportunity to receive thorough entrepreneurship and sales training from top experts in their field, and then spend the summer traveling in America, selling educational books door-to-door and saving money for their studies.",
+
+    "th-8":
+      "Founded in Estonia in 2010, Pipedrive is an AI-first sales CRM designed to help small businesses grow. With intelligent automation and powerful insights, Pipedrive empowers teams to close deals faster and build stronger customer relationships. Today, over 100,000 companies worldwide trust Pipedrive to drive their business success. What started as a small startup has grown into a global company with 10 offices around the world. In 2020, Pipedrive became Estonia’s fifth unicorn following an investment led by Vista Equity Partners.",
+
+    "th-9":
+      "KPMG. Make the Difference. \n\nKPMG is a worldwide network of companies providing audit, legal, tax, and business advisory services.",
+
+    "th-10":
+      "BLRT Group is one of the largest industrial groups in the Baltic Sea region. \n\nToday, BLRT Group has gathered over 50 subsidiaries under its umbrella, which are actively developing their activities in the Estonian, Latvian, Lithuanian, Polish, Ukrainian, Finnish, and Norwegian markets.",
+
     "th-11": "General contracting and project management",
     "th-12": "Interior Ministry Information Technology and Development Center",
     "th-13": "Engineering bureau",
