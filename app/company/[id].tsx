@@ -34,11 +34,13 @@ const INDUSTRY_TRANSLATIONS = {
     Retail: "Retail",
     Education: "Education",
     Transportation: "Transportation",
+    Logistika: "Logistics",
     Government: "Government",
     Construction: "Construction",
     Manufacturing: "Manufacturing",
     Tourism: "Tourism",
     Other: "Other",
+    Kosmos: "Space",
   },
   et: {
     Technology: "Tehnoloogia",
@@ -50,11 +52,13 @@ const INDUSTRY_TRANSLATIONS = {
     Retail: "Jaemüük",
     Education: "Haridus",
     Transportation: "Transport",
+    Logistika: "Logistika",
     Government: "Valitsus",
     Construction: "Ehitus",
     Manufacturing: "Tootmine",
     Tourism: "Turisim",
     Other: "Muu",
+    Kosmos: "Kosmos",
   },
 };
 

@@ -99,6 +99,8 @@ export const COMPANY_DESCRIPTIONS = {
     "72": "LEONHARD WEISS on Baltimaades ja Skandinaavias tegutsev pikaajalise kogemusega rööbasteede, teede ja elektrivõrkude projekteerimis-, ehitus- ja hooldusettevõte. Kuulume 1900. aastal loodud Saksa pereettevõtte LEONHARD WEISS gruppi ning oleme usaldusväärne partner meie töötajatele ja klientidele. Meie juhtpõhimõte on „Tundke rõõmu ehitamisest koos LEONHARD WEISSIGA“.",
 
     "73": "Ehitusettevõte.",
+    "74": "Omniva on rahvusvaheline logistikaettevõte, mis pakub paki- ja postiteenuseid ning digitaalseid ja rahvusvahelisi transiitkaubanduse teenuseid.\n\nTegutseme Eestis, Lätis ja Leedus, lisaks asuvad Omniva sorteerimiskeskused Ühendkuningriigis, Madalmaades, Saksamaal, Omaanis ja Kõrgõzstanis ning tarnepunktid Ameerika Ühendriikides.\n\nAS Eesti Post on Omniva kontserni emaettevõte, mille tütarettevõtted on Omniva LT UAB ja selle tütarettevõte Omniva LT Sorting UAB Leedus, Omniva SIA Lätis ning Finbite OÜ ja Picapac OÜ Eestis. AS Eesti Post on 100% Eesti riigi omanduses olev ettevõte.",
+    "75": "Space Estonia eesmärk on Eesti kosmosevaldkonna ettevõtluse arendamine ning rahvusvahelise koostöö edendamine, tagades meie ettevõtetele uusi ärivõimalusi kõrgtehnoloogiat loovatel turgudel.\n\nEISi koosseisu kuuluv Space Estonia on Euroopa Kosmoseagentuuri ärivõimaluste ja karjäärivõimaluste vahendaja Eestis ning Eesti esindaja Euroopa Kosmoseagentuuris.",
     "th-1": "Osale meie aardejahis!",
 
     "th-2":
@@ -125,7 +127,8 @@ export const COMPANY_DESCRIPTIONS = {
     "th-10":
       "BLRT Grupp on Läänemere regiooni üks suurimaid tööstuskontserne. \n\nTäna on BLRT Grupp koondanud oma katuse alla üle 50 tütarettevõtte, mis arendavad aktiivselt oma tegevust Eesti, Läti, Leedu, Poola, Ukraina, Soome ja Norra turul.",
 
-    "th-11": "Üldehituste ja projektijuhtimise",
+    "th-11":
+      "Ehitus5ECO OÜ on Eesti kapitalil põhinev ehitusettevõte, kus tegeleme hoonete ehitamise ja renoveerimisega peatöövõtu ning projektijuhtimise meetodil. Meie meeskonnas töötab üle 50 inseneri ja ehitusspetsialisti – koos loome hea tasakaalu pikaajalisest kogemusest ja noortest inseneridest. Väärtustame teadmisi, arengut ja töökeskkonda. Kasutame kaasaegseid IT-lahendusi nii projekteerimises, planeerimises kui ka kvaliteedi tagamises, et muuta töö sujuvaks ja õppimisvõimalusi pakkuvaks. Noorel inseneril on võimalik näha oma tööd mõjusana – meie projektid on päris hooned päris inimestele üle Eesti. Kui liitud meiega, saad võimaluse kasvada kogenud kolleegide toel, võtta vastutust ja tulla välja oma ideedega. Meie jaoks on oluline tegija ning tulemus, mis räägib iseenda eest.",
     "th-12": "Siseminsteriaumi infotehnoloogia- ja arenduskeskus",
     "th-13": "Inseneeriburoo",
     "th-14": "Riigikaitseorganisatsioon",
@@ -230,6 +233,8 @@ export const COMPANY_DESCRIPTIONS = {
     "72": "LEONHARD WEISS is a railway, road, and electrical network design, construction, and maintenance company with long-term experience operating in the Baltics and Scandinavia. We belong to the Leonhard Weiss group, a German family business founded in 1900, and we are a reliable partner for our employees and clients. Our guiding principle is 'Enjoy building with LEONHARD WEISS'.",
 
     "73": "Construction company.",
+    "74": "Omniva is an international logistics company that offers parcel and postal services, as well as digital and international transit trade services.\n\nWe operate in Estonia, Latvia, and Lithuania; additionally, Omniva sorting centers are located in the United Kingdom, the Netherlands, Germany, Oman, and Kyrgyzstan, and delivery points in the United States.\n\nAS Eesti Post is the parent company of the Omniva group, whose subsidiaries are Omniva LT UAB and its subsidiary Omniva LT Sorting UAB in Lithuania, Omniva SIA in Latvia, and Finbite OÜ and Picapac OÜ in Estonia. AS Eesti Post is a company 100% owned by the Estonian state.",
+    "75": "Space Estonia’s goal is to develop Estonian space-sector entrepreneurship and promote international cooperation, ensuring new business opportunities for our companies in markets that create high technology.\n\nAs part of the Estonian Business and Innovation Agency (EIS), Space Estonia is the intermediary for European Space Agency business and career opportunities in Estonia and represents Estonia at the European Space Agency.",
     "th-1": "Participate in our treasure hunt!",
     "th-2":
       "CARIAD Estonia is part of CARIAD, the automotive software company of the Volkswagen Group. Building automotive software platforms and digital customer functions for iconic brands like Audi, Volkswagen and Porsche, CARIAD supports the Volkswagen Group in becoming the global automotive tech driver. CARIAD has software centers in Germany, the USA, China, Estonia and India, where around 5,000 experts work on making the automotive experience safer, more sustainable and more comfortable for everyone. \n\nCARIAD Estonia contributes to the mission and goals of CARIAD with two core business areas. It is maintaining operational stability of digital services developed by CARIAD that are used by millions of Volkswagen Group’s connected customers worldwide. The international team of IT experts at CARIAD Estonia consists of 24/7 Support Engineers, DevOps Engineers, Operations Engineers and Site Reliability Engineers among others. CARIAD Estonia also supports the CARIAD Group in partnering with other tech companies globally in the role of shareholding entity for non-German CARIAD subsidiaries.",
@@ -255,7 +260,8 @@ export const COMPANY_DESCRIPTIONS = {
     "th-10":
       "BLRT Group is one of the largest industrial groups in the Baltic Sea region. \n\nToday, BLRT Group has gathered over 50 subsidiaries under its umbrella, which are actively developing their activities in the Estonian, Latvian, Lithuanian, Polish, Ukrainian, Finnish, and Norwegian markets.",
 
-    "th-11": "General contracting and project management",
+    "th-11":
+      "Ehitus5ECO OÜ is an Estonian construction company focused on building and renovating buildings through general contracting and project management. Our team includes over 50 engineers and construction professionals, combining long-term experience with a new generation of engineers. We value knowledge, development, and a supportive working environment. We use modern IT solutions in design, planning, and quality management to make work efficient and to support learning and growth. As a young engineer, you can clearly see the impact of your work – our projects are real buildings for real people across Estonia. By joining us, you’ll have the opportunity to grow alongside experienced colleagues, take responsibility, and contribute your own ideas. For us, what matters most is the people behind the work and results that speak for themselves.",
     "th-12": "Interior Ministry Information Technology and Development Center",
     "th-13": "Engineering bureau",
     "th-14": "National defense organization",

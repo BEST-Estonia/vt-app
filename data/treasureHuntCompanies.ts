@@ -49,6 +49,7 @@ export const ALL_INDUSTRIES = [
   "Transportation",
   "Government",
   "Construction",
+  "Kosmos",
 ];
 
 export const ALL_HIRING = [
@@ -321,19 +322,27 @@ export const treasureHuntCompanies: Company[] = [
   },
   {
     id: "th-11",
-    name: "Ehitus5ECO OÜ",
+    name: "Ehitus5ECO",
     description: {
-      et: "Peaettevõtlus ja projektijuhtimine",
-      en: "General contracting and project management",
+      et: COMPANY_DESCRIPTIONS.et["th-11"],
+      en: COMPANY_DESCRIPTIONS.en["th-11"],
     },
     boothCode: "62",
     initials: "EH",
     color: "#1E66FF",
-    industries: ["Engineering", "Construction"],
-    hiringTypes: ["Full-time"],
+    industries: ["Construction"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.ehitus5ecoLogo,
     isTreasureHunt: true,
+    links: [
+      { label: "Website", url: "https://www.ehitus5eco.ee", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.cvkeskus.ee/tootmisinsener-parnus-aq-components-kodara-ou-1007297",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "th-12",

@@ -37,11 +37,13 @@
     "Retail": "Jaemüük",
     "Education": "Haridus",
     "Transportation": "Transport",
+    "Logistika": "Logistika",
     "Government": "Valitsus",
     "Construction": "Ehitus",
     "Manufacturing": "Tootmine",
     "Tourism": "Turisim",
-    "Other": "Muu"
+    "Other": "Muu",
+    "Kosmos": "Kosmos"
   },
   "hiringTypes": {
     "Internship": "Praktika",

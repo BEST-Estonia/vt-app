@@ -48,8 +48,10 @@ export const ALL_INDUSTRIES = [
   "Retail",
   "Education",
   "Transportation",
+  "Logistika",
   "Government",
   "Construction",
+  "Kosmos",
 ];
 
 export const ALL_HIRING = [
@@ -1379,6 +1381,58 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/leonhard-weiss-o%C3%BC",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "74",
+    name: "Omniva",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["74"],
+      en: COMPANY_DESCRIPTIONS.en["74"],
+    },
+    initials: "OM",
+    color: "#1E66FF",
+    industries: ["Logistika"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://www.omniva.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.omnivagroup.com/et/karjaar/toopakkumised/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/omnivagroup/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "75",
+    name: "Space Estonia",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["75"],
+      en: COMPANY_DESCRIPTIONS.en["75"],
+    },
+    initials: "SE",
+    color: "#1E66FF",
+    industries: ["Kosmos"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://www.eis.ee/kosmos", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://jobs.esa.int/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "http://linkedin.com/showcase/space-estonia/",
         icon: "linkedin",
       },
     ],

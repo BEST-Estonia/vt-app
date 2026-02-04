@@ -37,11 +37,13 @@
     "Retail": "Retail",
     "Education": "Education",
     "Transportation": "Transportation",
+    "Logistika": "Logistics",
     "Government": "Government",
     "Construction": "Construction",
     "Manufacturing": "Manufacturing",
     "Tourism": "Tourism",
-    "Other": "Other"
+    "Other": "Other",
+    "Kosmos": "Space"
   },
   "hiringTypes": {
     "Internship": "Internship",
