@@ -1,16 +1,66 @@
 // app/components/FilterSheet.tsx
-import { Feather } from '@expo/vector-icons';
-import React from 'react';
+import { useI18n } from "@/lib/i18n";
+import { Feather } from "@expo/vector-icons";
+import React from "react";
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-type SortMode = 'A-Z' | 'Relevance';
+// Industry and hiring type translations
+const INDUSTRY_TRANSLATIONS = {
+  en: {
+    Technology: "Technology",
+    Finance: "Finance",
+    Healthcare: "Healthcare",
+    Consulting: "Consulting",
+    Engineering: "Engineering",
+    Energy: "Energy",
+    Retail: "Retail",
+    Education: "Education",
+    Transportation: "Transportation",
+    Government: "Government",
+    Construction: "Construction",
+    Manufacturing: "Manufacturing",
+    Tourism: "Tourism",
+    Other: "Other",
+  },
+  et: {
+    Technology: "Tehnoloogia",
+    Finance: "Finants",
+    Healthcare: "Tervishoiu",
+    Consulting: "Konsulteerimine",
+    Engineering: "Tehisehitus",
+    Energy: "Energia",
+    Retail: "Jaemüük",
+    Education: "Haridus",
+    Transportation: "Transport",
+    Government: "Valitsus",
+    Construction: "Ehitus",
+    Manufacturing: "Tootmine",
+    Tourism: "Turisim",
+    Other: "Muu",
+  },
+};
+
+const HIRING_TRANSLATIONS = {
+  en: {
+    Internship: "Internship",
+    "Full-time": "Full-time",
+    Graduate: "Graduate",
+  },
+  et: {
+    Internship: "Praktika",
+    "Full-time": "Täiskohaga",
+    Graduate: "Magistrant",
+  },
+};
+
+type SortMode = "A-Z" | "Relevance";
 
 type Props = {
   visible: boolean;
@@ -43,10 +93,12 @@ function Chip({
       style={[
         styles.chip,
         selected ? styles.chipSelected : styles.chipDefault,
-        { borderColor: selected ? '#1E66FF' : '#D1D5DB' },
+        { borderColor: selected ? "#1E66FF" : "#D1D5DB" },
       ]}
     >
-      <Text style={[styles.chipText, { color: selected ? '#1E66FF' : '#374151' }]}>
+      <Text
+        style={[styles.chipText, { color: selected ? "#1E66FF" : "#374151" }]}
+      >
         {label}
       </Text>
     </TouchableOpacity>
@@ -67,16 +119,22 @@ export default function FilterSheet({
   onClearAll,
   onApply,
 }: Props) {
+  const { lang } = useI18n();
+
   if (!visible) return null;
 
-  const toggle = (arr: string[], setArr: (v: string[]) => void, val: string) => {
+  const toggle = (
+    arr: string[],
+    setArr: (v: string[]) => void,
+    val: string,
+  ) => {
     if (arr.includes(val)) setArr(arr.filter((x) => x !== val));
     else setArr([...arr, val]);
   };
 
   return (
     <View style={styles.overlay}>
-      <SafeAreaView edges={['top']} style={styles.headerSafe}>
+      <SafeAreaView edges={["top"]} style={styles.headerSafe}>
         <View style={styles.header}>
           <Text style={styles.headerTitle}>Filters</Text>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
@@ -95,19 +153,31 @@ export default function FilterSheet({
           {allIndustries.map((ind) => (
             <Chip
               key={ind}
-              label={ind}
+              label={
+                INDUSTRY_TRANSLATIONS[lang][
+                  ind as keyof (typeof INDUSTRY_TRANSLATIONS)["en"]
+                ] || ind
+              }
               selected={selectedIndustries.includes(ind)}
-              onPress={() => toggle(selectedIndustries, setSelectedIndustries, ind)}
+              onPress={() =>
+                toggle(selectedIndustries, setSelectedIndustries, ind)
+              }
             />
           ))}
         </View>
 
-        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Hiring Type</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
+          Hiring Type
+        </Text>
         <View style={styles.rowWrap}>
           {allHiring.map((h) => (
             <Chip
               key={h}
-              label={h}
+              label={
+                HIRING_TRANSLATIONS[lang][
+                  h as keyof (typeof HIRING_TRANSLATIONS)["en"]
+                ] || h
+              }
               selected={selectedHiring.includes(h)}
               onPress={() => toggle(selectedHiring, setSelectedHiring, h)}
             />
@@ -116,7 +186,7 @@ export default function FilterSheet({
 
         <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Sort By</Text>
         <View style={styles.row}>
-          {(['A-Z', 'Relevance'] as SortMode[]).map((mode) => {
+          {(["A-Z", "Relevance"] as SortMode[]).map((mode) => {
             const active = sortMode === mode;
             return (
               <TouchableOpacity
@@ -125,14 +195,14 @@ export default function FilterSheet({
                 activeOpacity={0.8}
                 style={[
                   styles.sortBtn,
-                  { borderColor: active ? '#1E66FF' : '#D1D5DB' },
+                  { borderColor: active ? "#1E66FF" : "#D1D5DB" },
                   active ? styles.sortActive : styles.sortDefault,
                 ]}
               >
                 <Text
                   style={[
                     styles.sortText,
-                    { color: active ? '#1E66FF' : '#374151' },
+                    { color: active ? "#1E66FF" : "#374151" },
                   ]}
                 >
                   {mode}
@@ -143,7 +213,7 @@ export default function FilterSheet({
         </View>
       </ScrollView>
 
-      <SafeAreaView edges={['bottom']} style={styles.footerSafe}>
+      <SafeAreaView edges={["bottom"]} style={styles.footerSafe}>
         <View style={styles.footer}>
           <TouchableOpacity
             onPress={onClearAll}
@@ -170,25 +240,30 @@ export default function FilterSheet({
 
 const styles = StyleSheet.create({
   overlay: {
-    position: 'absolute',
+    position: "absolute",
     inset: 0 as unknown as number,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
-  headerSafe: { backgroundColor: '#FFFFFF' },
+  headerSafe: { backgroundColor: "#FFFFFF" },
   header: {
     paddingHorizontal: 20,
     paddingVertical: 12,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: "#E5E7EB",
     borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  headerTitle: { fontSize: 18, fontWeight: '700', color: '#111827' },
+  headerTitle: { fontSize: 18, fontWeight: "700", color: "#111827" },
   content: { paddingHorizontal: 20, paddingBottom: 20, paddingTop: 8 },
-  sectionTitle: { fontSize: 15, fontWeight: '600', color: '#111827', marginBottom: 8 },
-  rowWrap: { flexDirection: 'row', flexWrap: 'wrap' },
-  row: { flexDirection: 'row' },
+  sectionTitle: {
+    fontSize: 15,
+    fontWeight: "600",
+    color: "#111827",
+    marginBottom: 8,
+  },
+  rowWrap: { flexDirection: "row", flexWrap: "wrap" },
+  row: { flexDirection: "row" },
   chip: {
     paddingHorizontal: 12,
     paddingVertical: 8,
@@ -196,11 +271,11 @@ const styles = StyleSheet.create({
     marginRight: 8,
     marginBottom: 8,
     borderWidth: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
   },
-  chipText: { fontSize: 13, fontWeight: '600' },
+  chipText: { fontSize: 13, fontWeight: "600" },
   chipDefault: {},
-  chipSelected: { backgroundColor: '#EFF6FF' },
+  chipSelected: { backgroundColor: "#EFF6FF" },
   sortBtn: {
     paddingHorizontal: 16, // give a bit more breathing room
     paddingVertical: 8,
@@ -209,15 +284,15 @@ const styles = StyleSheet.create({
     marginRight: 12,
     minWidth: 72, // ensures "A‑Z" fits comfortably on small widths
   },
-  sortDefault: { backgroundColor: '#FFFFFF' },
-  sortActive: { backgroundColor: '#EFF6FF' },
-  sortText: { fontSize: 13, fontWeight: '600' },
-  footerSafe: { backgroundColor: '#FFFFFF' },
+  sortDefault: { backgroundColor: "#FFFFFF" },
+  sortActive: { backgroundColor: "#EFF6FF" },
+  sortText: { fontSize: 13, fontWeight: "600" },
+  footerSafe: { backgroundColor: "#FFFFFF" },
   footer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingHorizontal: 16,
     paddingVertical: 12,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: "#E5E7EB",
     borderTopWidth: 1,
     gap: 12,
   },
@@ -226,19 +301,19 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#1E66FF',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
+    borderColor: "#1E66FF",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FFFFFF",
   },
-  clearText: { color: '#1E66FF', fontWeight: '700', fontSize: 15 },
+  clearText: { color: "#1E66FF", fontWeight: "700", fontSize: 15 },
   applyBtn: {
     flex: 1,
     height: 48,
     borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#1E66FF',
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#1E66FF",
   },
-  applyText: { color: '#FFFFFF', fontWeight: '700', fontSize: 15 },
+  applyText: { color: "#FFFFFF", fontWeight: "700", fontSize: 15 },
 });

@@ -1,6 +1,6 @@
-import { Feather } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React, { useMemo, useState } from 'react';
+import { Feather } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React, { useMemo, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -9,34 +9,37 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "react-native";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 
-import CompanyCard from '@/components/CompanyCard';
-import FilterSheet from '@/components/FilterSheet';
+import CompanyCard from "@/components/CompanyCard";
+import FilterSheet from "@/components/FilterSheet";
 // Import the global store
 import {
   ALL_HIRING,
   ALL_INDUSTRIES,
   companiesSeed,
-  type SortMode
-} from '@/data/companies';
-import { useI18n } from '@/lib/i18n';
-import { useUserStore } from '@/store/userStore';
+  type SortMode,
+} from "@/data/companies";
+import { useI18n } from "@/lib/i18n";
+import { useUserStore } from "@/store/userStore";
 
 export default function SearchScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { favorites, toggleFavorite } = useUserStore();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
 
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedIndustries, setSelectedIndustries] = useState<string[]>([]);
   const [selectedHiring, setSelectedHiring] = useState<string[]>([]);
-  
+
   // CHANGED: Default is now 'A-Z'
-  const [sortMode, setSortMode] = useState<SortMode>('A-Z');
+  const [sortMode, setSortMode] = useState<SortMode>("A-Z");
 
   const companies = useMemo(() => {
     return companiesSeed.map((c) => ({
@@ -54,39 +57,42 @@ export default function SearchScreen() {
       list = list.filter(
         (c) =>
           c.name.toLowerCase().includes(q) ||
-          c.description.toLowerCase().includes(q) ||
-          c.industries.some((i) => i.toLowerCase().includes(q))
+          c.description[lang]?.toLowerCase().includes(q) ||
+          c.industries.some((i) => i.toLowerCase().includes(q)),
       );
     }
 
     if (selectedIndustries.length > 0) {
       list = list.filter((c) =>
-        c.industries.some((i) => selectedIndustries.includes(i))
+        c.industries.some((i) => selectedIndustries.includes(i)),
       );
     }
 
     if (selectedHiring.length > 0) {
       list = list.filter((c) =>
-        c.hiringTypes.some((t) => selectedHiring.includes(t))
+        c.hiringTypes.some((t) => selectedHiring.includes(t)),
       );
     }
 
-    if (sortMode === 'A-Z') {
+    if (sortMode === "A-Z") {
       list = [...list].sort((a, b) => a.name.localeCompare(b.name));
     }
     return list;
     // Update dependency array
-  }, [companies, query, selectedIndustries, selectedHiring, sortMode]);
+  }, [companies, query, selectedIndustries, selectedHiring, sortMode, lang]);
 
   const clearAllFilters = () => {
     setSelectedIndustries([]);
     setSelectedHiring([]);
     // CHANGED: Reset to 'A-Z' instead of 'Relevance'
-    setSortMode('A-Z');
+    setSortMode("A-Z");
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }} edges={["top", "bottom"]}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "#FFFFFF" }}
+      edges={["top", "bottom"]}
+    >
       <StatusBar barStyle="dark-content" />
 
       {/* Header */}
@@ -94,12 +100,12 @@ export default function SearchScreen() {
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center">
             <Image
-              source={require('./_assets/vt-logo.png')}
+              source={require("./_assets/vt-logo.png")}
               style={{ width: 28, height: 28, marginRight: 8 }}
               resizeMode="contain"
             />
             <Text className="text-[22px] font-bold text-gray-900">
-              {t('header.search')}
+              {t("header.search")}
             </Text>
           </View>
           <TouchableOpacity
@@ -117,13 +123,13 @@ export default function SearchScreen() {
           <TextInput
             value={query}
             onChangeText={setQuery}
-            placeholder={t('search.placeholder')}
+            placeholder={t("search.placeholder")}
             placeholderTextColor="#9CA3AF"
             className="ml-2 flex-1 text-[16px] text-gray-900"
             returnKeyType="search"
           />
           {query.length > 0 && (
-            <TouchableOpacity onPress={() => setQuery('')}>
+            <TouchableOpacity onPress={() => setQuery("")}>
               <Feather name="x" size={16} color="#6B7280" />
             </TouchableOpacity>
           )}
@@ -133,7 +139,7 @@ export default function SearchScreen() {
       {/* Results count */}
       <View className="px-5 py-3">
         <Text className="text-[14px] text-gray-600">
-          {t('search.resultsCount', { count: filtered.length })}
+          {t("search.resultsCount", { count: filtered.length })}
         </Text>
       </View>
 
@@ -154,7 +160,7 @@ export default function SearchScreen() {
             onToggleFavorite={toggleFavorite}
             onPress={() =>
               router.push({
-                pathname: '/company/[id]',
+                pathname: "/company/[id]",
                 params: { id: c.id },
               })
             }

@@ -1,15 +1,15 @@
-import LanguageSheet from '@/components/LanguageSheet';
+import LanguageSheet from "@/components/LanguageSheet";
 import {
   companiesSeed,
   companyEvents,
   type Company,
   type CompanyEvent,
-} from '@/data/companies';
-import { useI18n } from '@/lib/i18n';
-import { useUserStore } from '@/store/userStore';
-import { Feather } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
+} from "@/data/companies";
+import { useI18n } from "@/lib/i18n";
+import { useUserStore } from "@/store/userStore";
+import { Feather } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import React from "react";
 import {
   Image,
   ScrollView,
@@ -17,13 +17,65 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "react-native";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
+
+// Industry and hiring type translations
+const INDUSTRY_TRANSLATIONS = {
+  en: {
+    Technology: "Technology",
+    Finance: "Finance",
+    Healthcare: "Healthcare",
+    Consulting: "Consulting",
+    Engineering: "Engineering",
+    Energy: "Energy",
+    Retail: "Retail",
+    Education: "Education",
+    Transportation: "Transportation",
+    Government: "Government",
+    Construction: "Construction",
+    Manufacturing: "Manufacturing",
+    Tourism: "Tourism",
+    Other: "Other",
+  },
+  et: {
+    Technology: "Tehnoloogia",
+    Finance: "Finants",
+    Healthcare: "Tervishoiu",
+    Consulting: "Konsulteerimine",
+    Engineering: "Tehisehitus",
+    Energy: "Energia",
+    Retail: "Jaemüük",
+    Education: "Haridus",
+    Transportation: "Transport",
+    Government: "Valitsus",
+    Construction: "Ehitus",
+    Manufacturing: "Tootmine",
+    Tourism: "Turisim",
+    Other: "Muu",
+  },
+};
+
+const HIRING_TRANSLATIONS = {
+  en: {
+    Internship: "Internship",
+    "Full-time": "Full-time",
+    Graduate: "Graduate",
+  },
+  et: {
+    Internship: "Praktika",
+    "Full-time": "Täiskohaga",
+    Graduate: "Magistrant",
+  },
+};
 
 export default function MyFairScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [languageOpen, setLanguageOpen] = React.useState(false);
 
   const { favorites, visited, schedule, clearAll } = useUserStore();
@@ -33,7 +85,7 @@ export default function MyFairScreen() {
       favorites
         .map((id) => companiesSeed.find((c) => c.id === id))
         .filter(Boolean) as Company[],
-    [favorites]
+    [favorites],
   );
 
   const visitedCompanies: Company[] = React.useMemo(
@@ -41,7 +93,7 @@ export default function MyFairScreen() {
       visited
         .map((id) => companiesSeed.find((c) => c.id === id))
         .filter(Boolean) as Company[],
-    [visited]
+    [visited],
   );
 
   const scheduleEvents: CompanyEvent[] = React.useMemo(
@@ -49,29 +101,34 @@ export default function MyFairScreen() {
       schedule
         .map((id) => companyEvents.find((e) => e.id === id))
         .filter(Boolean) as CompanyEvent[],
-    [schedule]
+    [schedule],
   );
 
   const goExploreCompanies = () => {
-    router.push('/(tabs)/search');
+    router.push("/(tabs)/search");
   };
 
   const goBrowseCompanies = () => {
-    router.push('/(tabs)/search');
+    router.push("/(tabs)/search");
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }} edges={["top", "bottom"]}>
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: "#FFFFFF" }}
+      edges={["top", "bottom"]}
+    >
       <StatusBar barStyle="dark-content" />
       {/* --- HEADER --- */}
       <View className="flex-row items-center justify-between px-5 py-3 border-b border-gray-200">
         <View className="flex-row items-center">
           <Image
-            source={require('./_assets/vt-logo.png')}
+            source={require("./_assets/vt-logo.png")}
             style={{ width: 28, height: 28, marginRight: 8 }}
             resizeMode="contain"
           />
-          <Text className="text-[22px] font-bold text-gray-900">{t('header.myFair')}</Text>
+          <Text className="text-[22px] font-bold text-gray-900">
+            {t("header.myFair")}
+          </Text>
         </View>
         <TouchableOpacity hitSlop={8} onPress={() => setLanguageOpen(true)}>
           <Feather name="settings" size={20} color="#111827" />
@@ -90,15 +147,15 @@ export default function MyFairScreen() {
         {/* Favorites */}
         <SectionHeader
           icon={<Feather name="star" size={18} color="#1E66FF" />}
-          title={t('myFair.favorites')}
+          title={t("myFair.favorites")}
           count={favCompanies.length}
         />
         {favCompanies.length === 0 ? (
           <EmptyState
             icon={<Feather name="star" size={26} color="#9CA3AF" />}
-            title={t('myFair.noFavoritesTitle')}
-            caption={t('myFair.noFavoritesCaption')}
-            cta={t('myFair.exploreCta')}
+            title={t("myFair.noFavoritesTitle")}
+            caption={t("myFair.noFavoritesCaption")}
+            cta={t("myFair.exploreCta")}
             onPress={goExploreCompanies}
           />
         ) : (
@@ -107,8 +164,12 @@ export default function MyFairScreen() {
               <CompanyRow
                 key={c.id}
                 company={c}
+                lang={lang}
                 onPress={() =>
-                  router.push({ pathname: '/company/[id]', params: { id: c.id } })
+                  router.push({
+                    pathname: "/company/[id]",
+                    params: { id: c.id },
+                  })
                 }
               />
             ))}
@@ -118,16 +179,16 @@ export default function MyFairScreen() {
         {/* Visited Booths */}
         <SectionHeader
           icon={<Feather name="map-pin" size={18} color="#1E66FF" />}
-          title={t('myFair.visitedBooths')}
+          title={t("myFair.visitedBooths")}
           count={visitedCompanies.length}
           containerClass="mt-6"
         />
         {visitedCompanies.length === 0 ? (
           <EmptyState
             icon={<Feather name="map" size={26} color="#9CA3AF" />}
-            title={t('myFair.noVisitsTitle')}
-            caption={t('myFair.noVisitsCaption')}
-            cta={t('myFair.exploreCta')}
+            title={t("myFair.noVisitsTitle")}
+            caption={t("myFair.noVisitsCaption")}
+            cta={t("myFair.exploreCta")}
             onPress={goExploreCompanies}
           />
         ) : (
@@ -136,8 +197,12 @@ export default function MyFairScreen() {
               <CompanyRow
                 key={c.id}
                 company={c}
+                lang={lang}
                 onPress={() =>
-                  router.push({ pathname: '/company/[id]', params: { id: c.id } })
+                  router.push({
+                    pathname: "/company/[id]",
+                    params: { id: c.id },
+                  })
                 }
               />
             ))}
@@ -147,16 +212,16 @@ export default function MyFairScreen() {
         {/* My Schedule */}
         <SectionHeader
           icon={<Feather name="calendar" size={18} color="#1E66FF" />}
-          title={t('myFair.mySchedule')}
+          title={t("myFair.mySchedule")}
           count={scheduleEvents.length}
           containerClass="mt-6"
         />
         {scheduleEvents.length === 0 ? (
           <EmptyState
             icon={<Feather name="calendar" size={26} color="#9CA3AF" />}
-            title={t('myFair.noEventsTitle')}
-            caption={t('myFair.noEventsCaption')}
-            cta={t('myFair.browseEventsCta')}
+            title={t("myFair.noEventsTitle")}
+            caption={t("myFair.noEventsCaption")}
+            cta={t("myFair.browseEventsCta")}
             onPress={goBrowseCompanies}
           />
         ) : (
@@ -177,14 +242,17 @@ export default function MyFairScreen() {
             <View className="flex-row items-center">
               <Feather name="trash-2" size={16} color="#1E66FF" />
               <Text className="ml-2 text-[15px] font-semibold text-blue-600">
-                {t('myFair.clearAllData')}
+                {t("myFair.clearAllData")}
               </Text>
             </View>
           </TouchableOpacity>
         </View>
       </ScrollView>
 
-      <LanguageSheet visible={languageOpen} onClose={() => setLanguageOpen(false)} />
+      <LanguageSheet
+        visible={languageOpen}
+        onClose={() => setLanguageOpen(false)}
+      />
     </SafeAreaView>
   );
 }
@@ -201,9 +269,7 @@ function SectionHeader({
   containerClass?: string;
 }) {
   return (
-    <View
-      className={`flex-row items-center ${containerClass ?? ''}`}
-    >
+    <View className={`flex-row items-center ${containerClass ?? ""}`}>
       {icon}
       <Text
         className="ml-2 text-[18px] font-semibold text-gray-900 flex-1"
@@ -212,7 +278,7 @@ function SectionHeader({
       >
         {title}
       </Text>
-      {typeof count === 'number' && (
+      {typeof count === "number" && (
         <Text className="ml-1.5 text-[14px] text-gray-500">({count})</Text>
       )}
     </View>
@@ -265,9 +331,11 @@ function EmptyState({
 function CompanyRow({
   company,
   onPress,
+  lang,
 }: {
   company: Company;
   onPress: () => void;
+  lang: "en" | "et";
 }) {
   return (
     <TouchableOpacity
@@ -281,13 +349,13 @@ function CompanyRow({
             <View
               className="h-12 w-12 rounded-xl overflow-hidden items-center justify-center"
               style={{
-                backgroundColor: company.localLogo ? '#FFFFFF' : '#E0E7FF',
+                backgroundColor: company.localLogo ? "#FFFFFF" : "#E0E7FF",
               }}
             >
               {company.localLogo ? (
                 <Image
                   source={company.localLogo}
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: "100%", height: "100%" }}
                   resizeMode="contain"
                 />
               ) : (
@@ -302,7 +370,7 @@ function CompanyRow({
               {company.name}
             </Text>
             <Text className="text-[14px] text-gray-700 mt-1">
-              {company.description}
+              {company.description[lang]}
             </Text>
             <View className="flex-row flex-wrap mt-2">
               {company.industries.slice(0, 2).map((i, idx) => (
@@ -311,7 +379,9 @@ function CompanyRow({
                   className="mr-2 mb-2 rounded-full bg-blue-50 px-2.5 py-1"
                 >
                   <Text className="text-[12px] font-medium text-blue-700">
-                    {i}
+                    {INDUSTRY_TRANSLATIONS[lang][
+                      i as keyof (typeof INDUSTRY_TRANSLATIONS)["en"]
+                    ] || i}
                   </Text>
                 </View>
               ))}
@@ -323,7 +393,9 @@ function CompanyRow({
                   className="mr-2 mb-2 rounded-full bg-gray-100 px-2.5 py-1"
                 >
                   <Text className="text-[12px] font-medium text-gray-700">
-                    {h}
+                    {HIRING_TRANSLATIONS[lang][
+                      h as keyof (typeof HIRING_TRANSLATIONS)["en"]
+                    ] || h}
                   </Text>
                 </View>
               ))}
@@ -338,11 +410,11 @@ function CompanyRow({
 function EventRow({ event }: { event: CompanyEvent }) {
   const start = new Date(event.startISO);
   const end = event.endISO ? new Date(event.endISO) : undefined;
-  const pad = (n: number) => n.toString().padStart(2, '0');
+  const pad = (n: number) => n.toString().padStart(2, "0");
   const time =
     end && !isNaN(end.getTime())
       ? `${pad(start.getHours())}:${pad(start.getMinutes())} - ${pad(
-          end.getHours()
+          end.getHours(),
         )}:${pad(end.getMinutes())}`
       : `${pad(start.getHours())}:${pad(start.getMinutes())}`;
 
