@@ -41,6 +41,7 @@ const INDUSTRY_TRANSLATIONS = {
     Tourism: "Tourism",
     Other: "Other",
     Kosmos: "Space",
+    Infotehnoloogia: "Information Technology",
   },
   et: {
     Technology: "Tehnoloogia",
@@ -59,6 +60,7 @@ const INDUSTRY_TRANSLATIONS = {
     Tourism: "Turisim",
     Other: "Muu",
     Kosmos: "Kosmos",
+    Infotehnoloogia: "Infotehnoloogia",
   },
 };
 

@@ -50,6 +50,7 @@ export const ALL_INDUSTRIES = [
   "Government",
   "Construction",
   "Kosmos",
+  "Infotehnoloogia",
 ];
 
 export const ALL_HIRING = [

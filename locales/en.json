@@ -43,7 +43,8 @@
     "Manufacturing": "Manufacturing",
     "Tourism": "Tourism",
     "Other": "Other",
-    "Kosmos": "Space"
+    "Kosmos": "Space",
+    "Infotehnoloogia": "Information Technology"
   },
   "hiringTypes": {
     "Internship": "Internship",

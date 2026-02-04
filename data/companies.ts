@@ -52,6 +52,7 @@ export const ALL_INDUSTRIES = [
   "Government",
   "Construction",
   "Kosmos",
+  "Infotehnoloogia",
 ];
 
 export const ALL_HIRING = [
@@ -315,15 +316,31 @@ const regularCompanies: Company[] = [
 
   {
     id: "24",
-    name: "Rail Baltic Estonia OÜ",
-    description: "Developing the Rail Baltica project.",
+    name: "Rail Baltic Estonia",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["24"],
+      en: COMPANY_DESCRIPTIONS.en["24"],
+    },
     boothCode: "55",
     initials: "RB",
     color: "#1E66FF",
     industries: ["Transportation"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.railBalticLogo,
+    links: [
+      { label: "Website", url: "https://www.rbestonia.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://rbestonia.teamdash.com/p/job/0DCyfC2b/rail-baltic-estonia",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://ee.linkedin.com/company/rail-baltic-estonia",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "25",
@@ -1433,6 +1450,110 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "http://linkedin.com/showcase/space-estonia/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "76",
+    name: "CERN",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["76"],
+      en: COMPANY_DESCRIPTIONS.en["76"],
+    },
+    initials: "CE",
+    color: "#1E66FF",
+    industries: ["Engineering"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://home.cern/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://careers.cern/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/cern",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "77",
+    name: "itestra Gmbh",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["77"],
+      en: COMPANY_DESCRIPTIONS.en["77"],
+    },
+    initials: "IT",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Full-time", "Part-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://itestra.com/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://itestra.com/en/join/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/itestra/?viewAsMember=true",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "78",
+    name: "KMG OÜ",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["78"],
+      en: COMPANY_DESCRIPTIONS.en["78"],
+    },
+    initials: "KM",
+    color: "#1E66FF",
+    industries: ["Construction"],
+    hiringTypes: ["Full-time", "Part-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://kmg.ee/katenditood/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/kmg-o%C3%BC/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "79",
+    name: "Postimees Grupp",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["79"],
+      en: COMPANY_DESCRIPTIONS.en["79"],
+    },
+    initials: "PG",
+    color: "#1E66FF",
+    industries: ["Majandus"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://postimeesgrupp.ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://postimeesgrupp.ee/praktika",
+        icon: "briefcase",
+      },
+      {
+        label: "Careers",
+        url: "https://postimeesgrupp.ee/toole",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/postimeesgrupp/",
         icon: "linkedin",
       },
     ],

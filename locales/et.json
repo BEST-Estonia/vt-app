@@ -43,7 +43,8 @@
     "Manufacturing": "Tootmine",
     "Tourism": "Turisim",
     "Other": "Muu",
-    "Kosmos": "Kosmos"
+    "Kosmos": "Kosmos",
+    "Infotehnoloogia": "Infotehnoloogia"
   },
   "hiringTypes": {
     "Internship": "Praktika",
