@@ -1,9 +1,17 @@
 // app/components/TreasureHuntMap.tsx
-import type { Company } from '@/data/companies';
-import { MaterialIcons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import React, { useEffect, useRef } from 'react';
-import { Alert, Animated, Image, Text, TouchableOpacity, View } from 'react-native';
+import type { Company } from "@/data/companies";
+import { useI18n } from "@/lib/i18n";
+import { MaterialIcons } from "@expo/vector-icons";
+import { LinearGradient } from "expo-linear-gradient";
+import React, { useEffect, useRef } from "react";
+import {
+  Alert,
+  Animated,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 type Props = {
   companies: Company[];
@@ -24,10 +32,10 @@ function hashStringToSeed(str: string): number {
 }
 
 function makeReadableId(participantId?: string): string {
-  if (!participantId) return '—';
+  if (!participantId) return "—";
 
-  const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-  const digits = '23456789';
+  const letters = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+  const digits = "23456789";
 
   let seed = hashStringToSeed(participantId);
 
@@ -49,6 +57,7 @@ export default function TreasureHuntMap({
   onSelect,
   participantId,
 }: Props) {
+  const { t } = useI18n();
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const pulseAnim = useRef(new Animated.Value(0)).current;
 
@@ -64,8 +73,7 @@ export default function TreasureHuntMap({
 
   const readableId = makeReadableId(participantId);
   const allScanned =
-    companies.length > 0 &&
-    companies.every((c) => scannedIds.includes(c.id));
+    companies.length > 0 && companies.every((c) => scannedIds.includes(c.id));
 
   // pulse animatsioon nii enne kui pärast – lihtsalt erineva "tugevusega"
   useEffect(() => {
@@ -75,7 +83,7 @@ export default function TreasureHuntMap({
         toValue: 1,
         duration: allScanned ? 1400 : 2200, // lõpupoole veidi kiirem ja intensiivsem
         useNativeDriver: true,
-      })
+      }),
     );
     loop.start();
 
@@ -97,28 +105,28 @@ export default function TreasureHuntMap({
   return (
     <View className="w-full mb-4 px-4">
       <LinearGradient
-        colors={['#0f172a', '#1d4ed8', '#0ea5e9']}
+        colors={["#003983", "#005AC8"]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
         style={{
           borderRadius: 32,
           paddingHorizontal: 24,
           paddingVertical: 24,
-          overflow: 'hidden',
+          overflow: "hidden",
         }}
       >
         {/* terve kaardi “stack”: rada taustal, sisu ees */}
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ alignItems: "center" }}>
           {/* vertikaalne rada otse keskel, taustal */}
           <View
             style={{
-              position: 'absolute',
+              position: "absolute",
               top: 32,
               bottom: 80, // et nupp jääks raja lõpu peale
               width: 12,
               borderRadius: 999,
-              backgroundColor: 'rgba(191, 219, 254, 0.35)',
-              alignSelf: 'center',
+              backgroundColor: "rgba(0, 90, 200, 0.35)",
+              alignSelf: "center",
             }}
           />
 
@@ -138,7 +146,7 @@ export default function TreasureHuntMap({
                   activeOpacity={0.9}
                   onPress={() => onSelect?.(company)}
                   style={{
-                    alignItems: 'center',
+                    alignItems: "center",
                     marginBottom: index === companies.length - 1 ? 0 : 100,
                   }}
                 >
@@ -150,10 +158,10 @@ export default function TreasureHuntMap({
                       width: 18,
                       borderRadius: 999,
                       borderWidth: 2,
-                      borderColor: isScanned ? '#22c55e' : '#bfdbfe',
+                      borderColor: isScanned ? "#22c55e" : "#bfdbfe",
                       backgroundColor: isSelected
-                        ? '#dbeafe'
-                        : 'rgba(15, 23, 42, 0.7)',
+                        ? "#dbeafe"
+                        : "rgba(15, 23, 42, 0.7)",
                     }}
                   />
 
@@ -165,11 +173,11 @@ export default function TreasureHuntMap({
                         height: 56,
                         width: 56,
                         borderRadius: 20,
-                        backgroundColor: 'rgba(248, 250, 252, 0.96)',
+                        backgroundColor: "rgba(248, 250, 252, 0.96)",
                         borderWidth: isSelected ? 2 : 1,
                         borderColor: isSelected
-                          ? '#38bdf8'
-                          : 'rgba(148, 163, 184, 0.6)',
+                          ? "#38bdf8"
+                          : "rgba(148, 163, 184, 0.6)",
                       },
                       iconScaleStyle,
                     ]}
@@ -177,7 +185,7 @@ export default function TreasureHuntMap({
                     {company.localLogo ? (
                       <Image
                         source={company.localLogo}
-                        style={{ width: '100%', height: '100%' }}
+                        style={{ width: "100%", height: "100%" }}
                         resizeMode="contain"
                       />
                     ) : (
@@ -200,27 +208,27 @@ export default function TreasureHuntMap({
           </View>
 
           {/* Raja lõpp: visuaalne nupp "Kraba auhind" – kood ja õnnesoov ainult Alertis */}
-          <View style={{ alignItems: 'center', marginBottom: 4 }}>
+          <View style={{ alignItems: "center", marginBottom: 4 }}>
             {/* pulss + lõpp-punkt rajal (visuaalne state) */}
             <View
               style={{
                 marginBottom: 12,
                 width: 32,
                 height: 32,
-                justifyContent: 'center',
-                alignItems: 'center',
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <Animated.View
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   height: 32,
                   width: 32,
                   borderRadius: 16,
                   borderWidth: 2,
                   borderColor: allScanned
-                    ? 'rgba(45, 212, 191, 0.7)' // rohekas – done
-                    : 'rgba(191, 219, 254, 0.9)', // sinakas – lowkey state
+                    ? "rgba(45, 212, 191, 0.7)" // rohekas – done
+                    : "rgba(191, 219, 254, 0.9)", // sinakas – lowkey state
                   opacity: pulseOpacity,
                   transform: [{ scale: pulseScale }],
                 }}
@@ -232,16 +240,16 @@ export default function TreasureHuntMap({
                   width: 22,
                   borderRadius: 999,
                   borderWidth: 3,
-                  borderColor: allScanned ? '#22c55e' : '#facc15',
-                  backgroundColor: allScanned ? '#4ade80' : '#fbbf24',
-                  justifyContent: 'center',
-                  alignItems: 'center',
+                  borderColor: allScanned ? "#22c55e" : "#facc15",
+                  backgroundColor: allScanned ? "#4ade80" : "#fbbf24",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
                 <MaterialIcons
-                  name={allScanned ? 'check' : 'stars'}
+                  name={allScanned ? "check" : "stars"}
                   size={14}
-                  color={allScanned ? '#064e3b' : '#0f172a'}
+                  color={allScanned ? "#064e3b" : "#0f172a"}
                 />
               </View>
             </View>
@@ -252,36 +260,36 @@ export default function TreasureHuntMap({
               onPress={() => {
                 if (!allScanned) {
                   Alert.alert(
-                    'Jätka jahti',
-                    'Käi kõik ettevõtted läbi ja skänni nende QR-koodid, siis saad loosist osa võtta.'
+                    t("treasure.prize.continueTitle"),
+                    t("treasure.prize.continueBody"),
                   );
                   return;
                 }
 
                 Alert.alert(
-                  'Palju õnne!',
-                  `Osaled loosimises.\n\nSinu loosikood: ${readableId}\n\nMake a screenshot of this – maybe you won!`
+                  t("treasure.prize.congratsTitle"),
+                  t("treasure.prize.congratsBody", { code: readableId }),
                 );
               }}
               className="rounded-full px-5 py-2.5 flex-row items-center"
               style={{
                 backgroundColor: allScanned
-                  ? '#22c55e'
-                  : 'rgba(248, 250, 252, 0.95)',
+                  ? "#22c55e"
+                  : "rgba(248, 250, 252, 0.95)",
               }}
             >
               <MaterialIcons
                 name="card-giftcard"
                 size={18}
-                color={allScanned ? '#022c22' : '#0f172a'}
+                color={allScanned ? "#022c22" : "#0f172a"}
               />
               <Text
                 className="ml-2 text-sm font-semibold"
                 style={{
-                  color: allScanned ? '#022c22' : '#0f172a',
+                  color: allScanned ? "#022c22" : "#0f172a",
                 }}
               >
-                Kraba auhind
+                {t("treasure.prize.button")}
               </Text>
             </TouchableOpacity>
           </View>

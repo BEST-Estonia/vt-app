@@ -1,7 +1,11 @@
 {
   "header": {
+    "brand": "Võti Tulevikku",
     "myFair": "My Fair",
     "search": "Search Companies"
+  },
+  "common": {
+    "ok": "OK"
   },
   "myFair": {
     "favorites": "Favorites",
@@ -22,14 +26,21 @@
     "placeholder": "Search companies...",
     "resultsCount": "{count} companies found"
   },
+  "filters": {
+    "title": "Filters",
+    "industry": "Industry",
+    "hiringType": "Hiring Type",
+    "sortBy": "Sort By",
+    "clearAll": "Clear All",
+    "apply": "Apply Filters"
+  },
   "settings": {
     "languageTitle": "Language",
     "estonian": "Estonian",
     "english": "English"
   },
   "industries": {
-    "Technology": "Technology",
-    "Finance": "Finance",
+    "Majandus": "Finance",
     "Healthcare": "Healthcare",
     "Consulting": "Consulting",
     "Engineering": "Engineering",
@@ -43,7 +54,17 @@
     "Manufacturing": "Manufacturing",
     "Tourism": "Tourism",
     "Other": "Other",
-    "Kosmos": "Space"
+    "Kosmos": "Space",
+    "Infotehnoloogia": "Information Technology",
+    "Energeetika": "Energy",
+    "Transport": "Transport",
+    "Merendus": "Maritime",
+    "Keskkond": "Environment",
+    "Avalik Sektor": "Public Sector",
+    "Tootmine": "Manufacturing",
+    "Kindlustus": "Insurance",
+    "Pangandus": "Banking",
+    "Müük": "Sales"
   },
   "hiringTypes": {
     "Internship": "Internship",
@@ -82,6 +103,13 @@
       "ok": "OK",
       "enterCode": "Enter a code or use the camera",
       "codeMismatch": "Code does not match this company"
+    },
+    "prize": {
+      "button": "Collect prize",
+      "continueTitle": "Keep hunting",
+      "continueBody": "Visit all companies and scan their QR codes to enter the giveaway.",
+      "congratsTitle": "Congratulations!",
+      "congratsBody": "You're entered in the giveaway.\n\nYour giveaway code: {code}\n\nTake a screenshot of this – you might win!"
     },
     "winner": {
       "title": "Congratulations!",

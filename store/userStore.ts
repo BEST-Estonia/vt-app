@@ -1,15 +1,15 @@
 // app/state/userStore.ts
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { create } from 'zustand';
-import { createJSONStorage, persist } from 'zustand/middleware';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 // Import the paid pool directly
-import { treasureHuntCompanies } from '@/data/treasureHuntCompanies';
+import { treasureHuntCompanies } from "@/data/treasureHuntCompanies";
 
 // Simple UUID generator
 function uuidv4() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
     const r = (Math.random() * 16) | 0;
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
+    const v = c === "x" ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 }
@@ -24,17 +24,26 @@ function shuffleArray<T>(array: T[]): T[] {
   return arr;
 }
 
+// Deterministic hash for stable per-user selection
+function hashStringToSeed(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i += 1) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  return hash || 1;
+}
+
 type UserState = {
-  favorites: string[]; 
-  visited: string[]; 
-  schedule: string[]; 
+  favorites: string[];
+  visited: string[];
+  schedule: string[];
   participantId?: string;
-  language: 'et' | 'en';
-  scanned: string[]; 
+  language: "et" | "en";
+  scanned: string[];
   pendingScans: { companyId: string; timestamp: number; clientId: string }[];
-  
+
   // The list of 12 specific companies for this user
-  activeHuntIds: string[]; 
+  activeHuntIds: string[];
 
   toggleFavorite: (companyId: string) => void;
   addVisited: (companyId: string) => void;
@@ -44,10 +53,10 @@ type UserState = {
   addScan: (companyId: string) => void;
   markScanSynced: (clientId: string) => void;
   clearAll: () => void;
-  setLanguage: (lang: 'et' | 'en') => void;
-  
+  setLanguage: (lang: "et" | "en") => void;
+
   // Action to generate the list
-  initTreasureHunt: () => void; 
+  initTreasureHunt: () => void;
 };
 
 export const useUserStore = create<UserState>()(
@@ -57,7 +66,7 @@ export const useUserStore = create<UserState>()(
       visited: [],
       schedule: [],
       participantId: undefined,
-      language: 'et',
+      language: "et",
       scanned: [],
       pendingScans: [],
       activeHuntIds: [], // Starts empty
@@ -71,12 +80,16 @@ export const useUserStore = create<UserState>()(
 
       addVisited: (companyId) =>
         set((s) =>
-          s.visited.includes(companyId) ? s : { visited: [...s.visited, companyId] }
+          s.visited.includes(companyId)
+            ? s
+            : { visited: [...s.visited, companyId] },
         ),
 
       addToSchedule: (eventId) =>
         set((s) =>
-          s.schedule.includes(eventId) ? s : { schedule: [...s.schedule, eventId] }
+          s.schedule.includes(eventId)
+            ? s
+            : { schedule: [...s.schedule, eventId] },
         ),
 
       removeFromSchedule: (eventId) =>
@@ -97,7 +110,10 @@ export const useUserStore = create<UserState>()(
         const timestamp = Date.now();
         set((state) => ({
           scanned: [...state.scanned, companyId],
-          pendingScans: [...state.pendingScans, { companyId, timestamp, clientId }],
+          pendingScans: [
+            ...state.pendingScans,
+            { companyId, timestamp, clientId },
+          ],
         }));
       },
 
@@ -116,11 +132,22 @@ export const useUserStore = create<UserState>()(
         // 1. Get pool directly from the treasureHuntCompanies file
         const pool = treasureHuntCompanies;
 
-        // 2. Shuffle them randomly
-        const shuffled = shuffleArray(pool);
+        if (pool.length === 0) {
+          set({ activeHuntIds: [] });
+          return;
+        }
 
-        // 3. Pick the first 12
-        const selected = shuffled.slice(0, 12).map(c => c.id);
+        // Ensure user has a stable participant id
+        const participantId = s.participantId || get().ensureParticipantId();
+
+        // Deterministic selection based on participantId so users get
+        // a stable list and the distribution is approximately uniform.
+        const seed = hashStringToSeed(participantId);
+        const startIndex = seed % pool.length;
+
+        const selected = Array.from({ length: Math.min(12, pool.length) }).map(
+          (_, idx) => pool[(startIndex + idx) % pool.length].id,
+        );
 
         set({ activeHuntIds: selected });
       },
@@ -130,17 +157,14 @@ export const useUserStore = create<UserState>()(
           favorites: [],
           visited: [],
           schedule: [],
-          scanned: [],
-          pendingScans: [],
-          activeHuntIds: [], // Reset so we can test reshuffling
         }),
-      setLanguage: (lang: 'et' | 'en') => {
+      setLanguage: (lang: "et" | "en") => {
         set({ language: lang });
       },
     }),
     {
-      name: 'vt-app-storage',
+      name: "vt-app-storage",
       storage: createJSONStorage(() => AsyncStorage),
-    }
-  )
+    },
+  ),
 );

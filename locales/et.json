@@ -1,7 +1,11 @@
 {
   "header": {
+    "brand": "Võti Tulevikku",
     "myFair": "Minu mess",
     "search": "Otsi ettevõtteid"
+  },
+  "common": {
+    "ok": "OK"
   },
   "myFair": {
     "favorites": "Lemmikud",
@@ -22,14 +26,21 @@
     "placeholder": "Otsi ettevõtteid...",
     "resultsCount": "{count} ettevõtet leitud"
   },
+  "filters": {
+    "title": "Filtrid",
+    "industry": "Valdkond",
+    "hiringType": "Töö tüüp",
+    "sortBy": "Sorteeri",
+    "clearAll": "Tühjenda",
+    "apply": "Rakenda filtrid"
+  },
   "settings": {
     "languageTitle": "Keel",
     "estonian": "Eesti",
     "english": "Inglise"
   },
   "industries": {
-    "Technology": "Tehnoloogia",
-    "Finance": "Majandus",
+    "Majandus": "Majandus",
     "Healthcare": "Tervishoiu",
     "Consulting": "Konsulteerimine",
     "Engineering": "Tehisehitus",
@@ -43,7 +54,17 @@
     "Manufacturing": "Tootmine",
     "Tourism": "Turisim",
     "Other": "Muu",
-    "Kosmos": "Kosmos"
+    "Kosmos": "Kosmos",
+    "Infotehnoloogia": "Infotehnoloogia",
+    "Energeetika": "Energeetika",
+    "Transport": "Transport",
+    "Merendus": "Merendus",
+    "Keskkond": "Keskkond",
+    "Avalik Sektor": "Avalik Sektor",
+    "Tootmine": "Tootmine",
+    "Kindlustus": "Kindlustus",
+    "Pangandus": "Pangandus",
+    "Müük": "Müük"
   },
   "hiringTypes": {
     "Internship": "Praktika",
@@ -82,6 +103,13 @@
       "ok": "OK",
       "enterCode": "Sisesta kood või kasuta kaamerat",
       "codeMismatch": "Kood ei vasta antud ettevõttele"
+    },
+    "prize": {
+      "button": "Kraba auhind",
+      "continueTitle": "Jätka jahti",
+      "continueBody": "Käi kõik ettevõtted läbi ja skänni nende QR-koodid, siis saad loosist osa võtta.",
+      "congratsTitle": "Palju õnne!",
+      "congratsBody": "Osaled loosimises.\n\nSinu loosikood: {code}\n\nTee sellest ekraanipilt – äkki võitsid!"
     },
     "winner": {
       "title": "Palju õnne!",

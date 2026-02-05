@@ -1,9 +1,9 @@
 import LanguageSheet from "@/components/LanguageSheet";
 import {
-  companiesSeed,
-  companyEvents,
-  type Company,
-  type CompanyEvent,
+    companiesSeed,
+    companyEvents,
+    type Company,
+    type CompanyEvent,
 } from "@/data/companies";
 import { useI18n } from "@/lib/i18n";
 import { useUserStore } from "@/store/userStore";
@@ -11,23 +11,22 @@ import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
 import {
-  Image,
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    ScrollView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import {
-  SafeAreaView,
-  useSafeAreaInsets,
+    SafeAreaView,
+    useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
 // Industry and hiring type translations
 const INDUSTRY_TRANSLATIONS = {
   en: {
-    Technology: "Technology",
-    Finance: "Finance",
+    Majandus: "Finance",
     Healthcare: "Healthcare",
     Consulting: "Consulting",
     Engineering: "Engineering",
@@ -35,15 +34,26 @@ const INDUSTRY_TRANSLATIONS = {
     Retail: "Retail",
     Education: "Education",
     Transportation: "Transportation",
+    Logistika: "Logistics",
     Government: "Government",
     Construction: "Construction",
     Manufacturing: "Manufacturing",
     Tourism: "Tourism",
     Other: "Other",
+    Kosmos: "Space",
+    Infotehnoloogia: "Information Technology",
+    Energeetika: "Energy",
+    Transport: "Transport",
+    Merendus: "Maritime",
+    Keskkond: "Environment",
+    "Avalik Sektor": "Public Sector",
+    Tootmine: "Manufacturing",
+    Kindlustus: "Insurance",
+    Pangandus: "Banking",
+    Müük: "Sales",
   },
   et: {
-    Technology: "Tehnoloogia",
-    Finance: "Finants",
+    Majandus: "Majandus",
     Healthcare: "Tervishoiu",
     Consulting: "Konsulteerimine",
     Engineering: "Tehisehitus",
@@ -51,11 +61,23 @@ const INDUSTRY_TRANSLATIONS = {
     Retail: "Jaemüük",
     Education: "Haridus",
     Transportation: "Transport",
+    Logistika: "Logistika",
     Government: "Valitsus",
     Construction: "Ehitus",
     Manufacturing: "Tootmine",
     Tourism: "Turisim",
     Other: "Muu",
+    Kosmos: "Kosmos",
+    Infotehnoloogia: "Infotehnoloogia",
+    Energeetika: "Energeetika",
+    Transport: "Transport",
+    Merendus: "Merendus",
+    Keskkond: "Keskkond",
+    "Avalik Sektor": "Avalik Sektor",
+    Tootmine: "Tootmine",
+    Kindlustus: "Kindlustus",
+    Pangandus: "Pangandus",
+    Müük: "Müük",
   },
 };
 

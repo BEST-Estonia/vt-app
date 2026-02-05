@@ -14,8 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 // Industry and hiring type translations
 const INDUSTRY_TRANSLATIONS = {
   en: {
-    Technology: "Technology",
-    Finance: "Finance",
+    Majandus: "Finance",
     Healthcare: "Healthcare",
     Consulting: "Consulting",
     Engineering: "Engineering",
@@ -23,15 +22,26 @@ const INDUSTRY_TRANSLATIONS = {
     Retail: "Retail",
     Education: "Education",
     Transportation: "Transportation",
+    Logistika: "Logistics",
     Government: "Government",
     Construction: "Construction",
     Manufacturing: "Manufacturing",
     Tourism: "Tourism",
     Other: "Other",
+    Kosmos: "Space",
+    Infotehnoloogia: "Information Technology",
+    Energeetika: "Energy",
+    Transport: "Transport",
+    Merendus: "Maritime",
+    Keskkond: "Environment",
+    "Avalik Sektor": "Public Sector",
+    Tootmine: "Manufacturing",
+    Kindlustus: "Insurance",
+    Pangandus: "Banking",
+    Müük: "Sales",
   },
   et: {
-    Technology: "Tehnoloogia",
-    Finance: "Finants",
+    Majandus: "Majandus",
     Healthcare: "Tervishoiu",
     Consulting: "Konsulteerimine",
     Engineering: "Tehisehitus",
@@ -39,11 +49,23 @@ const INDUSTRY_TRANSLATIONS = {
     Retail: "Jaemüük",
     Education: "Haridus",
     Transportation: "Transport",
+    Logistika: "Logistika",
     Government: "Valitsus",
     Construction: "Ehitus",
     Manufacturing: "Tootmine",
     Tourism: "Turisim",
     Other: "Muu",
+    Kosmos: "Kosmos",
+    Infotehnoloogia: "Infotehnoloogia",
+    Energeetika: "Energeetika",
+    Transport: "Transport",
+    Merendus: "Merendus",
+    Keskkond: "Keskkond",
+    "Avalik Sektor": "Avalik Sektor",
+    Tootmine: "Tootmine",
+    Kindlustus: "Kindlustus",
+    Pangandus: "Pangandus",
+    Müük: "Müük",
   },
 };
 
@@ -119,7 +141,7 @@ export default function FilterSheet({
   onClearAll,
   onApply,
 }: Props) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
 
   if (!visible) return null;
 
@@ -136,7 +158,7 @@ export default function FilterSheet({
     <View style={styles.overlay}>
       <SafeAreaView edges={["top"]} style={styles.headerSafe}>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Filters</Text>
+          <Text style={styles.headerTitle}>{t("filters.title")}</Text>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
             <Feather name="x" size={22} color="#111827" />
           </TouchableOpacity>
@@ -148,7 +170,7 @@ export default function FilterSheet({
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.sectionTitle}>Industry</Text>
+        <Text style={styles.sectionTitle}>{t("filters.industry")}</Text>
         <View style={styles.rowWrap}>
           {allIndustries.map((ind) => (
             <Chip
@@ -167,7 +189,7 @@ export default function FilterSheet({
         </View>
 
         <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
-          Hiring Type
+          {t("filters.hiringType")}
         </Text>
         <View style={styles.rowWrap}>
           {allHiring.map((h) => (
@@ -184,7 +206,9 @@ export default function FilterSheet({
           ))}
         </View>
 
-        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Sort By</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
+          {t("filters.sortBy")}
+        </Text>
         <View style={styles.row}>
           {(["A-Z", "Relevance"] as SortMode[]).map((mode) => {
             const active = sortMode === mode;
@@ -220,7 +244,7 @@ export default function FilterSheet({
             activeOpacity={0.9}
             style={styles.clearBtn}
           >
-            <Text style={styles.clearText}>Clear All</Text>
+            <Text style={styles.clearText}>{t("filters.clearAll")}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -230,7 +254,7 @@ export default function FilterSheet({
             activeOpacity={0.9}
             style={styles.applyBtn}
           >
-            <Text style={styles.applyText}>Apply Filters</Text>
+            <Text style={styles.applyText}>{t("filters.apply")}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
