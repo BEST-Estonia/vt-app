@@ -226,7 +226,7 @@ export default function TreasureHuntScreen() {
             resizeMode="contain"
           />
           <Text className="text-[22px] font-bold text-gray-900">
-            Võti Tulevikku
+            {t("header.brand")}
           </Text>
         </View>
       </View>

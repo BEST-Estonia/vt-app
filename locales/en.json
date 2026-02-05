@@ -1,5 +1,6 @@
 {
   "header": {
+    "brand": "Võti Tulevikku",
     "myFair": "My Fair",
     "search": "Search Companies"
   },
@@ -21,6 +22,14 @@
     "searchCompanies": "Search Companies",
     "placeholder": "Search companies...",
     "resultsCount": "{count} companies found"
+  },
+  "filters": {
+    "title": "Filters",
+    "industry": "Industry",
+    "hiringType": "Hiring Type",
+    "sortBy": "Sort By",
+    "clearAll": "Clear All",
+    "apply": "Apply Filters"
   },
   "settings": {
     "languageTitle": "Language",

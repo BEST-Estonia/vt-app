@@ -1,5 +1,6 @@
 {
   "header": {
+    "brand": "Võti Tulevikku",
     "myFair": "Minu mess",
     "search": "Otsi ettevõtteid"
   },
@@ -21,6 +22,14 @@
     "searchCompanies": "Otsi ettevõtteid",
     "placeholder": "Otsi ettevõtteid...",
     "resultsCount": "{count} ettevõtet leitud"
+  },
+  "filters": {
+    "title": "Filtrid",
+    "industry": "Valdkond",
+    "hiringType": "Töö tüüp",
+    "sortBy": "Sorteeri",
+    "clearAll": "Tühjenda",
+    "apply": "Rakenda filtrid"
   },
   "settings": {
     "languageTitle": "Keel",

@@ -3,11 +3,11 @@ import { useI18n } from "@/lib/i18n";
 import { Feather } from "@expo/vector-icons";
 import React from "react";
 import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -141,7 +141,7 @@ export default function FilterSheet({
   onClearAll,
   onApply,
 }: Props) {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
 
   if (!visible) return null;
 
@@ -158,7 +158,7 @@ export default function FilterSheet({
     <View style={styles.overlay}>
       <SafeAreaView edges={["top"]} style={styles.headerSafe}>
         <View style={styles.header}>
-          <Text style={styles.headerTitle}>Filters</Text>
+          <Text style={styles.headerTitle}>{t("filters.title")}</Text>
           <TouchableOpacity onPress={onClose} hitSlop={12}>
             <Feather name="x" size={22} color="#111827" />
           </TouchableOpacity>
@@ -170,7 +170,7 @@ export default function FilterSheet({
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.sectionTitle}>Industry</Text>
+        <Text style={styles.sectionTitle}>{t("filters.industry")}</Text>
         <View style={styles.rowWrap}>
           {allIndustries.map((ind) => (
             <Chip
@@ -189,7 +189,7 @@ export default function FilterSheet({
         </View>
 
         <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
-          Hiring Type
+          {t("filters.hiringType")}
         </Text>
         <View style={styles.rowWrap}>
           {allHiring.map((h) => (
@@ -206,7 +206,9 @@ export default function FilterSheet({
           ))}
         </View>
 
-        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Sort By</Text>
+        <Text style={[styles.sectionTitle, { marginTop: 20 }]}>
+          {t("filters.sortBy")}
+        </Text>
         <View style={styles.row}>
           {(["A-Z", "Relevance"] as SortMode[]).map((mode) => {
             const active = sortMode === mode;
@@ -242,7 +244,7 @@ export default function FilterSheet({
             activeOpacity={0.9}
             style={styles.clearBtn}
           >
-            <Text style={styles.clearText}>Clear All</Text>
+            <Text style={styles.clearText}>{t("filters.clearAll")}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
@@ -252,7 +254,7 @@ export default function FilterSheet({
             activeOpacity={0.9}
             style={styles.applyBtn}
           >
-            <Text style={styles.applyText}>Apply Filters</Text>
+            <Text style={styles.applyText}>{t("filters.apply")}</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
