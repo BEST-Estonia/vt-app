@@ -39,8 +39,8 @@ export type Company = {
 export type SortMode = "A-Z" | "Relevance";
 
 export const ALL_INDUSTRIES = [
-  "Technology",
-  "Finance",
+  "Infotehnoloogia",
+  "Majandus",
   "Healthcare",
   "Consulting",
   "Engineering",
@@ -51,12 +51,19 @@ export const ALL_INDUSTRIES = [
   "Logistika",
   "Government",
   "Construction",
+  "Manufacturing",
+  "Tourism",
+  "Other",
   "Kosmos",
-  "Infotehnoloogia",
   "Energeetika",
   "Transport",
   "Merendus",
   "Keskkond",
+  "Avalik Sektor",
+  "Tootmine",
+  "Kindlustus",
+  "Pangandus",
+  "Müük",
 ];
 
 export const ALL_HIRING = [
@@ -110,7 +117,7 @@ const regularCompanies: Company[] = [
     boothCode: "103",
     initials: "NO",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.nortalAS,
@@ -169,7 +176,7 @@ const regularCompanies: Company[] = [
     boothCode: "33",
     initials: "PA",
     color: "#1E66FF",
-    industries: ["Avalik sektor"],
+    industries: ["Avalik Sektor"],
     hiringTypes: ["Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.patendiAmet,
@@ -216,11 +223,14 @@ const regularCompanies: Company[] = [
   {
     id: "18",
     name: "Stoneridge Electronics AS",
-    description: "Automotive electronics and technology.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["18"],
+      en: COMPANY_DESCRIPTIONS.en["18"],
+    },
     boothCode: "56",
     initials: "SE",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.stoneridgeLogo,
@@ -228,7 +238,10 @@ const regularCompanies: Company[] = [
   {
     id: "19",
     name: "Smartecon OÜ",
-    description: "Smart energy solutions.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["19"],
+      en: COMPANY_DESCRIPTIONS.en["19"],
+    },
     boothCode: "48",
     initials: "SM",
     color: "#1E66FF",
@@ -302,7 +315,7 @@ const regularCompanies: Company[] = [
     boothCode: "96",
     initials: "RI",
     color: "#1E66FF",
-    industries: ["Government", "Technology"],
+    industries: ["Government", "Infotehnoloogia"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.rikLogo,
@@ -331,7 +344,7 @@ const regularCompanies: Company[] = [
     initials: "NO",
     color: "#1E66FF",
     industries: ["Pangandus", "Majandus"],
-    hiringTypes: ["Praktika", "Full-time", "Part-time"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.nordeaLogo,
     links: [
@@ -380,7 +393,10 @@ const regularCompanies: Company[] = [
   {
     id: "25",
     name: "Sisekaitseakadeemia",
-    description: "Internal security education.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["25"],
+      en: COMPANY_DESCRIPTIONS.en["25"],
+    },
     boothCode: "63",
     initials: "SK",
     color: "#1E66FF",
@@ -392,7 +408,10 @@ const regularCompanies: Company[] = [
   {
     id: "26",
     name: "AS TREV-2 Grupp",
-    description: "Infrastructure construction.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["26"],
+      en: COMPANY_DESCRIPTIONS.en["26"],
+    },
     boothCode: "10",
     initials: "TR",
     color: "#1E66FF",
@@ -404,7 +423,10 @@ const regularCompanies: Company[] = [
   {
     id: "27",
     name: "AS Harju Elekter",
-    description: "Electrical equipment manufacturing.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["27"],
+      en: COMPANY_DESCRIPTIONS.en["27"],
+    },
     boothCode: "88",
     initials: "HE",
     color: "#1E66FF",
@@ -416,7 +438,10 @@ const regularCompanies: Company[] = [
   {
     id: "28",
     name: "Enefit",
-    description: "Energy solutions.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["28"],
+      en: COMPANY_DESCRIPTIONS.en["28"],
+    },
     boothCode: "6",
     initials: "EE",
     color: "#1E66FF",
@@ -428,7 +453,10 @@ const regularCompanies: Company[] = [
   {
     id: "29",
     name: "GPV Estonia AS",
-    description: "Electronics manufacturing services.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["29"],
+      en: COMPANY_DESCRIPTIONS.en["29"],
+    },
     boothCode: "110",
     initials: "GP",
     color: "#1E66FF",
@@ -448,7 +476,7 @@ const regularCompanies: Company[] = [
     initials: "SW",
     color: "#1E66FF",
     industries: ["Majandus"],
-    hiringTypes: ["Praktika", "Full-time", "Part-time"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.swedbankLogo,
     links: [
@@ -572,7 +600,7 @@ const regularCompanies: Company[] = [
     boothCode: "100",
     initials: "CV",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: [""],
     isFavorite: false,
     localLogo: logos.cvkeskusLogo,
@@ -659,7 +687,7 @@ const regularCompanies: Company[] = [
     boothCode: "38",
     initials: "PL",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.playtechLogo,
@@ -716,19 +744,25 @@ const regularCompanies: Company[] = [
   {
     id: "40",
     name: "Rahapesu Andmebüroo",
-    description: "Financial intelligence unit.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["40"],
+      en: COMPANY_DESCRIPTIONS.en["40"],
+    },
     boothCode: "58",
     initials: "RA",
     color: "#1E66FF",
-    industries: ["Government"],
-    hiringTypes: ["Full-time"],
+    industries: ["Majandus"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
-    localLogo: logos.rahapesuandmebürooLogo,
+    localLogo: logos.rahapesuandmeburooLogo,
   },
   {
     id: "41",
     name: "Kaitseressursside Amet",
-    description: "Defense resources agency.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["41"],
+      en: COMPANY_DESCRIPTIONS.en["41"],
+    },
     boothCode: "29",
     initials: "KR",
     color: "#1E66FF",
@@ -740,7 +774,10 @@ const regularCompanies: Company[] = [
   {
     id: "42",
     name: "Tammer OÜ",
-    description: "Manufacturing of doors and windows.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["42"],
+      en: COMPANY_DESCRIPTIONS.en["42"],
+    },
     boothCode: "78",
     initials: "TA",
     color: "#1E66FF",
@@ -784,11 +821,14 @@ const regularCompanies: Company[] = [
   {
     id: "44",
     name: "Helmes AS",
-    description: "Software development.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["44"],
+      en: COMPANY_DESCRIPTIONS.en["44"],
+    },
     boothCode: "91",
     initials: "HE",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.helmesLogo,
@@ -796,7 +836,10 @@ const regularCompanies: Company[] = [
   {
     id: "45",
     name: "INF Infra OÜ",
-    description: "Infrastructure construction.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["45"],
+      en: COMPANY_DESCRIPTIONS.en["45"],
+    },
     boothCode: "37",
     initials: "IN",
     color: "#1E66FF",
@@ -808,7 +851,10 @@ const regularCompanies: Company[] = [
   {
     id: "46",
     name: "NOBE OÜ",
-    description: "Construction and concrete works.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["46"],
+      en: COMPANY_DESCRIPTIONS.en["46"],
+    },
     boothCode: "19",
     initials: "NO",
     color: "#1E66FF",
@@ -855,7 +901,7 @@ const regularCompanies: Company[] = [
     boothCode: "83",
     initials: "FI",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.finestLogo,
@@ -882,7 +928,10 @@ const regularCompanies: Company[] = [
   {
     id: "49",
     name: "AS KH Energia-Konsult",
-    description: "Energy consulting.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["49"],
+      en: COMPANY_DESCRIPTIONS.en["49"],
+    },
     boothCode: "101",
     initials: "KH",
     color: "#1E66FF",
@@ -894,7 +943,10 @@ const regularCompanies: Company[] = [
   {
     id: "50",
     name: "Hurtigruten Estonia OÜ",
-    description: "Contact center for tourism.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["50"],
+      en: COMPANY_DESCRIPTIONS.en["50"],
+    },
     boothCode: "11",
     initials: "HU",
     color: "#1E66FF",
@@ -947,7 +999,7 @@ const regularCompanies: Company[] = [
     boothCode: "104",
     initials: "HE",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.heisiLogo,
@@ -1038,11 +1090,14 @@ const regularCompanies: Company[] = [
   {
     id: "56",
     name: "Bigbank AS",
-    description: "Banking.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["56"],
+      en: COMPANY_DESCRIPTIONS.en["56"],
+    },
     boothCode: "46",
     initials: "BB",
     color: "#1E66FF",
-    industries: ["Finance"],
+    industries: ["Majandus"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.bigbankLogo,
@@ -1051,14 +1106,17 @@ const regularCompanies: Company[] = [
   {
     id: "57",
     name: "Välisluureamet",
-    description: "Foreign intelligence.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["57"],
+      en: COMPANY_DESCRIPTIONS.en["57"],
+    },
     boothCode: "79",
     initials: "VA",
     color: "#1E66FF",
     industries: ["Government"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
-    localLogo: logos.välisluureametLogo,
+    localLogo: logos.valisluureametLogo,
   },
   {
     id: "58",
@@ -1070,7 +1128,7 @@ const regularCompanies: Company[] = [
     boothCode: "115",
     initials: "EY",
     color: "#1E66FF",
-    industries: ["Professionaalsed konsultatsiooniteenused"],
+    industries: ["Consulting"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.ernstLogo,
@@ -1098,7 +1156,10 @@ const regularCompanies: Company[] = [
   {
     id: "59",
     name: "Lennuliiklusteeninduse AS",
-    description: "Air navigation services.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["59"],
+      en: COMPANY_DESCRIPTIONS.en["59"],
+    },
     boothCode: "67",
     initials: "LL",
     color: "#1E66FF",
@@ -1110,11 +1171,14 @@ const regularCompanies: Company[] = [
   {
     id: "60",
     name: "Fujitsu Estonia",
-    description: "IT services and solutions.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["60"],
+      en: COMPANY_DESCRIPTIONS.en["60"],
+    },
     boothCode: "61",
     initials: "FU",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.fujitsuLogo,
@@ -1122,11 +1186,14 @@ const regularCompanies: Company[] = [
   {
     id: "61",
     name: "Finantsinspektsioon",
-    description: "Financial supervision.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["61"],
+      en: COMPANY_DESCRIPTIONS.en["61"],
+    },
     boothCode: "57",
     initials: "FI",
     color: "#1E66FF",
-    industries: ["Finance", "Government"],
+    industries: ["Majandus", "Government"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.finantsinspektsioonLogo,
@@ -1210,7 +1277,7 @@ const regularCompanies: Company[] = [
     boothCode: "117",
     initials: "GS",
     color: "#1E66FF",
-    industries: ["Technology"],
+    industries: ["Infotehnoloogia"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.geniussportsLogo,
@@ -1308,19 +1375,25 @@ const regularCompanies: Company[] = [
   {
     id: "67",
     name: "Tartu Ülikool",
-    description: "University of Tartu.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["67"],
+      en: COMPANY_DESCRIPTIONS.en["67"],
+    },
     boothCode: "22",
     initials: "UT",
     color: "#1E66FF",
     industries: ["Education"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
-    localLogo: logos.tartuülikoolLogo,
+    localLogo: logos.tartuulikoolLogo,
   },
   {
     id: "68",
     name: "Ruukki Products AS",
-    description: "Steel products.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["68"],
+      en: COMPANY_DESCRIPTIONS.en["68"],
+    },
     boothCode: "23",
     initials: "RU",
     color: "#1E66FF",
@@ -1400,7 +1473,10 @@ const regularCompanies: Company[] = [
   {
     id: "71",
     name: "Ettevõtluse ja Innovatsiooni Sihtasutus",
-    description: "Enterprise Estonia.",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["71"],
+      en: COMPANY_DESCRIPTIONS.en["71"],
+    },
     boothCode: "77",
     initials: "EI",
     color: "#1E66FF",
@@ -1589,36 +1665,6 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/postimeesgrupp/",
-        icon: "linkedin",
-      },
-    ],
-  },
-  {
-    id: "80",
-    name: "Kliimaministeerium",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["80"],
-      en: COMPANY_DESCRIPTIONS.en["80"],
-    },
-    initials: "KM",
-    color: "#1E66FF",
-    industries: ["Energeetika", "Transport", "Merendus", "Keskkond"],
-    hiringTypes: ["Internship"],
-    isFavorite: false,
-    links: [
-      {
-        label: "Website",
-        url: "https://www.kliimaministeerium.ee",
-        icon: "globe",
-      },
-      {
-        label: "Careers",
-        url: "https://kliimaministeerium.ee/t%C3%B6%C3%B6pakkumised",
-        icon: "briefcase",
-      },
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/ministry-of-climate-of-estonia",
         icon: "linkedin",
       },
     ],

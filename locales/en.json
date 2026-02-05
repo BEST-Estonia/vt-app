@@ -28,8 +28,7 @@
     "english": "English"
   },
   "industries": {
-    "Technology": "Technology",
-    "Finance": "Finance",
+    "Majandus": "Finance",
     "Healthcare": "Healthcare",
     "Consulting": "Consulting",
     "Engineering": "Engineering",
@@ -48,7 +47,12 @@
     "Energeetika": "Energy",
     "Transport": "Transport",
     "Merendus": "Maritime",
-    "Keskkond": "Environment"
+    "Keskkond": "Environment",
+    "Avalik Sektor": "Public Sector",
+    "Tootmine": "Manufacturing",
+    "Kindlustus": "Insurance",
+    "Pangandus": "Banking",
+    "Müük": "Sales"
   },
   "hiringTypes": {
     "Internship": "Internship",

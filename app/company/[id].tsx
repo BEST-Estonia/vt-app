@@ -20,13 +20,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // Industry and hiring type translations
 const INDUSTRY_TRANSLATIONS = {
   en: {
-    Technology: "Technology",
-    Finance: "Finance",
+    Majandus: "Finance",
     Healthcare: "Healthcare",
     Consulting: "Consulting",
     Engineering: "Engineering",
@@ -46,10 +44,14 @@ const INDUSTRY_TRANSLATIONS = {
     Transport: "Transport",
     Merendus: "Maritime",
     Keskkond: "Environment",
+    "Avalik Sektor": "Public Sector",
+    Tootmine: "Manufacturing",
+    Kindlustus: "Insurance",
+    Pangandus: "Banking",
+    Müük: "Sales",
   },
   et: {
-    Technology: "Tehnoloogia",
-    Finance: "Finants",
+    Majandus: "Majandus",
     Healthcare: "Tervishoiu",
     Consulting: "Konsulteerimine",
     Engineering: "Tehisehitus",
@@ -69,6 +71,11 @@ const INDUSTRY_TRANSLATIONS = {
     Transport: "Transport",
     Merendus: "Merendus",
     Keskkond: "Keskkond",
+    "Avalik Sektor": "Avalik Sektor",
+    Tootmine: "Tootmine",
+    Kindlustus: "Kindlustus",
+    Pangandus: "Pangandus",
+    Müük: "Müük",
   },
 };
 
@@ -88,7 +95,6 @@ const HIRING_TRANSLATIONS = {
 export default function CompanyProfileScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const insets = useSafeAreaInsets();
   const { lang } = useI18n();
 
   // Store hooks
