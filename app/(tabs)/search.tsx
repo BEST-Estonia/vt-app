@@ -2,27 +2,27 @@ import { Feather } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React, { useMemo, useState } from "react";
 import {
-  Image,
-  ScrollView,
-  StatusBar,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Image,
+    ScrollView,
+    StatusBar,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import {
-  SafeAreaView,
-  useSafeAreaInsets,
+    SafeAreaView,
+    useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
 import CompanyCard from "@/components/CompanyCard";
 import FilterSheet from "@/components/FilterSheet";
 // Import the global store
 import {
-  ALL_HIRING,
-  ALL_INDUSTRIES,
-  companiesSeed,
-  type SortMode,
+    ALL_HIRING,
+    ALL_INDUSTRIES,
+    companiesSeed,
+    type SortMode,
 } from "@/data/companies";
 import { useI18n } from "@/lib/i18n";
 import { useUserStore } from "@/store/userStore";
@@ -96,7 +96,7 @@ export default function SearchScreen() {
       <StatusBar barStyle="dark-content" />
 
       {/* Header */}
-      <View className="px-5 pt-6 pb-3 border-b border-gray-200 bg-white">
+      <View className="px-5 py-3 border-b border-gray-200 bg-white">
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center">
             <Image
