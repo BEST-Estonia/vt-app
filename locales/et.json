@@ -44,7 +44,11 @@
     "Tourism": "Turisim",
     "Other": "Muu",
     "Kosmos": "Kosmos",
-    "Infotehnoloogia": "Infotehnoloogia"
+    "Infotehnoloogia": "Infotehnoloogia",
+    "Energeetika": "Energeetika",
+    "Transport": "Transport",
+    "Merendus": "Merendus",
+    "Keskkond": "Keskkond"
   },
   "hiringTypes": {
     "Internship": "Praktika",

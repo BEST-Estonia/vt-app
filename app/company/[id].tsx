@@ -42,6 +42,10 @@ const INDUSTRY_TRANSLATIONS = {
     Other: "Other",
     Kosmos: "Space",
     Infotehnoloogia: "Information Technology",
+    Energeetika: "Energy",
+    Transport: "Transport",
+    Merendus: "Maritime",
+    Keskkond: "Environment",
   },
   et: {
     Technology: "Tehnoloogia",
@@ -61,6 +65,10 @@ const INDUSTRY_TRANSLATIONS = {
     Other: "Muu",
     Kosmos: "Kosmos",
     Infotehnoloogia: "Infotehnoloogia",
+    Energeetika: "Energeetika",
+    Transport: "Transport",
+    Merendus: "Merendus",
+    Keskkond: "Keskkond",
   },
 };
 

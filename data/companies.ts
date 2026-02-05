@@ -53,6 +53,10 @@ export const ALL_INDUSTRIES = [
   "Construction",
   "Kosmos",
   "Infotehnoloogia",
+  "Energeetika",
+  "Transport",
+  "Merendus",
+  "Keskkond",
 ];
 
 export const ALL_HIRING = [
@@ -66,6 +70,32 @@ export { logos };
 
 // REGULAR COMPANIES (NOT in Treasure Hunt)
 const regularCompanies: Company[] = [
+  {
+    id: "81",
+    name: "Watercom",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["81"],
+      en: COMPANY_DESCRIPTIONS.en["81"],
+    },
+    initials: "WC",
+    color: "#1E66FF",
+    industries: ["Construction"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://watercom.eu/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://watercom.eu/tootamine-watercomis/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://ee.linkedin.com/company/watercom-ou",
+        icon: "linkedin",
+      },
+    ],
+  },
   {
     id: "14",
     name: "Nortal AS",
@@ -238,21 +268,26 @@ const regularCompanies: Company[] = [
     id: "21",
     name: "Tallinna Vesi",
     description: {
-      et: COMPANY_DESCRIPTIONS.et["20"],
-      en: COMPANY_DESCRIPTIONS.en["20"],
+      et: COMPANY_DESCRIPTIONS.et["21"],
+      en: COMPANY_DESCRIPTIONS.en["21"],
     },
     boothCode: "27",
     initials: "TV",
     color: "#1E66FF",
-    industries: ["Other"],
-    hiringTypes: ["Full-time"],
+    industries: ["Manufacturing"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.tallinnvesiLogo,
     links: [
-      { label: "Website", url: "https://seesam.ee/", icon: "globe" },
+      { label: "Website", url: "https://www.tallinnavesi.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://tallinnavesi.ee/karjaar/tookuulutused/",
+        icon: "briefcase",
+      },
       {
         label: "LinkedIn",
-        url: "https://www.linkedin.com/company/18346040/admin/page-posts/published/",
+        url: "https://ee.linkedin.com/company/as-tallinna-vesi",
         icon: "linkedin",
       },
     ],
@@ -1554,6 +1589,36 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/postimeesgrupp/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "80",
+    name: "Kliimaministeerium",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["80"],
+      en: COMPANY_DESCRIPTIONS.en["80"],
+    },
+    initials: "KM",
+    color: "#1E66FF",
+    industries: ["Energeetika", "Transport", "Merendus", "Keskkond"],
+    hiringTypes: ["Internship"],
+    isFavorite: false,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.kliimaministeerium.ee",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://kliimaministeerium.ee/t%C3%B6%C3%B6pakkumised",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/ministry-of-climate-of-estonia",
         icon: "linkedin",
       },
     ],
