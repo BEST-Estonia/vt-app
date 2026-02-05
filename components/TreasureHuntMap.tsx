@@ -1,15 +1,16 @@
 // app/components/TreasureHuntMap.tsx
 import type { Company } from "@/data/companies";
+import { useI18n } from "@/lib/i18n";
 import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef } from "react";
 import {
-    Alert,
-    Animated,
-    Image,
-    Text,
-    TouchableOpacity,
-    View,
+  Alert,
+  Animated,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 type Props = {
@@ -56,6 +57,7 @@ export default function TreasureHuntMap({
   onSelect,
   participantId,
 }: Props) {
+  const { t } = useI18n();
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const pulseAnim = useRef(new Animated.Value(0)).current;
 
@@ -258,15 +260,15 @@ export default function TreasureHuntMap({
               onPress={() => {
                 if (!allScanned) {
                   Alert.alert(
-                    "Jätka jahti",
-                    "Käi kõik ettevõtted läbi ja skänni nende QR-koodid, siis saad loosist osa võtta.",
+                    t("treasure.prize.continueTitle"),
+                    t("treasure.prize.continueBody"),
                   );
                   return;
                 }
 
                 Alert.alert(
-                  "Palju õnne!",
-                  `Osaled loosimises.\n\nSinu loosikood: ${readableId}\n\nMake a screenshot of this – maybe you won!`,
+                  t("treasure.prize.congratsTitle"),
+                  t("treasure.prize.congratsBody", { code: readableId }),
                 );
               }}
               className="rounded-full px-5 py-2.5 flex-row items-center"
@@ -287,7 +289,7 @@ export default function TreasureHuntMap({
                   color: allScanned ? "#022c22" : "#0f172a",
                 }}
               >
-                Kraba auhind
+                {t("treasure.prize.button")}
               </Text>
             </TouchableOpacity>
           </View>

@@ -4,6 +4,9 @@
     "myFair": "My Fair",
     "search": "Search Companies"
   },
+  "common": {
+    "ok": "OK"
+  },
   "myFair": {
     "favorites": "Favorites",
     "noFavoritesTitle": "No favorites yet",
@@ -100,6 +103,13 @@
       "ok": "OK",
       "enterCode": "Enter a code or use the camera",
       "codeMismatch": "Code does not match this company"
+    },
+    "prize": {
+      "button": "Collect prize",
+      "continueTitle": "Keep hunting",
+      "continueBody": "Visit all companies and scan their QR codes to enter the giveaway.",
+      "congratsTitle": "Congratulations!",
+      "congratsBody": "You're entered in the giveaway.\n\nYour giveaway code: {code}\n\nTake a screenshot of this – you might win!"
     },
     "winner": {
       "title": "Congratulations!",

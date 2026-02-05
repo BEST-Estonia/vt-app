@@ -4,6 +4,9 @@
     "myFair": "Minu mess",
     "search": "Otsi ettevõtteid"
   },
+  "common": {
+    "ok": "OK"
+  },
   "myFair": {
     "favorites": "Lemmikud",
     "noFavoritesTitle": "Lemmikuid pole",
@@ -100,6 +103,13 @@
       "ok": "OK",
       "enterCode": "Sisesta kood või kasuta kaamerat",
       "codeMismatch": "Kood ei vasta antud ettevõttele"
+    },
+    "prize": {
+      "button": "Kraba auhind",
+      "continueTitle": "Jätka jahti",
+      "continueBody": "Käi kõik ettevõtted läbi ja skänni nende QR-koodid, siis saad loosist osa võtta.",
+      "congratsTitle": "Palju õnne!",
+      "congratsBody": "Osaled loosimises.\n\nSinu loosikood: {code}\n\nTee sellest ekraanipilt – äkki võitsid!"
     },
     "winner": {
       "title": "Palju õnne!",

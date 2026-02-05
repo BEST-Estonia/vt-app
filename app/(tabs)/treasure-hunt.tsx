@@ -95,7 +95,7 @@ export default function TreasureHuntScreen() {
       Alert.alert(
         t("treasure.scanSuccessTitle"),
         t("treasure.scanSuccessBody", { name: selectedCompany.name }),
-        [{ text: "OK", onPress: () => setModalVisible(false) }],
+        [{ text: t("common.ok"), onPress: () => setModalVisible(false) }],
       );
     }
   };
@@ -149,7 +149,7 @@ export default function TreasureHuntScreen() {
       Alert.alert(
         t("treasure.success.registeredTitle"),
         t("treasure.success.registeredBody"),
-        [{ text: "OK", onPress: () => setWinnerModalVisible(false) }],
+        [{ text: t("common.ok"), onPress: () => setWinnerModalVisible(false) }],
       );
     } catch (e) {
       Alert.alert(
