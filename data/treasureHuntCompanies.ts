@@ -52,6 +52,7 @@ export const ALL_INDUSTRIES = [
   "Construction",
   "Manufacturing",
   "Tourism",
+  "Turism",
   "Other",
   "Kosmos",
   "Energeetika",

@@ -25,7 +25,7 @@ export const COMPANY_DESCRIPTIONS = {
     "25": "Sisekaitseharidus.",
     "26": "Infrastruktuuri ehitus.",
     "27": "Elektriline varustuse tootmine.",
-    "28": "Energialahendused.",
+    "28": "Oleme rahvusvaheline energiaettevõte. Pakume inimestele kasulikke ja mugavaid energialahendusi ning toodame energiat aina keskkonnasäästlikumalt. Eesti Energia koduturud on Eesti, Läti, Leedu, Poola.",
     "29": "Elektroonika tootmine.",
 
     "30": "Oleme suurim pank Eestis, mille on oma finantspartneriks vali​​nud üle 970 000 era- ning 131 000 ärikliendi​​​. Meil on suurim pangaesinduste ja sularahaautomaatide võrgustik Eestis.  Meie eesmärk on aidata paljudel inimestel ja ettevõtetel luua paremat tulevikku. Koos oma klientidega suudame ühiskonnas paljutki mõjusat korda saata. Usume, et jätkusuutlike klientidega jätkusuutlik pank aitab saavutada korras rahaasjadega jätkusuutliku ühiskonna. \n\nMeie väärtused on avatud, lihtne ja hooliv, mida jagavad kõik meie ligi 2700 töötajat Eestis ja ligi 15 000 kolleegi kogu grupis. Tule kandideeri meie juurde praktikale ja saa osa mitmekesisest suveprogrammist, avarda oma profesionaalset võrgustikku ning täienda teadmisi-oskusi erialaseid ülesandeid täites.",
@@ -52,14 +52,14 @@ export const COMPANY_DESCRIPTIONS = {
 
     "43": "Elering on sõltumatu ja iseseisev Eesti elektri ja gaasi ühendsüsteemihaldur, mille peamiseks ülesandeks on kindlustada Eesti tarbijatele igal ajahetkel kvaliteetne energiavarustus.",
 
-    "44": "Tarkvaraarendus.",
+    "44": "For over 35 years, Helmes has been a trusted partner in digital transformation, specializing in building mission-critical software systems. Headquartered in Estonia, the company operates in 20 locations with a team of more than 1500 experts.\nHelmes develops secure, scalable software that helps public and private sector organizations work more efficiently – across defence, finance, logistics, healthcare, telecom, and government.\nThe company contributes to complex, high-impact projects for clients including Estonia’s digital government, the European Space Agency, OECD, Airbus, Telia, and Kühne+Nagel. More than 100 million people use systems developed by Helmes.",
     "45": "Infrastruktuuri ehitus.",
     "46": "Ehitus ja betooni tööd.",
     "47": "Nordecon on Eesti üks vanimaid ehitusekontserne, mis on järjepidevalt tegutsenud juba aastast 1989. Täna oleme keskendunud eelkõige hoonete ja rajatiste ehituse peatöövõtule. Meil töötab enam kui 150 nutikat inimest, kellest suur enamik on ehitusinsenerid. Iga-aastaselt kutsume oma ehitusobjektidele tööle ka praktikante, kellest paljud jätkavad meie juures ka peale praktikaperioodi lõppu.",
 
     "48": "FINEST on juhtiv tarkvarasüsteemide arendus- ja konsultatsiooniettevõte Eestis ja Poolas.",
-    "49": "Turismi kontaktikeskus.",
-    "50": "Üldkonsultant.",
+    "49": "KH Energia‑Konsult AS on Eestis tegutsev elektritööde ja elektripaigaldiste lahendustele keskenduv ettevõte. Pakume täisteenust alates elektri projekteerimisest kuni paigalduse, elektriehitus‑ ja nõrkvoolutööde ning elektripaigaldiste hooldus‑ ja käiduteenusteni, sealhulgas kontrollmõõtmised, auditid, turva‑ ja ohutussüsteemide paigaldus ning energialahendused nagu päikesepaneelid ja elektriautode laadijad. KH Energia‑Konsult on tuntud kui usaldusväärne partner nii äriklientidele kui ka eraisikutele.",
+    "50": "Hurtigruten on üks maailma suurtest rännakutest, mis on alates 1893. aastast seilanud ja hoolinud Norra rannikust. Hurtigruten Estonia OÜ on osa legendaarsest Hurtigrutenist, kus seiklus kohtub eesmärgiga. Meie Tallinna kontoris töötab üle 200 toreda inimese enam kui 40 riigist, kes aitavad reisijatel kogeda maailma hingematvamaid teekondi.",
 
     "51": "Oleme partnerid suure mõjuga tööstusharudele protsessitehnika valmistamisel- tselluloos ja paber, naftakeemia ja kemikaalid, süsinikdioksiidi kogumine, energia, vesinik, merendus. \n\nOleme oma klientidele juhtiv tootmisteenuste partner, kes loob väärtust tootedisaini, insenertehniliste lahenduste ja inimkesksete partnerlussuhetega. See tähendab, et oleme enamat kui tavaline tarnija, me oleme partner.\n\nJätkusuutlik mõtlemine on Estanci igapäevase mõtteviisi osa. Me keskendume üha suurema panuse andmisele keskkonda ja selle hoidmisesse ning ühiskonda laiemalt. \n\nMeie inimkeskne kultuur ja põhiväärtused võimaldavad meil olla selline partner ja tööandja. Meie jaoks on oluline luua parem elu kõigile oma töötajatele, nende peredele ja teistele sidusrühmadele, kellega koostööd teeme.",
 
@@ -108,6 +108,7 @@ export const COMPANY_DESCRIPTIONS = {
     "79": "Postimees Grupp moodustab koos sõsarettevõtte Duo Media Networksiga Baltikumi suurima meediagrupi, millel on väljundid paberlehe, veebimeedia, raadio, televisiooni ning välireklaamide näol.",
     "80": "Tahaksid näha, kuidas tegelikult käib keskkonna- või energeetikapoliitika kujundamine, kuidas saab sõitma Rail Baltic või areneb Eesti merendussektor? Siis tule praktikale kliimaministeeriumisse. Oleme Eesti suurima haldusalaga ministeerium, kelle töölaual on näiteks huntide arvu, varilaevastiku, taastuvenergia arendamise ja droonide lennutamise õigusega seotud küsimused. Praktika Kliimaministeeriumis annab kogemuse reaalse poliitika ja projektidega, siduda teadmisi otsustega ning anda oma panus Eesti ja maailma tulevikku.",
     "81": "Watercom asutati 2010. aastal ning kuulub tütarettevõttena Tallinna Vee kontserni. Watercomi peamised tegevusvaldkonnad on: torustike ehitus, teedeehitus, omanikujärelevalve, torustike hooldusteenused, teehoiutööd. Ettevõte tegutseb põhiliselt Tallinnas ja Harjumaal, kuid pakub oma teenuseid ka teistes Eesti piirkondades.",
+    "82": "Elektrilevi on Eesti suurim võrguettevõte, tuues elektri kohale pea kõikidesse kodudesse ja ettevõtetesse. Meie ambitsioon on pakkuda klientidele ja ühiskonnale erakordset väärtust suuri võrke efektiivselt koos arendades ja hallates. Meie töö tulemusena muutub elektrivõrguteenus järjest töökindlamaks.",
     "th-1": "Osale meie aardejahis!",
 
     "th-2":
@@ -163,7 +164,7 @@ export const COMPANY_DESCRIPTIONS = {
     "25": "Internal security education.",
     "26": "Infrastructure construction.",
     "27": "Electrical equipment manufacturing.",
-    "28": "Energy solutions.",
+    "28": "We are an international energy company. We offer people useful and convenient energy solutions and produce energy more and more environmentally sustainably. Eesti Energia's home markets are Estonia, Latvia, Lithuania, and Poland.",
     "29": "Electronics manufacturing services.",
 
     "30": "We are the largest bank in Estonia, chosen as a financial partner by over 970,000 private and 131,000 business clients. We have the largest network of bank branches and ATMs in Estonia. Our goal is to help many people and companies create a better future. Together with our clients, we can achieve many impactful things in society. We believe that a sustainable bank with sustainable clients helps achieve a sustainable society with sound finances. \n\nOur values are open, simple, and caring, shared by all our nearly 2,700 employees in Estonia and nearly 15,000 colleagues across the whole group. Come apply for an internship with us and take part in a diverse summer program, expand your professional network, and improve your knowledge and skills by performing professional tasks.",
@@ -190,7 +191,7 @@ export const COMPANY_DESCRIPTIONS = {
 
     "43": "Elering is an independent and autonomous Estonian electricity and gas combined system operator, whose main task is to ensure a high-quality energy supply for Estonian consumers at any given moment.",
 
-    "44": "Software development.",
+    "44": "For over 35 years, Helmes has been a trusted partner in digital transformation, specializing in building mission-critical software systems. Headquartered in Estonia, the company operates in 20 locations with a team of more than 1500 experts.\nHelmes develops secure, scalable software that helps public and private sector organizations work more efficiently – across defence, finance, logistics, healthcare, telecom, and government.\nThe company contributes to complex, high-impact projects for clients including Estonia’s digital government, the European Space Agency, OECD, Airbus, Telia, and Kühne+Nagel. More than 100 million people use systems developed by Helmes.",
     "45": "Infrastructure construction.",
     "46": "Construction and concrete works.",
 
@@ -198,8 +199,8 @@ export const COMPANY_DESCRIPTIONS = {
 
     "48": "FINEST is a leading software systems development and consulting company in Estonia and Poland.",
 
-    "49": "Contact center for tourism.",
-    "50": "General consultant.",
+    "49": "KH Energia-Konsult AS is a company operating in Estonia focusing on electrical work and electrical installation solutions. We offer a full service starting from electrical design to installation, electrical construction, and weak-current works, as well as maintenance and operation services for electrical installations—including control measurements, audits, installation of security and safety systems, and energy solutions such as solar panels and electric vehicle chargers. KH Energia-Konsult is known as a reliable partner for both business clients and private individuals.",
+    "50": "Hurtigruten is one of the world’s great journeys, sailing and caring for the Norwegian coast since 1893. Hurtigruten Estonia OÜ is part of the legendary Hurtigruten, where adventure meets purpose. Our Tallinn office is buzzing with over 200 awesome people from 40+ countries, all helping travelers experience the world’s most breathtaking journeys.",
 
     "51": "We are partners to high-impact industries in the manufacturing of process equipment – pulp and paper, petrochemicals and chemicals, carbon capture, energy, hydrogen, and maritime. \n\nWe are a leading manufacturing services partner for our customers, creating value through product design, engineering solutions, and people-centric partnerships. This means we are more than a conventional supplier – we are a partner.\n\nSustainable thinking is part of Estanc’s everyday mindset. We focus on making an ever-greater contribution to environmental protection and to society as a whole. \n\nOur people-centric culture and core values enable us to be this kind of partner and employer. For us, it is important to create a better life for all our employees, their families, and the other stakeholders we work with.",
 
@@ -248,6 +249,7 @@ export const COMPANY_DESCRIPTIONS = {
     "79": "Postimees Group, together with its sister company Duo Media Networks, forms the largest media group in the Baltics, with outlets in the form of print newspapers, online media, radio, television, and outdoor advertising.",
     "80": "Would you like to see how environmental or energy policy is actually shaped, how Rail Baltic will start running, or how the Estonian maritime sector develops? Then come for an internship at the Ministry of Climate. We are the ministry with the largest area of administration in Estonia, whose 'desk' includes issues such as the number of wolves, the shadow fleet, the development of renewable energy, and drone flight rights. An internship at the Ministry of Climate provides experience with real policy and projects, linking knowledge with decisions and making your own contribution to the future of Estonia and the world.",
     "81": "Watercom was founded in 2010 and belongs to the Tallinna Vesi group as a subsidiary. Watercom's main fields of activity are: pipeline construction, road construction, owner supervision, pipeline maintenance services, and road maintenance works. The company operates mainly in Tallinn and Harju County, but also offers its services in other regions of Estonia.",
+    "82": "Elektrilevi is the largest network operator in Estonia, delivering electricity to almost all homes and businesses. Our ambition is to offer extraordinary value to customers and society by efficiently developing and managing large networks together. As a result of our work, the electricity network service is becoming increasingly reliable.",
     "th-1": "Participate in our treasure hunt!",
     "th-2":
       "CARIAD Estonia is part of CARIAD, the automotive software company of the Volkswagen Group. Building automotive software platforms and digital customer functions for iconic brands like Audi, Volkswagen and Porsche, CARIAD supports the Volkswagen Group in becoming the global automotive tech driver. CARIAD has software centers in Germany, the USA, China, Estonia and India, where around 5,000 experts work on making the automotive experience safer, more sustainable and more comfortable for everyone. \n\nCARIAD Estonia contributes to the mission and goals of CARIAD with two core business areas. It is maintaining operational stability of digital services developed by CARIAD that are used by millions of Volkswagen Group’s connected customers worldwide. The international team of IT experts at CARIAD Estonia consists of 24/7 Support Engineers, DevOps Engineers, Operations Engineers and Site Reliability Engineers among others. CARIAD Estonia also supports the CARIAD Group in partnering with other tech companies globally in the role of shareholding entity for non-German CARIAD subsidiaries.",
