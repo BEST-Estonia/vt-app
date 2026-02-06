@@ -53,6 +53,7 @@ export const ALL_INDUSTRIES = [
   "Construction",
   "Manufacturing",
   "Tourism",
+  "Turism",
   "Other",
   "Kosmos",
   "Energeetika",
@@ -99,6 +100,32 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "https://ee.linkedin.com/company/watercom-ou",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "82",
+    name: "Elektrilevi OÜ",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["82"],
+      en: COMPANY_DESCRIPTIONS.en["82"],
+    },
+    initials: "EL",
+    color: "#1E66FF",
+    industries: ["Energeetika"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "http://www.elektrilevi.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://elektrilevi.ee/et/too",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/elektrilevi/",
         icon: "linkedin",
       },
     ],
@@ -445,10 +472,23 @@ const regularCompanies: Company[] = [
     boothCode: "6",
     initials: "EE",
     color: "#1E66FF",
-    industries: ["Energy"],
-    hiringTypes: ["Full-time"],
+    industries: ["Energeetika"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.enefitLogo,
+    links: [
+      { label: "Website", url: "https://www.enefit.com/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.enefit.com/et/too-ja-praktika/tule-toole",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/eesti-energia/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "29",
@@ -820,7 +860,7 @@ const regularCompanies: Company[] = [
   },
   {
     id: "44",
-    name: "Helmes AS",
+    name: "Helmes",
     description: {
       et: COMPANY_DESCRIPTIONS.et["44"],
       en: COMPANY_DESCRIPTIONS.en["44"],
@@ -829,9 +869,22 @@ const regularCompanies: Company[] = [
     initials: "HE",
     color: "#1E66FF",
     industries: ["Infotehnoloogia"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.helmesLogo,
+    links: [
+      { label: "Website", url: "https://helmes.com", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.helmes.com/career/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/helmes-as",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "45",
@@ -927,7 +980,7 @@ const regularCompanies: Company[] = [
   },
   {
     id: "49",
-    name: "AS KH Energia-Konsult",
+    name: "KH Energia-Konsult AS",
     description: {
       et: COMPANY_DESCRIPTIONS.et["49"],
       en: COMPANY_DESCRIPTIONS.en["49"],
@@ -935,14 +988,27 @@ const regularCompanies: Company[] = [
     boothCode: "101",
     initials: "KH",
     color: "#1E66FF",
-    industries: ["Energy"],
-    hiringTypes: ["Full-time"],
+    industries: ["Energeetika"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.khenergiaLogo,
+    links: [
+      { label: "Website", url: "https://www.khenergia.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.khenergia.ee/toopakkumised/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/105733331",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "50",
-    name: "Hurtigruten Estonia OÜ",
+    name: "Hurtigruten Estonia",
     description: {
       et: COMPANY_DESCRIPTIONS.et["50"],
       en: COMPANY_DESCRIPTIONS.en["50"],
@@ -950,10 +1016,27 @@ const regularCompanies: Company[] = [
     boothCode: "11",
     initials: "HU",
     color: "#1E66FF",
-    industries: ["Tourism"],
+    industries: ["Turism"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.hurtigrutenLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.hurtigrutenestonia.ee",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://hurtigrutenestonia.ee/#jobs",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/hurtigrutengroup",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "51",
@@ -1690,14 +1773,6 @@ export const companyEvents: CompanyEvent[] = [
     id: "visit_nortal_1",
     companyId: "14",
     title: "Nortal Firmakülastus",
-    startISO: "2025-03-12T15:00:00+02:00",
-    endISO: "2025-03-12T17:00:00+02:00",
-    locationText: "Peterburi tee 2-52",
-  },
-  {
-    id: "visit_helmes",
-    companyId: "44",
-    title: "Helmes Firmakülastus",
     startISO: "2025-03-12T15:00:00+02:00",
     endISO: "2025-03-12T17:00:00+02:00",
     locationText: "Peterburi tee 2-52",
