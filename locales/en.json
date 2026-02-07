@@ -62,6 +62,8 @@
     "Transport": "Transport",
     "Merendus": "Maritime",
     "Riigikaitse": "National Defense",
+    "Lennundus": "Aviation",
+    "Sisejulgeolek": "Internal Security",
     "Keskkond": "Environment",
     "Avalik Sektor": "Public Sector",
     "Tootmine": "Manufacturing",

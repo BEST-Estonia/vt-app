@@ -60,6 +60,8 @@ export const ALL_INDUSTRIES = [
   "Transport",
   "Merendus",
   "Riigikaitse",
+  "Lennundus",
+  "Sisejulgeolek",
   "Keskkond",
   "Avalik Sektor",
   "Tootmine",
