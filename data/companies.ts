@@ -52,6 +52,7 @@ export const ALL_INDUSTRIES = [
   "Government",
   "Construction",
   "Manufacturing",
+  "Tööstuselektroonika",
   "Tourism",
   "Turism",
   "Other",
@@ -59,6 +60,7 @@ export const ALL_INDUSTRIES = [
   "Energeetika",
   "Transport",
   "Merendus",
+  "Riigikaitse",
   "Keskkond",
   "Avalik Sektor",
   "Tootmine",
@@ -126,6 +128,31 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/elektrilevi/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "83",
+    name: "Konkurentsiamet",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["83"],
+      en: COMPANY_DESCRIPTIONS.en["83"],
+    },
+    initials: "KA",
+    color: "#1E66FF",
+    industries: ["Avalik Sektor"],
+    hiringTypes: ["Internship"],
+    isFavorite: false,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.konkurentsiamet.ee",
+        icon: "globe",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/77263229/admin/",
         icon: "linkedin",
       },
     ],
@@ -500,10 +527,22 @@ const regularCompanies: Company[] = [
     boothCode: "110",
     initials: "GP",
     color: "#1E66FF",
-    industries: ["Manufacturing"],
-    hiringTypes: ["Full-time"],
+    industries: ["Tööstuselektroonika", "Tootmine"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.gpvLogo,
+    links: [
+      {
+        label: "Careers",
+        url: "https://gpvestonia.recruitee.com/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/gpv/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "30",
@@ -806,10 +845,18 @@ const regularCompanies: Company[] = [
     boothCode: "29",
     initials: "KR",
     color: "#1E66FF",
-    industries: ["Government"],
-    hiringTypes: ["Full-time"],
+    industries: ["Riigikaitse", "Merendus"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.kaitseressursideametLogo,
+    links: [
+      { label: "Website", url: "https://kra.ee/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/kaitseressursside-amet?originalSubdomain=ee",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "42",
@@ -1181,9 +1228,22 @@ const regularCompanies: Company[] = [
     initials: "BB",
     color: "#1E66FF",
     industries: ["Majandus"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.bigbankLogo,
+    links: [
+      { label: "Website", url: "https://www.bigbank.ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://jobs.bigbank.eu/et",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/bigbank-as/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
   },
 
   {
