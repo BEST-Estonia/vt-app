@@ -52,6 +52,7 @@ export const ALL_INDUSTRIES = [
   "Government",
   "Construction",
   "Manufacturing",
+  "Tööstuselektroonika",
   "Tourism",
   "Turism",
   "Other",
@@ -59,6 +60,9 @@ export const ALL_INDUSTRIES = [
   "Energeetika",
   "Transport",
   "Merendus",
+  "Riigikaitse",
+  "Lennundus",
+  "Sisejulgeolek",
   "Keskkond",
   "Avalik Sektor",
   "Tootmine",
@@ -105,6 +109,27 @@ const regularCompanies: Company[] = [
     ],
   },
   {
+    id: "84",
+    name: "Politsei- ja Piirivalveamet",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["84"],
+      en: COMPANY_DESCRIPTIONS.en["84"],
+    },
+    initials: "PP",
+    color: "#1E66FF",
+    industries: ["Sisejulgeolek"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "http://karjaar.politsei.ee", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/eesti-politsei/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
     id: "82",
     name: "Elektrilevi OÜ",
     description: {
@@ -131,6 +156,31 @@ const regularCompanies: Company[] = [
     ],
   },
   {
+    id: "83",
+    name: "Konkurentsiamet",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["83"],
+      en: COMPANY_DESCRIPTIONS.en["83"],
+    },
+    initials: "KA",
+    color: "#1E66FF",
+    industries: ["Avalik Sektor"],
+    hiringTypes: ["Internship"],
+    isFavorite: false,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.konkurentsiamet.ee",
+        icon: "globe",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/77263229/admin/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
     id: "14",
     name: "Nortal AS",
     description: {
@@ -152,8 +202,13 @@ const regularCompanies: Company[] = [
       { label: "Website", url: "https://nortal.com", icon: "globe" },
       {
         label: "Careers",
-        url: "https://nortal.com/careers",
+        url: "https://careers.nortal.com/",
         icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/nortal/",
+        icon: "linkedin",
       },
     ],
   },
@@ -272,10 +327,18 @@ const regularCompanies: Company[] = [
     boothCode: "48",
     initials: "SM",
     color: "#1E66FF",
-    industries: ["Energy"],
-    hiringTypes: ["Full-time"],
+    industries: ["Energeetika"],
+    hiringTypes: ["Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.smarteconLogo,
+    links: [
+      { label: "Website", url: "https://smartecon.com/et/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/smartecon",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "20",
@@ -446,6 +509,19 @@ const regularCompanies: Company[] = [
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.trev2Logo,
+    links: [
+      { label: "Website", url: "https://trev2.ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://trev2.ee/too-ja-praktika/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/trev-2-grupp",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "27",
@@ -500,10 +576,22 @@ const regularCompanies: Company[] = [
     boothCode: "110",
     initials: "GP",
     color: "#1E66FF",
-    industries: ["Manufacturing"],
-    hiringTypes: ["Full-time"],
+    industries: ["Tööstuselektroonika", "Tootmine"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.gpvLogo,
+    links: [
+      {
+        label: "Careers",
+        url: "https://gpvestonia.recruitee.com/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/gpv/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "30",
@@ -806,10 +894,18 @@ const regularCompanies: Company[] = [
     boothCode: "29",
     initials: "KR",
     color: "#1E66FF",
-    industries: ["Government"],
-    hiringTypes: ["Full-time"],
+    industries: ["Riigikaitse", "Merendus"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.kaitseressursideametLogo,
+    links: [
+      { label: "Website", url: "https://kra.ee/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/kaitseressursside-amet?originalSubdomain=ee",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "42",
@@ -897,9 +993,17 @@ const regularCompanies: Company[] = [
     initials: "IN",
     color: "#1E66FF",
     industries: ["Construction"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.infinfraLogo,
+    links: [
+      { label: "Website", url: "https://www.infinfra.ee", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/inf-infra/about/",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "46",
@@ -912,9 +1016,22 @@ const regularCompanies: Company[] = [
     initials: "NO",
     color: "#1E66FF",
     industries: ["Construction"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: ["Internship"],
     isFavorite: false,
     localLogo: logos.nobeLogo,
+    links: [
+      { label: "Website", url: "https://nobe.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://nobe.ee/toopakkumised/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://ee.linkedin.com/company/nobeehitus",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "47",
@@ -1181,9 +1298,22 @@ const regularCompanies: Company[] = [
     initials: "BB",
     color: "#1E66FF",
     industries: ["Majandus"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.bigbankLogo,
+    links: [
+      { label: "Website", url: "https://www.bigbank.ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://jobs.bigbank.eu/et",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/bigbank-as/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
   },
 
   {
@@ -1246,10 +1376,18 @@ const regularCompanies: Company[] = [
     boothCode: "67",
     initials: "LL",
     color: "#1E66FF",
-    industries: ["Transportation"],
-    hiringTypes: ["Full-time"],
+    industries: ["Lennundus"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.lennuliiklusteeninduseLogo,
+    links: [
+      { label: "Website", url: "https://www.eans.ee", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/estonian-air-navigation-services/",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "60",
