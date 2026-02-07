@@ -14,6 +14,7 @@ import {
   Modal,
   PanResponder,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -614,7 +615,7 @@ export default function MapScreen() {
           backgroundColor: "#f0f0f0",
           overflow: "hidden",
         }}
-        {...panResponder.panHandlers}
+        {...(!selected && !searchOpen ? panResponder.panHandlers : {})}
       >
         <Animated.View
           style={{
@@ -926,96 +927,102 @@ export default function MapScreen() {
 
       {/* Booth info modal */}
       <Modal visible={!!selected} transparent animationType="fade">
-        <Pressable
+        <View
           style={{
             flex: 1,
             backgroundColor: "rgba(0,0,0,0.4)",
             justifyContent: "center",
             alignItems: "center",
+            paddingHorizontal: 16,
+            paddingVertical: 24,
           }}
-          onPress={() => setSelected(null)}
         >
+          {/* Background tap to close (separate layer, does NOT wrap the scroll) */}
           <Pressable
+            style={StyleSheet.absoluteFillObject}
+            onPress={() => setSelected(null)}
+          />
+
+          {/* Card */}
+          <View
             style={{
-              width: "85%",
-              maxHeight: "70%",
-              padding: 20,
+              width: "100%",
+              maxWidth: 520,
+              height: "78%",
               borderRadius: 16,
               backgroundColor: "white",
+              overflow: "hidden",
             }}
-            onPress={(e) => e.stopPropagation()}
+            // stops taps from falling through to background Pressable
+            pointerEvents="box-none"
           >
-            <View>
-              {/* Company logo */}
-              {selected?.company?.localLogo && (
-                <View style={{ alignItems: "center", marginBottom: 16 }}>
-                  <Image
-                    source={selected.company.localLogo}
-                    style={{ width: 120, height: 60 }}
-                    resizeMode="contain"
-                  />
-                </View>
-              )}
-
-              {/* Booth number badge */}
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  gap: 8,
-                  marginBottom: 8,
-                }}
+            <View style={{ flex: 1 }} pointerEvents="auto">
+              <ScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={{ padding: 20, paddingBottom: 24 }}
+                showsVerticalScrollIndicator
+                bounces={false}
+                nestedScrollEnabled
+                keyboardShouldPersistTaps="handled"
+                keyboardDismissMode="on-drag"
               >
+                {/* Company logo */}
+                {selected?.company?.localLogo && (
+                  <View style={{ alignItems: "center", marginBottom: 16 }}>
+                    <Image
+                      source={selected.company.localLogo}
+                      style={{ width: 140, height: 64 }}
+                      resizeMode="contain"
+                    />
+                  </View>
+                )}
+
+                {/* Booth number badge */}
                 <View
                   style={{
-                    paddingHorizontal: 10,
-                    paddingVertical: 4,
-                    borderRadius: 999,
-                    backgroundColor: "#E5EDFF",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    gap: 8,
+                    marginBottom: 8,
+                    flexWrap: "wrap",
                   }}
                 >
-                  <Text
-                    style={{
-                      color: "#1E66FF",
-                      fontSize: 12,
-                      fontWeight: "600",
-                    }}
-                  >
-                    Boks {selected?.booth.boothNumber}
-                  </Text>
-                </View>
-                {selected?.company?.isTreasureHunt && (
                   <View
                     style={{
                       paddingHorizontal: 10,
                       paddingVertical: 4,
                       borderRadius: 999,
-                      backgroundColor: "#FEF3C7",
+                      backgroundColor: "#E5EDFF",
                     }}
                   >
-                    <Text
-                      style={{
-                        color: "#D97706",
-                        fontSize: 12,
-                        fontWeight: "600",
-                      }}
-                    >
-                      🎯 Treasure Hunt
+                    <Text style={{ color: "#1E66FF", fontSize: 12, fontWeight: "600" }}>
+                      Boks {selected?.booth.boothNumber}
                     </Text>
                   </View>
-                )}
-              </View>
 
-              {/* Company name */}
-              <Text
-                style={{ fontSize: 20, fontWeight: "700", marginBottom: 8 }}
-              >
-                {selected?.company?.name || "Tühi boks"}
-              </Text>
+                  {selected?.company?.isTreasureHunt && (
+                    <View
+                      style={{
+                        paddingHorizontal: 10,
+                        paddingVertical: 4,
+                        borderRadius: 999,
+                        backgroundColor: "#FEF3C7",
+                      }}
+                    >
+                      <Text style={{ color: "#D97706", fontSize: 12, fontWeight: "600" }}>
+                        🎯 Treasure Hunt
+                      </Text>
+                    </View>
+                  )}
+                </View>
 
-              {/* Industries */}
-              {selected?.company?.industries &&
-                selected.company.industries.length > 0 && (
+                {/* Company name */}
+                <Text style={{ fontSize: 20, fontWeight: "700", marginBottom: 10 }}>
+                  {selected?.company?.name || "Tühi boks"}
+                </Text>
+
+                {/* Industries */}
+                {selected?.company?.industries?.length ? (
                   <View
                     style={{
                       flexDirection: "row",
@@ -1034,17 +1041,14 @@ export default function MapScreen() {
                           backgroundColor: "#F1F5F9",
                         }}
                       >
-                        <Text style={{ color: "#475569", fontSize: 11 }}>
-                          {industry}
-                        </Text>
+                        <Text style={{ color: "#475569", fontSize: 11 }}>{industry}</Text>
                       </View>
                     ))}
                   </View>
-                )}
+                ) : null}
 
-              {/* Hiring types */}
-              {selected?.company?.hiringTypes &&
-                selected.company.hiringTypes.length > 0 && (
+                {/* Hiring types */}
+                {selected?.company?.hiringTypes?.length ? (
                   <View
                     style={{
                       flexDirection: "row",
@@ -1063,75 +1067,79 @@ export default function MapScreen() {
                           backgroundColor: "#DCFCE7",
                         }}
                       >
-                        <Text style={{ color: "#16A34A", fontSize: 11 }}>
-                          {type}
-                        </Text>
+                        <Text style={{ color: "#16A34A", fontSize: 11 }}>{type}</Text>
                       </View>
                     ))}
                   </View>
-                )}
+                ) : null}
 
-              {/* Description */}
-              {selected?.company?.description && (
-                <Text
-                  style={{ fontSize: 14, color: "#64748B", lineHeight: 20 }}
-                >
-                  {selected.company.description[lang]}
-                </Text>
-              )}
-            </View>
-
-            {/* Action buttons */}
-            <View style={{ flexDirection: "row", gap: 12, marginTop: 16 }}>
-              {/* QR Scanner button – ainult aardejahi firmadele */}
-              {selected?.company?.isTreasureHunt && (
-                <Pressable
-                  onPress={() => {
-                    setScanCompany(selected.company!);
-                    setManualCode("");
-                    setScannedRecent(false);
-                    setSelected(null);
-                    setScanModalVisible(true);
-                  }}
-                  style={{
-                    flex: 1,
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    paddingVertical: 10,
-                    borderRadius: 999,
-                    backgroundColor: "#10B981",
-                    gap: 6,
-                  }}
-                >
-                  <MaterialIcons
-                    name="qr-code-scanner"
-                    size={18}
-                    color="white"
-                  />
-                  <Text style={{ color: "white", fontWeight: "600" }}>
-                    Skänni
+                {/* Description */}
+                {selected?.company?.description ? (
+                  <Text style={{ fontSize: 14, color: "#64748B", lineHeight: 20 }}>
+                    {selected.company.description[lang]}
                   </Text>
-                </Pressable>
-              )}
+                ) : null}
 
-              {/* Sulge nupp – kõigile firmadele */}
-              <Pressable
-                onPress={() => setSelected(null)}
+                <View style={{ height: 16 }} />
+              </ScrollView>
+
+              {/* Fixed action buttons */}
+              <View
                 style={{
-                  flex: 1,
-                  paddingVertical: 10,
-                  borderRadius: 999,
-                  backgroundColor: "#1E66FF",
-                  alignItems: "center",
+                  padding: 16,
+                  borderTopWidth: 1,
+                  borderTopColor: "#E2E8F0",
+                  flexDirection: "row",
+                  gap: 12,
+                  backgroundColor: "white",
                 }}
               >
-                <Text style={{ color: "white", fontWeight: "600" }}>Sulge</Text>
-              </Pressable>
+                {selected?.company?.isTreasureHunt && (
+                  <Pressable
+                    onPress={() => {
+                      setScanCompany(selected.company!);
+                      setManualCode("");
+                      setScannedRecent(false);
+                      setSelected(null);
+                      setScanModalVisible(true);
+                    }}
+                    style={{
+                      flex: 1,
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      paddingVertical: 10,
+                      borderRadius: 999,
+                      backgroundColor: "#10B981",
+                      gap: 6,
+                    }}
+                  >
+                    <MaterialIcons name="qr-code-scanner" size={18} color="white" />
+                    <Text style={{ color: "white", fontWeight: "600" }}>Skänni</Text>
+                  </Pressable>
+                )}
+
+                <Pressable
+                  onPress={() => setSelected(null)}
+                  style={{
+                    flex: 1,
+                    paddingVertical: 10,
+                    borderRadius: 999,
+                    backgroundColor: "#1E66FF",
+                    alignItems: "center",
+                  }}
+                >
+                  <Text style={{ color: "white", fontWeight: "600" }}>Sulge</Text>
+                </Pressable>
+              </View>
             </View>
-          </Pressable>
-        </Pressable>
+          </View>
+        </View>
       </Modal>
+
+
+
+
 
       {/* QR Scanner Modal */}
       <Modal
