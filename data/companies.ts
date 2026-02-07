@@ -89,6 +89,25 @@ const regularCompanies: Company[] = [
       et: COMPANY_DESCRIPTIONS.et["81"],
       en: COMPANY_DESCRIPTIONS.en["81"],
     },
+    initials: "WC",
+    color: "#1E66FF",
+    industries: ["Construction"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://watercom.eu/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://watercom.eu/tootamine-watercomis/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://ee.linkedin.com/company/watercom-ou",
+        icon: "linkedin",
+      },
+    ],
+  },
   {
     id: "84",
     name: "Politsei- ja Piirivalveamet",
@@ -106,25 +125,6 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/eesti-politsei/",
-        icon: "linkedin",
-      },
-    ],
-  },
-    initials: "WC",
-    color: "#1E66FF",
-    industries: ["Construction"],
-    hiringTypes: ["Internship", "Full-time", "Part-time"],
-    isFavorite: false,
-    links: [
-      { label: "Website", url: "https://watercom.eu/", icon: "globe" },
-      {
-        label: "Careers",
-        url: "https://watercom.eu/tootamine-watercomis/",
-        icon: "briefcase",
-      },
-      {
-        label: "LinkedIn",
-        url: "https://ee.linkedin.com/company/watercom-ou",
         icon: "linkedin",
       },
     ],
