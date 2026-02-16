@@ -67,6 +67,9 @@
     "Keskkond": "Environment",
     "Avalik Sektor": "Public Sector",
     "Tootmine": "Manufacturing",
+    "Kaubandus": "Commerce",
+    "Hulgimüük": "Wholesale",
+    "Meelelahutus": "Entertainment",
     "Kindlustus": "Insurance",
     "Pangandus": "Banking",
     "Müük": "Sales"

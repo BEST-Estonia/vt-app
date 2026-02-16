@@ -66,6 +66,9 @@ export const ALL_INDUSTRIES = [
   "Keskkond",
   "Avalik Sektor",
   "Tootmine",
+  "Kaubandus",
+  "Hulgimüük",
+  "Meelelahutus",
   "Kindlustus",
   "Pangandus",
   "Müük",
@@ -126,6 +129,57 @@ const regularCompanies: Company[] = [
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/eesti-politsei/",
         icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "85",
+    name: "Coca-Cola HBC Eesti AS",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["85"],
+      en: COMPANY_DESCRIPTIONS.en["85"],
+    },
+    initials: "CC",
+    color: "#1E66FF",
+    industries: ["Kaubandus", "Hulgimüük"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    links: [
+      {
+        label: "Website",
+        url: "https://poland-baltics.coca-colahellenic.com/et",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://poland-baltics.coca-colahellenic.com/et",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/coca-cola-hbc/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "86",
+    name: "Apollo Group",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["86"],
+      en: COMPANY_DESCRIPTIONS.en["86"],
+    },
+    initials: "AG",
+    color: "#1E66FF",
+    industries: ["Meelelahutus"],
+    hiringTypes: ["Full-time", "Part-time"],
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://apollogroup.ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://apolloee.teamdash.com/p/jobs/44/tule-apollosse-toole",
+        icon: "briefcase",
       },
     ],
   },
@@ -318,29 +372,7 @@ const regularCompanies: Company[] = [
     isFavorite: false,
     localLogo: logos.stoneridgeLogo,
   },
-  {
-    id: "19",
-    name: "Smartecon OÜ",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["19"],
-      en: COMPANY_DESCRIPTIONS.en["19"],
-    },
-    boothCode: "48",
-    initials: "SM",
-    color: "#1E66FF",
-    industries: ["Energeetika"],
-    hiringTypes: ["Full-time", "Part-time"],
-    isFavorite: false,
-    localLogo: logos.smarteconLogo,
-    links: [
-      { label: "Website", url: "https://smartecon.com/et/", icon: "globe" },
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/smartecon",
-        icon: "linkedin",
-      },
-    ],
-  },
+
   {
     id: "20",
     name: "Seesam kindlustus",

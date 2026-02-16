@@ -68,6 +68,7 @@ export const ALL_INDUSTRIES = [
   "Kindlustus",
   "Pangandus",
   "Müük",
+  "Meelelahutus",
 ];
 
 export const ALL_HIRING = [
@@ -488,6 +489,14 @@ export const treasureHuntCompanies: Company[] = [
     isFavorite: false,
     localLogo: logos.smarteconLogo,
     isTreasureHunt: true,
+    links: [
+      { label: "Website", url: "https://smartecon.com/et/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/smartecon",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "th-18",
