@@ -10,13 +10,17 @@ export type CompanyLink = {
   icon?: CompanyLinkIcon;
 };
 
+export type CompanyEventType = "talk" | "company-visit" | "work-shadowing";
+
 export type CompanyEvent = {
   id: string;
   companyId: string;
   title: string;
-  startISO: string;
+  eventType: CompanyEventType;
+  startISO?: string;
   endISO?: string;
   locationText: string;
+  registrationUrl?: string;
 };
 
 export type Company = {

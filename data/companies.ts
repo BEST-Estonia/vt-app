@@ -11,13 +11,17 @@ export type CompanyLink = {
   icon?: CompanyLinkIcon;
 };
 
+export type CompanyEventType = "talk" | "company-visit" | "work-shadowing";
+
 export type CompanyEvent = {
   id: string;
   companyId: string;
   title: string;
-  startISO: string;
+  eventType: CompanyEventType;
+  startISO?: string;
   endISO?: string;
   locationText: string;
+  registrationUrl?: string;
 };
 
 export type Company = {
@@ -146,6 +150,7 @@ const regularCompanies: Company[] = [
     industries: ["Kaubandus", "Hulgimüük"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.cocacolaLogo,
     links: [
       {
         label: "Website",
@@ -175,6 +180,7 @@ const regularCompanies: Company[] = [
     color: "#1E66FF",
     industries: ["Meelelahutus"],
     hiringTypes: ["Full-time", "Part-time"],
+    localLogo: logos.apolloLogo,
     isFavorite: false,
     links: [
       { label: "Website", url: "https://apollogroup.ee/", icon: "globe" },
@@ -197,6 +203,7 @@ const regularCompanies: Company[] = [
     industries: ["Turundus"],
     hiringTypes: ["Heategevus"],
     isFavorite: false,
+    localLogo: logos.elektrileviLogo,
     links: [
       {
         label: "Website",
@@ -217,6 +224,7 @@ const regularCompanies: Company[] = [
     industries: ["Infotehnoloogia"],
     hiringTypes: ["Part-time"],
     isFavorite: false,
+    localLogo: logos.freelLogo,
     links: [
       { label: "Website", url: "https://www.freel.ee", icon: "globe" },
       {
@@ -238,6 +246,7 @@ const regularCompanies: Company[] = [
     industries: ["Energeetika"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.elektrileviLogo,
     links: [
       { label: "Website", url: "http://www.elektrilevi.ee", icon: "globe" },
       {
@@ -1761,6 +1770,7 @@ const regularCompanies: Company[] = [
     industries: ["Engineering"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.cernLogo,
     links: [
       { label: "Website", url: "https://home.cern/", icon: "globe" },
       {
@@ -1788,6 +1798,7 @@ const regularCompanies: Company[] = [
     industries: ["Infotehnoloogia"],
     hiringTypes: ["Full-time", "Part-time"],
     isFavorite: false,
+    localLogo: logos.itestraLogoImgLogo,
     links: [
       { label: "Website", url: "https://itestra.com/", icon: "globe" },
       {
@@ -1836,6 +1847,7 @@ export const companyEvents: CompanyEvent[] = [
     id: "evt_bolt_1",
     companyId: "1",
     title: "Skaleeruva tehnoloogia loomine Boltis",
+    eventType: "talk",
     startISO: "2025-03-12T10:00:00+02:00",
     endISO: "2025-03-12T10:30:00+02:00",
     locationText: "Stage A",
@@ -1845,53 +1857,101 @@ export const companyEvents: CompanyEvent[] = [
     id: "visit_elering_1",
     companyId: "43",
     title: "Elering Firmakülastus",
+    eventType: "company-visit",
     startISO: "2025-03-10T10:00:00+02:00",
     endISO: "2025-03-10T12:00:00+02:00",
     locationText: "Kadaka tee 42, Mustamäe",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
   },
 
   {
     id: "visit_rail_baltic_1",
     companyId: "24",
     title: "Rail Baltic Estonia Firmakülastus",
+    eventType: "company-visit",
     startISO: "2025-03-11T10:00:00+02:00",
     endISO: "2025-03-11T12:00:00+02:00",
     locationText: "Veskiposti 2/1, Tallinn. Polarise hoone 8.korrus",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
   },
 
   {
     id: "visit_tammer_1",
     companyId: "42",
     title: "Tammer OÜ Firmakülastus",
+    eventType: "company-visit",
     startISO: "2025-03-12T14:00:00+02:00",
     endISO: "2025-03-12T16:00:00+02:00",
     locationText: "Väike Paala 4, Tallinn",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
   },
 
   {
     id: "visit_fujitsu_1",
     companyId: "60",
     title: "Fujitsu Estonia Firmakülastus",
+    eventType: "company-visit",
     startISO: "2025-03-05T11:30:00+02:00",
     endISO: "2025-03-05T12:30:00+02:00",
     locationText: "Sepise 7, Alma Tominga maja 5 korrus",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
   },
 
   {
     id: "visit_estanc_1",
     companyId: "51",
     title: "Estanc AS Firmakülastus",
+    eventType: "company-visit",
     startISO: "2025-03-13T12:00:00+02:00",
     endISO: "2025-03-13T14:00:00+02:00",
     locationText: "Põrguvälja tee 5a, Pildiküla, Rae vald, Harjumaa",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
   },
 
   {
     id: "visit_nortal_1",
     companyId: "14",
     title: "Nortal Firmakülastus",
+    eventType: "company-visit",
     startISO: "2025-03-12T15:00:00+02:00",
     endISO: "2025-03-12T17:00:00+02:00",
     locationText: "Peterburi tee 2-52",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+
+  {
+    id: "shadow_elering_1",
+    companyId: "43",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
+  },
+
+  {
+    id: "shadow_space_estonia_1",
+    companyId: "75",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
+  },
+
+  {
+    id: "shadow_southwestern_1",
+    companyId: "th-7",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
+  },
+
+  {
+    id: "shadow_traffest_1",
+    companyId: "th-5",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
   },
 ];

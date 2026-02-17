@@ -1,9 +1,10 @@
 // app/company/[id].tsx
+import CompanyLogoLightbox from "@/components/CompanyLogoLightbox";
 import {
-  companiesSeed,
-  companyEvents,
-  type Company,
-  type CompanyEvent,
+    companiesSeed,
+    companyEvents,
+    type Company,
+    type CompanyEvent,
 } from "@/data/companies";
 import { useI18n } from "@/lib/i18n";
 import { useUserStore } from "@/store/userStore";
@@ -11,14 +12,14 @@ import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useMemo } from "react";
 import {
-  Image,
-  Linking,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
+    Image,
+    Linking,
+    SafeAreaView,
+    ScrollView,
+    StatusBar,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 // Industry and hiring type translations
@@ -96,6 +97,7 @@ export default function CompanyProfileScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
   const { lang } = useI18n();
+  const [logoOpen, setLogoOpen] = React.useState(false);
 
   // Store hooks
   const {
@@ -230,19 +232,23 @@ export default function CompanyProfileScreen() {
               </View>
 
               {/* Right Side: Logo Box */}
-              <View className="w-20 h-20 bg-white border border-gray-100 rounded-2xl items-center justify-center shadow-sm p-1">
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => setLogoOpen(true)}
+                className="w-20 h-20 bg-white border border-gray-100 rounded-2xl items-center justify-center shadow-sm overflow-hidden"
+              >
                 {company.localLogo ? (
                   <Image
                     source={company.localLogo}
                     className="w-full h-full"
-                    resizeMode="contain"
+                    resizeMode="cover"
                   />
                 ) : (
                   <Text className="text-2xl font-bold text-gray-300">
                     {company.initials}
                   </Text>
                 )}
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
 
@@ -337,6 +343,13 @@ export default function CompanyProfileScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+
+      <CompanyLogoLightbox
+        visible={logoOpen}
+        onClose={() => setLogoOpen(false)}
+        logoSource={company.localLogo}
+        fallbackText={company.initials}
+      />
     </View>
   );
 }
@@ -352,20 +365,23 @@ function EventCard({
   onToggle: () => void;
 }) {
   // Format time (e.g. 10:00 - 11:30)
-  const start = new Date(event.startISO);
+  const start = event.startISO ? new Date(event.startISO) : null;
   const end = event.endISO ? new Date(event.endISO) : null;
 
-  const timeString =
-    `${start.getHours()}:${String(start.getMinutes()).padStart(2, "0")}` +
-    (end
-      ? ` - ${end.getHours()}:${String(end.getMinutes()).padStart(2, "0")}`
-      : "");
+  const timeString = start
+    ? `${start.getHours()}:${String(start.getMinutes()).padStart(2, "0")}` +
+      (end
+        ? ` - ${end.getHours()}:${String(end.getMinutes()).padStart(2, "0")}`
+        : "")
+    : undefined;
 
   // Format date (e.g. 12. märts)
-  const dateString = start.toLocaleDateString("et-EE", {
-    month: "long",
-    day: "numeric",
-  });
+  const dateString = start
+    ? start.toLocaleDateString("et-EE", {
+        month: "long",
+        day: "numeric",
+      })
+    : "Kuupäev täpsustamisel";
 
   return (
     <View className="bg-white border border-gray-200 rounded-2xl p-4 mb-6 shadow-sm">
@@ -382,10 +398,22 @@ function EventCard({
         {event.title}
       </Text>
 
-      <View className="flex-row items-center mb-4">
-        <Feather name="clock" size={14} color="#6B7280" />
-        <Text className="text-gray-500 text-sm ml-1.5">{timeString}</Text>
-      </View>
+      {timeString ? (
+        <View className="flex-row items-center mb-4">
+          <Feather name="clock" size={14} color="#6B7280" />
+          <Text className="text-gray-500 text-sm ml-1.5">{timeString}</Text>
+        </View>
+      ) : null}
+
+      {event.registrationUrl ? (
+        <TouchableOpacity
+          onPress={() => Linking.openURL(event.registrationUrl!)}
+          className="flex-row items-center justify-center py-2.5 rounded-xl border border-blue-200 bg-blue-50 mb-3"
+        >
+          <Feather name="external-link" size={16} color="#1E66FF" />
+          <Text className="ml-2 font-semibold text-blue-700">Registreeru</Text>
+        </TouchableOpacity>
+      ) : null}
 
       <TouchableOpacity
         onPress={onToggle}

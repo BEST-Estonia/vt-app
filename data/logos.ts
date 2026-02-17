@@ -1,75 +1,81 @@
-import abbLogoImg from '../app/(tabs)/_assets/abb-logo.png';
-import aqlasertoolLogoImg from '../app/(tabs)/_assets/aqlasertool-logo.png';
-import bigbankLogoImg from '../app/(tabs)/_assets/bigbank-logo.png';
-import blrtGruppLogoImg from '../app/(tabs)/_assets/blrt-grupp-logo.png';
-import cariadLogoImg from '../app/(tabs)/_assets/cariad-logo.png';
-import compensaLogoImg from '../app/(tabs)/_assets/compensa-logo.jpg';
-import connectoLogoImg from '../app/(tabs)/_assets/connecto-logo.png';
-import cooppankLogoImg from '../app/(tabs)/_assets/cooppank-logo.png';
-import cvkeskusLogoImg from '../app/(tabs)/_assets/cvkeskus-logo.png';
-import eestiRaudteeLogoImg from '../app/(tabs)/_assets/eesti-raudtee-logo.jpg';
-import ehitus5ecoLogoImg from '../app/(tabs)/_assets/ehitus-5-eco-logo.png';
-import eisLogoImg from '../app/(tabs)/_assets/eis-logo.png';
-import eleringLogoImg from '../app/(tabs)/_assets/elering-logo.png';
-import enefitLogoImg from '../app/(tabs)/_assets/enefit-logo.png';
-import enginaatorLogoImg from '../app/(tabs)/_assets/enginaator-logo.png';
-import ergoInsuranceLogoImg from '../app/(tabs)/_assets/ergoinsurance-logo.png';
-import ericssonLogoImg from '../app/(tabs)/_assets/ericsson-logo.png';
-import ernstLogoImg from '../app/(tabs)/_assets/ernst-logo.png';
-import estancLogoImg from '../app/(tabs)/_assets/estanc-logo.png';
-import finantsinspektsioonLogoImg from '../app/(tabs)/_assets/finantsinspektsioon-logo.png';
-import finestLogoImg from '../app/(tabs)/_assets/finest-logo.png';
-import fujitsuLogoImg from '../app/(tabs)/_assets/fujitsu-logo.png';
-import geniussportsLogoImg from '../app/(tabs)/_assets/geniussports-logo.png';
-import gpvLogoImg from '../app/(tabs)/_assets/gpv-logo.png';
-import gunvorServicesLogoImg from '../app/(tabs)/_assets/gunvor-services-logo.png';
-import hanzaLogoImg from '../app/(tabs)/_assets/hanza-logo.png';
-import harjuElekterLogoImg from '../app/(tabs)/_assets/harju-elekter-logo.png';
-import heisiLogoImg from '../app/(tabs)/_assets/heisi-logo.png';
-import helmesLogoImg from '../app/(tabs)/_assets/helmes-logo.jpg';
-import hurtigrutenLogoImg from '../app/(tabs)/_assets/hurtigruten-logo.png';
-import inbankLogoImg from '../app/(tabs)/_assets/inbank-logo.png';
-import infinfraLogoImg from '../app/(tabs)/_assets/infinfra-logo.png';
-import infragreenLogoImg from '../app/(tabs)/_assets/infragreen-logo.png';
-import kaitseliitLogoImg from '../app/(tabs)/_assets/kaitseliit-logo.png';
-import kaitsepolitseiamet from '../app/(tabs)/_assets/kaitsepolitseiamet-logo.png';
-import kaitseressursideametLogoImg from '../app/(tabs)/_assets/kaitseressursideamet-logo.png';
-import keskkonnaagentuurLogoImg from '../app/(tabs)/_assets/keskkonnaagentuur-logo.png';
-import khenergiaLogoImg from '../app/(tabs)/_assets/khenergia-logo.png';
-import kpmgLogoImg from '../app/(tabs)/_assets/kpmg-logo.png';
-import lennuliiklusteeninduse from '../app/(tabs)/_assets/lennuliiklusteeninduse-logo.png';
-import leonhardweissLogoImg from '../app/(tabs)/_assets/leonhard-weiss-logo.png';
-import nobeLogoImg from '../app/(tabs)/_assets/nobe-logo.png';
-import nordeaLogoImg from '../app/(tabs)/_assets/nordea-logo.png';
-import nordeconLogoImg from '../app/(tabs)/_assets/nordecon-logo.png';
-import nortalLogoImg from '../app/(tabs)/_assets/nortal-logo.jpg';
-import patendiAmetLogoImg from '../app/(tabs)/_assets/patendiamet-logo.png';
-import pipedriveLogoImg from '../app/(tabs)/_assets/pipedrive-logo.png';
-import playtechLogoImg from '../app/(tabs)/_assets/playtech-logo.png';
-import rahapesuandmeburooLogoImg from '../app/(tabs)/_assets/rahapesuandmeburoo-logo.png';
-import railBalticLogoImg from '../app/(tabs)/_assets/railbaltic-logo.png';
-import rikLogoImg from '../app/(tabs)/_assets/rik-logo.png';
-import ruukkiLogoImg from '../app/(tabs)/_assets/ruukki-logo.png';
-import scanfilLogoImg from '../app/(tabs)/_assets/scanfil-logo.png';
-import shorelinkLogoImg from '../app/(tabs)/_assets/shorelink-logo.png';
-import sisekaitseakadeemiaLogoImg from '../app/(tabs)/_assets/sisekaitseakadeemia-logo.jpg';
-import smarteconLogoImg from '../app/(tabs)/_assets/smartecon-logo.png';
-import smitLogoImg from '../app/(tabs)/_assets/smit-logo.png';
-import southwesternLogoImg from '../app/(tabs)/_assets/southwestern-logo.png';
-import stoneridgeLogoImg from '../app/(tabs)/_assets/stoneridge-logo.png';
-import swedbankLogoImg from '../app/(tabs)/_assets/swedbank.png';
-import tallinnalennujaamLogoImg from '../app/(tabs)/_assets/tallinna-lennujaam-logo.png';
-import tallinnvesiLogoImg from '../app/(tabs)/_assets/tallinnvesi-logo.png';
-import tammerLogoImg from '../app/(tabs)/_assets/tammer-logo.png';
-import tartuulikoolLogoImg from '../app/(tabs)/_assets/tartuulikool-logo.png';
-import techGroupLogoImg from '../app/(tabs)/_assets/techGroup-logo.png';
-import teliaLogoImg from '../app/(tabs)/_assets/telia-logo.png';
-import threodSystemsLogoImg from '../app/(tabs)/_assets/threodsystems-logo.png';
-import traffestLogoImg from '../app/(tabs)/_assets/traffest-logo.png';
-import trev2LogoImg from '../app/(tabs)/_assets/trev2-logo.jpg';
-import utilitasLogoImg from '../app/(tabs)/_assets/utilitas-logo.png';
-import valisluureametLogoImg from '../app/(tabs)/_assets/valisluureamet-logo.png';
-import verstonLogoImg from '../app/(tabs)/_assets/verston-logo.jpg';
+import abbLogoImg from "../app/(tabs)/_assets/abb-logo.png";
+import apolloLogoImg from "../app/(tabs)/_assets/apollo-logo.png";
+import aqlasertoolLogoImg from "../app/(tabs)/_assets/aqlasertool-logo.png";
+import bigbankLogoImg from "../app/(tabs)/_assets/bigbank-logo.png";
+import blrtGruppLogoImg from "../app/(tabs)/_assets/blrt-grupp-logo.png";
+import cariadLogoImg from "../app/(tabs)/_assets/cariad-logo.png";
+import cernLogoImg from "../app/(tabs)/_assets/cern-logo.png";
+import cocacolaImg from "../app/(tabs)/_assets/cocacola-logo.png";
+import compensaLogoImg from "../app/(tabs)/_assets/compensa-logo.jpg";
+import connectoLogoImg from "../app/(tabs)/_assets/connecto-logo.png";
+import cooppankLogoImg from "../app/(tabs)/_assets/cooppank-logo.png";
+import cvkeskusLogoImg from "../app/(tabs)/_assets/cvkeskus-logo.png";
+import eestiRaudteeLogoImg from "../app/(tabs)/_assets/eesti-raudtee-logo.jpg";
+import ehitus5ecoLogoImg from "../app/(tabs)/_assets/ehitus-5-eco-logo.png";
+import eisLogoImg from "../app/(tabs)/_assets/eis-logo.png";
+import elektrileviLogoImg from "../app/(tabs)/_assets/elektri-levi-logo.png";
+import eleringLogoImg from "../app/(tabs)/_assets/elering-logo.png";
+import enefitLogoImg from "../app/(tabs)/_assets/enefit-logo.png";
+import enginaatorLogoImg from "../app/(tabs)/_assets/enginaator-logo.png";
+import ergoInsuranceLogoImg from "../app/(tabs)/_assets/ergoinsurance-logo.png";
+import ericssonLogoImg from "../app/(tabs)/_assets/ericsson-logo.png";
+import ernstLogoImg from "../app/(tabs)/_assets/ernst-logo.png";
+import estancLogoImg from "../app/(tabs)/_assets/estanc-logo.png";
+import finantsinspektsioonLogoImg from "../app/(tabs)/_assets/finantsinspektsioon-logo.png";
+import finestLogoImg from "../app/(tabs)/_assets/finest-logo.png";
+import freelLogoImg from "../app/(tabs)/_assets/freel-logo.png";
+import fujitsuLogoImg from "../app/(tabs)/_assets/fujitsu-logo.png";
+import geniussportsLogoImg from "../app/(tabs)/_assets/geniussports-logo.png";
+import gpvLogoImg from "../app/(tabs)/_assets/gpv-logo.png";
+import gunvorServicesLogoImg from "../app/(tabs)/_assets/gunvor-services-logo.png";
+import hanzaLogoImg from "../app/(tabs)/_assets/hanza-logo.png";
+import harjuElekterLogoImg from "../app/(tabs)/_assets/harju-elekter-logo.png";
+import heisiLogoImg from "../app/(tabs)/_assets/heisi-logo.png";
+import helmesLogoImg from "../app/(tabs)/_assets/helmes-logo.jpg";
+import hurtigrutenLogoImg from "../app/(tabs)/_assets/hurtigruten-logo.png";
+import inbankLogoImg from "../app/(tabs)/_assets/inbank-logo.png";
+import infinfraLogoImg from "../app/(tabs)/_assets/infinfra-logo.png";
+import infragreenLogoImg from "../app/(tabs)/_assets/infragreen-logo.png";
+import itestraLogoImg from "../app/(tabs)/_assets/itestra-logo.png";
+import kaitseliitLogoImg from "../app/(tabs)/_assets/kaitseliit-logo.png";
+import kaitsepolitseiamet from "../app/(tabs)/_assets/kaitsepolitseiamet-logo.png";
+import kaitseressursideametLogoImg from "../app/(tabs)/_assets/kaitseressursideamet-logo.png";
+import keskkonnaagentuurLogoImg from "../app/(tabs)/_assets/keskkonnaagentuur-logo.png";
+import khenergiaLogoImg from "../app/(tabs)/_assets/khenergia-logo.png";
+import kpmgLogoImg from "../app/(tabs)/_assets/kpmg-logo.png";
+import lennuliiklusteeninduse from "../app/(tabs)/_assets/lennuliiklusteeninduse-logo.png";
+import leonhardweissLogoImg from "../app/(tabs)/_assets/leonhard-weiss-logo.png";
+import nobeLogoImg from "../app/(tabs)/_assets/nobe-logo.png";
+import nordeaLogoImg from "../app/(tabs)/_assets/nordea-logo.png";
+import nordeconLogoImg from "../app/(tabs)/_assets/nordecon-logo.png";
+import nortalLogoImg from "../app/(tabs)/_assets/nortal-logo.jpg";
+import patendiAmetLogoImg from "../app/(tabs)/_assets/patendiamet-logo.png";
+import pipedriveLogoImg from "../app/(tabs)/_assets/pipedrive-logo.png";
+import playtechLogoImg from "../app/(tabs)/_assets/playtech-logo.png";
+import rahapesuandmeburooLogoImg from "../app/(tabs)/_assets/rahapesuandmeburoo-logo.png";
+import railBalticLogoImg from "../app/(tabs)/_assets/railbaltic-logo.png";
+import rikLogoImg from "../app/(tabs)/_assets/rik-logo.png";
+import ruukkiLogoImg from "../app/(tabs)/_assets/ruukki-logo.png";
+import scanfilLogoImg from "../app/(tabs)/_assets/scanfil-logo.png";
+import shorelinkLogoImg from "../app/(tabs)/_assets/shorelink-logo.png";
+import sisekaitseakadeemiaLogoImg from "../app/(tabs)/_assets/sisekaitseakadeemia-logo.jpg";
+import smarteconLogoImg from "../app/(tabs)/_assets/smartecon-logo.png";
+import smitLogoImg from "../app/(tabs)/_assets/smit-logo.png";
+import southwesternLogoImg from "../app/(tabs)/_assets/southwestern-logo.png";
+import stoneridgeLogoImg from "../app/(tabs)/_assets/stoneridge-logo.png";
+import swedbankLogoImg from "../app/(tabs)/_assets/swedbank.png";
+import tallinnalennujaamLogoImg from "../app/(tabs)/_assets/tallinna-lennujaam-logo.png";
+import tallinnvesiLogoImg from "../app/(tabs)/_assets/tallinnvesi-logo.png";
+import tammerLogoImg from "../app/(tabs)/_assets/tammer-logo.png";
+import tartuulikoolLogoImg from "../app/(tabs)/_assets/tartuulikool-logo.png";
+import techGroupLogoImg from "../app/(tabs)/_assets/techGroup-logo.png";
+import teliaLogoImg from "../app/(tabs)/_assets/telia-logo.png";
+import threodSystemsLogoImg from "../app/(tabs)/_assets/threodsystems-logo.png";
+import traffestLogoImg from "../app/(tabs)/_assets/traffest-logo.png";
+import trev2LogoImg from "../app/(tabs)/_assets/trev2-logo.jpg";
+import utilitasLogoImg from "../app/(tabs)/_assets/utilitas-logo.png";
+import valisluureametLogoImg from "../app/(tabs)/_assets/valisluureamet-logo.png";
+import verstonLogoImg from "../app/(tabs)/_assets/verston-logo.jpg";
 
 export const logos = {
   // --- Treasure Hunt Companies ---
@@ -91,6 +97,12 @@ export const logos = {
 
   // --- Regular Companies ---
   nortalAS: nortalLogoImg,
+  freelLogo: freelLogoImg,
+  itestraLogoImgLogo: itestraLogoImg,
+  cernLogo: cernLogoImg,
+  cocacolaLogo: cocacolaImg,
+  elektrileviLogo: elektrileviLogoImg,
+  apolloLogo: apolloLogoImg,
   inbank: inbankLogoImg,
   patendiAmet: patendiAmetLogoImg,
   techGroupLogo: techGroupLogoImg,
