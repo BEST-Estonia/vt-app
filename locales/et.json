@@ -70,6 +70,7 @@
     "Kaubandus": "Kaubandus",
     "Hulgimüük": "Hulgimüük",
     "Meelelahutus": "Meelelahutus",
+    "Turundus": "Turundus",
     "Kindlustus": "Kindlustus",
     "Pangandus": "Pangandus",
     "Müük": "Müük"
@@ -78,7 +79,8 @@
     "Internship": "Praktika",
     "Full-time": "Täiskohaga",
     "Part-time": "Osalise tööajaga",
-    "Graduate": "Magistrant"
+    "Graduate": "Magistrant",
+    "Heategevus": "Heategevus"
   },
   "tabs": {
     "hunt": "Aardejaht",

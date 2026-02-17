@@ -70,6 +70,7 @@
     "Kaubandus": "Commerce",
     "Hulgimüük": "Wholesale",
     "Meelelahutus": "Entertainment",
+    "Turundus": "Marketing",
     "Kindlustus": "Insurance",
     "Pangandus": "Banking",
     "Müük": "Sales"
@@ -78,7 +79,8 @@
     "Internship": "Internship",
     "Full-time": "Full-time",
     "Part-time": "Part-time",
-    "Graduate": "Graduate"
+    "Graduate": "Graduate",
+    "Heategevus": "Charity"
   },
   "tabs": {
     "hunt": "Hunt",
