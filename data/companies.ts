@@ -129,6 +129,7 @@ const regularCompanies: Company[] = [
     industries: ["Sisejulgeolek"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.politseiLogo,
     links: [
       { label: "Website", url: "http://karjaar.politsei.ee", icon: "globe" },
       {
@@ -203,7 +204,7 @@ const regularCompanies: Company[] = [
     industries: ["Turundus"],
     hiringTypes: ["Heategevus"],
     isFavorite: false,
-    localLogo: logos.elektrileviLogo,
+    localLogo: logos.redbullLogo,
     links: [
       {
         label: "Website",
@@ -1745,6 +1746,7 @@ const regularCompanies: Company[] = [
     industries: ["Kosmos"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.spaceestoniaLogoImgLogo,
     links: [
       { label: "Website", url: "https://www.eis.ee/kosmos", icon: "globe" },
       {

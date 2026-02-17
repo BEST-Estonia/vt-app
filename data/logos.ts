@@ -56,8 +56,11 @@ import omnivaLogoImg from "../app/(tabs)/_assets/omniva-logo.png";
 import patendiAmetLogoImg from "../app/(tabs)/_assets/patendiamet-logo.png";
 import pipedriveLogoImg from "../app/(tabs)/_assets/pipedrive-logo.png";
 import playtechLogoImg from "../app/(tabs)/_assets/playtech-logo.png";
+import politseiLogoImg from "../app/(tabs)/_assets/politsei-logo.png";
+import postimeesLogoImg from "../app/(tabs)/_assets/postimees-logo.png";
 import rahapesuandmeburooLogoImg from "../app/(tabs)/_assets/rahapesuandmeburoo-logo.png";
 import railBalticLogoImg from "../app/(tabs)/_assets/railbaltic-logo.png";
+import redbullLogoImg from "../app/(tabs)/_assets/redbull-logo.png";
 import rikLogoImg from "../app/(tabs)/_assets/rik-logo.png";
 import ruukkiLogoImg from "../app/(tabs)/_assets/ruukki-logo.png";
 import scanfilLogoImg from "../app/(tabs)/_assets/scanfil-logo.png";
@@ -66,6 +69,7 @@ import sisekaitseakadeemiaLogoImg from "../app/(tabs)/_assets/sisekaitseakadeemi
 import smarteconLogoImg from "../app/(tabs)/_assets/smartecon-logo.png";
 import smitLogoImg from "../app/(tabs)/_assets/smit-logo.png";
 import southwesternLogoImg from "../app/(tabs)/_assets/southwestern-logo.png";
+import spaceestoniaLogoImg from "../app/(tabs)/_assets/spaceestonia-logo.png";
 import stoneridgeLogoImg from "../app/(tabs)/_assets/stoneridge-logo.png";
 import swedbankLogoImg from "../app/(tabs)/_assets/swedbank.png";
 import tallinnalennujaamLogoImg from "../app/(tabs)/_assets/tallinna-lennujaam-logo.png";
@@ -104,6 +108,10 @@ export const logos = {
   freelLogo: freelLogoImg,
   kliimaministeeriumLogo: kliimaministeeriumLogoImg,
   kmgLogo: kmgLogoImg,
+  politseiLogo: politseiLogoImg,
+  postimeesLogo: postimeesLogoImg,
+  redbullLogo: redbullLogoImg,
+  spaceestoniaLogoImgLogo: spaceestoniaLogoImg,
   omnivaLogo: omnivaLogoImg,
   konkurentsiametLogo: konkurentsiametLogoImg,
   itestraLogoImgLogo: itestraLogoImg,

@@ -415,6 +415,7 @@ export const treasureHuntCompanies: Company[] = [
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     isTreasureHunt: true,
+    localLogo: logos.postimeesLogo,
     links: [
       { label: "Website", url: "https://postimeesgrupp.ee/", icon: "globe" },
       {
