@@ -274,6 +274,7 @@ const regularCompanies: Company[] = [
     industries: ["Avalik Sektor"],
     hiringTypes: ["Internship"],
     isFavorite: false,
+    localLogo: logos.konkurentsiametLogo,
     links: [
       {
         label: "Website",
@@ -1716,6 +1717,7 @@ const regularCompanies: Company[] = [
     industries: ["Logistika"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.omnivaLogo,
     links: [
       { label: "Website", url: "https://www.omniva.ee", icon: "globe" },
       {
@@ -1826,6 +1828,7 @@ const regularCompanies: Company[] = [
     industries: ["Construction"],
     hiringTypes: ["Full-time", "Part-time"],
     isFavorite: false,
+    localLogo: logos.kmgLogo,
     links: [
       { label: "Website", url: "https://kmg.ee/katenditood/", icon: "globe" },
       {

@@ -383,6 +383,7 @@ export const treasureHuntCompanies: Company[] = [
     hiringTypes: ["Internship"],
     isFavorite: false,
     isTreasureHunt: true,
+    localLogo: logos.kliimaministeeriumLogo,
     links: [
       {
         label: "Website",

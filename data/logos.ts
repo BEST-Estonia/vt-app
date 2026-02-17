@@ -42,6 +42,9 @@ import kaitsepolitseiamet from "../app/(tabs)/_assets/kaitsepolitseiamet-logo.pn
 import kaitseressursideametLogoImg from "../app/(tabs)/_assets/kaitseressursideamet-logo.png";
 import keskkonnaagentuurLogoImg from "../app/(tabs)/_assets/keskkonnaagentuur-logo.png";
 import khenergiaLogoImg from "../app/(tabs)/_assets/khenergia-logo.png";
+import kliimaministeeriumLogoImg from "../app/(tabs)/_assets/kliimaministeerium-logo.png";
+import kmgLogoImg from "../app/(tabs)/_assets/kmg-logo.png";
+import konkurentsiametLogoImg from "../app/(tabs)/_assets/konkurentsiamet-logo.png";
 import kpmgLogoImg from "../app/(tabs)/_assets/kpmg-logo.png";
 import lennuliiklusteeninduse from "../app/(tabs)/_assets/lennuliiklusteeninduse-logo.png";
 import leonhardweissLogoImg from "../app/(tabs)/_assets/leonhard-weiss-logo.png";
@@ -49,6 +52,7 @@ import nobeLogoImg from "../app/(tabs)/_assets/nobe-logo.png";
 import nordeaLogoImg from "../app/(tabs)/_assets/nordea-logo.png";
 import nordeconLogoImg from "../app/(tabs)/_assets/nordecon-logo.png";
 import nortalLogoImg from "../app/(tabs)/_assets/nortal-logo.jpg";
+import omnivaLogoImg from "../app/(tabs)/_assets/omniva-logo.png";
 import patendiAmetLogoImg from "../app/(tabs)/_assets/patendiamet-logo.png";
 import pipedriveLogoImg from "../app/(tabs)/_assets/pipedrive-logo.png";
 import playtechLogoImg from "../app/(tabs)/_assets/playtech-logo.png";
@@ -98,6 +102,10 @@ export const logos = {
   // --- Regular Companies ---
   nortalAS: nortalLogoImg,
   freelLogo: freelLogoImg,
+  kliimaministeeriumLogo: kliimaministeeriumLogoImg,
+  kmgLogo: kmgLogoImg,
+  omnivaLogo: omnivaLogoImg,
+  konkurentsiametLogo: konkurentsiametLogoImg,
   itestraLogoImgLogo: itestraLogoImg,
   cernLogo: cernLogoImg,
   cocacolaLogo: cocacolaImg,
