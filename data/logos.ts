@@ -84,6 +84,7 @@ import trev2LogoImg from "../app/(tabs)/_assets/trev2-logo.jpg";
 import utilitasLogoImg from "../app/(tabs)/_assets/utilitas-logo.png";
 import valisluureametLogoImg from "../app/(tabs)/_assets/valisluureamet-logo.png";
 import verstonLogoImg from "../app/(tabs)/_assets/verston-logo.jpg";
+import watercomLogoImg from "../app/(tabs)/_assets/watercom-logo.png";
 
 export const logos = {
   // --- Treasure Hunt Companies ---
@@ -112,6 +113,7 @@ export const logos = {
   postimeesLogo: postimeesLogoImg,
   redbullLogo: redbullLogoImg,
   spaceestoniaLogoImgLogo: spaceestoniaLogoImg,
+  watercomLogoImgLogo: watercomLogoImg,
   omnivaLogo: omnivaLogoImg,
   konkurentsiametLogo: konkurentsiametLogoImg,
   itestraLogoImgLogo: itestraLogoImg,

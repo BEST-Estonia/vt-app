@@ -103,6 +103,7 @@ const regularCompanies: Company[] = [
     industries: ["Construction"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
+    localLogo: logos.watercomLogoImgLogo,
     links: [
       { label: "Website", url: "https://watercom.eu/", icon: "globe" },
       {
