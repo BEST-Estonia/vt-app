@@ -73,11 +73,13 @@ const HIRING_TRANSLATIONS = {
   en: {
     Internship: "Internship",
     "Full-time": "Full-time",
+    "Part-time": "Part-time",
     Graduate: "Graduate",
   },
   et: {
     Internship: "Praktika",
     "Full-time": "Täiskohaga",
+    "Part-time": "Osalise tööajaga",
     Graduate: "Magistrant",
   },
 };
