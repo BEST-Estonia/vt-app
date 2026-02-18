@@ -10,13 +10,17 @@ export type CompanyLink = {
   icon?: CompanyLinkIcon;
 };
 
+export type CompanyEventType = "talk" | "company-visit" | "work-shadowing";
+
 export type CompanyEvent = {
   id: string;
   companyId: string;
   title: string;
-  startISO: string;
+  eventType: CompanyEventType;
+  startISO?: string;
   endISO?: string;
   locationText: string;
+  registrationUrl?: string;
 };
 
 export type Company = {
@@ -68,6 +72,8 @@ export const ALL_INDUSTRIES = [
   "Kindlustus",
   "Pangandus",
   "Müük",
+  "Meelelahutus",
+  "Turundus",
 ];
 
 export const ALL_HIRING = [
@@ -75,6 +81,7 @@ export const ALL_HIRING = [
   "Full-time",
   "Part-time",
   "Graduate",
+  "Heategevus",
 ] as const;
 
 export { logos };
@@ -84,17 +91,30 @@ export const treasureHuntCompanies: Company[] = [
     id: "th-1",
     name: "Verston Eesti OÜ",
     description: {
-      et: "Osale meie aardejahis!",
-      en: "Join our treasure hunt!",
+      et: COMPANY_DESCRIPTIONS.et["th-1"],
+      en: COMPANY_DESCRIPTIONS.en["th-1"],
     },
     boothCode: "21",
     initials: "VE",
     color: "#1E66FF",
-    industries: ["Engineering"],
-    hiringTypes: ["Full-time"],
+    industries: ["Construction"],
+    hiringTypes: ["Internship", "Part-time"],
     isFavorite: false,
     localLogo: logos.verstonLogo,
     isTreasureHunt: true,
+    links: [
+      { label: "Website", url: "https://www.verston.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://verston.ee/tootamine/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/verston",
+        icon: "linkedin",
+      },
+    ],
   },
 
   {
@@ -147,17 +167,21 @@ export const treasureHuntCompanies: Company[] = [
     id: "th-4",
     name: "ABB AS",
     description: {
-      et: "Energia- ja automaatikatehnoloogiad",
-      en: "Power and automation technologies",
+      et: COMPANY_DESCRIPTIONS.et["th-4"],
+      en: COMPANY_DESCRIPTIONS.en["th-4"],
     },
     boothCode: "108",
     initials: "ABB",
     color: "#1E66FF",
-    industries: ["Engineering", "Energy"],
-    hiringTypes: ["Full-time", "Internship"],
+    industries: ["Turundus"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.ABBLogo,
     isTreasureHunt: true,
+    links: [
+      { label: "Website", url: "http://abb.com", icon: "globe" },
+      { label: "Careers", url: "https://careers.abb", icon: "briefcase" },
+    ],
   },
   {
     id: "th-5",
@@ -246,70 +270,6 @@ export const treasureHuntCompanies: Company[] = [
   },
 
   {
-    id: "th-8",
-    name: "Pipedrive",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["th-8"],
-      en: COMPANY_DESCRIPTIONS.en["th-8"],
-    },
-    boothCode: "20",
-    initials: "PD",
-    color: "#1E66FF",
-    industries: ["Infotehnoloogia"],
-    hiringTypes: [""],
-    isFavorite: false,
-    localLogo: logos.pipedriveLogo,
-    isTreasureHunt: true,
-    links: [
-      {
-        label: "Website",
-        url: "www.pipedrive.com",
-        icon: "globe",
-      },
-      {
-        label: "Careers",
-        url: "https://www.pipedrive.com/en/jobs",
-        icon: "briefcase",
-      },
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/pipedrive/",
-        icon: "linkedin",
-      },
-    ],
-  },
-
-  {
-    id: "th-9",
-    name: "KPMG Baltics",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["th-9"],
-      en: COMPANY_DESCRIPTIONS.en["th-9"],
-    },
-    boothCode: "15",
-    initials: "KP",
-    color: "#1E66FF",
-    industries: ["Majandus"],
-    hiringTypes: ["Internship", "Full-time", "Part-time"],
-    isFavorite: false,
-    localLogo: logos.kpmgBalticsLogo,
-    isTreasureHunt: true,
-    links: [
-      { label: "Website", url: "www.kpmg.ee", icon: "globe" },
-      {
-        label: "Careers",
-        url: "https://kpmg.com/ee/et/karjaar/vabad-too-ja-praktikakohad.html",
-        icon: "briefcase",
-      },
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/kpmg-baltics/?viewAsMember=true",
-        icon: "linkedin",
-      },
-    ],
-  },
-
-  {
     id: "th-10",
     name: "BLRT GRUPP AS",
     description: {
@@ -382,17 +342,18 @@ export const treasureHuntCompanies: Company[] = [
     id: "th-13",
     name: "Enginaator",
     description: {
-      et: "Inseneribüroo",
-      en: "Engineering Bureau",
+      et: COMPANY_DESCRIPTIONS.et["th-13"],
+      en: COMPANY_DESCRIPTIONS.en["th-13"],
     },
     boothCode: "105",
     initials: "EN",
     color: "#1E66FF",
     industries: ["Engineering"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: [""],
     isFavorite: false,
     localLogo: logos.enginaatorLogo,
     isTreasureHunt: true,
+    links: [{ label: "Website", url: "https://enginaator.ee/", icon: "globe" }],
   },
   {
     id: "th-14",
@@ -423,6 +384,7 @@ export const treasureHuntCompanies: Company[] = [
     hiringTypes: ["Internship"],
     isFavorite: false,
     isTreasureHunt: true,
+    localLogo: logos.kliimaministeeriumLogo,
     links: [
       {
         label: "Website",
@@ -454,6 +416,7 @@ export const treasureHuntCompanies: Company[] = [
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     isTreasureHunt: true,
+    localLogo: logos.postimeesLogo,
     links: [
       { label: "Website", url: "https://postimeesgrupp.ee/", icon: "globe" },
       {
@@ -488,6 +451,14 @@ export const treasureHuntCompanies: Company[] = [
     isFavorite: false,
     localLogo: logos.smarteconLogo,
     isTreasureHunt: true,
+    links: [
+      { label: "Website", url: "https://smartecon.com/et/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/smartecon",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "th-18",
@@ -584,29 +555,28 @@ export const treasureHuntCompanies: Company[] = [
   },
   {
     id: "th-22",
-    name: "Rail Baltic Estonia OÜ",
+    name: "KPMG Baltics",
     description: {
-      et: COMPANY_DESCRIPTIONS.et["24"],
-      en: COMPANY_DESCRIPTIONS.en["24"],
+      et: COMPANY_DESCRIPTIONS.et["th-22"],
+      en: COMPANY_DESCRIPTIONS.en["th-22"],
     },
-    boothCode: "55",
-    initials: "RB",
+    initials: "KPMG",
     color: "#1E66FF",
-    industries: ["Transportation"],
-    hiringTypes: ["Internship", "Full-time"],
+    industries: ["Majandus"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
-    localLogo: logos.railBalticLogo,
+    localLogo: logos.kpmgBalticsLogo,
     isTreasureHunt: true,
     links: [
-      { label: "Website", url: "https://www.rbestonia.ee", icon: "globe" },
+      { label: "Website", url: "https://www.kpmg.ee", icon: "globe" },
       {
         label: "Careers",
-        url: "https://rbestonia.teamdash.com/p/job/0DCyfC2b/rail-baltic-estonia",
+        url: "https://kpmg.com/ee/et/karjaar/vabad-too-ja-praktikakohad.html",
         icon: "briefcase",
       },
       {
         label: "LinkedIn",
-        url: "https://ee.linkedin.com/company/rail-baltic-estonia",
+        url: "https://www.linkedin.com/company/kpmg-baltics/?viewAsMember=true",
         icon: "linkedin",
       },
     ],

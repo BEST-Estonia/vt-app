@@ -1,3 +1,4 @@
+import CompanyLogoLightbox from "@/components/CompanyLogoLightbox";
 import LanguageSheet from "@/components/LanguageSheet";
 import {
     companiesSeed,
@@ -12,6 +13,7 @@ import { useRouter } from "expo-router";
 import React from "react";
 import {
     Image,
+    Linking,
     ScrollView,
     StatusBar,
     Text,
@@ -85,11 +87,13 @@ const HIRING_TRANSLATIONS = {
   en: {
     Internship: "Internship",
     "Full-time": "Full-time",
+    "Part-time": "Part-time",
     Graduate: "Graduate",
   },
   et: {
     Internship: "Praktika",
     "Full-time": "Täiskohaga",
+    "Part-time": "Osalise tööajaga",
     Graduate: "Magistrant",
   },
 };
@@ -359,86 +363,98 @@ function CompanyRow({
   onPress: () => void;
   lang: "en" | "et";
 }) {
+  const [logoOpen, setLogoOpen] = React.useState(false);
+
   return (
-    <TouchableOpacity
-      activeOpacity={0.85}
-      onPress={onPress}
-      className="w-full rounded-2xl border border-gray-200 bg-white mb-3"
-    >
-      <View className="p-4">
-        <View className="flex-row">
-          <View className="mr-3">
-            <View
-              className="h-12 w-12 rounded-xl overflow-hidden items-center justify-center"
-              style={{
-                backgroundColor: company.localLogo ? "#FFFFFF" : "#E0E7FF",
-              }}
-            >
-              {company.localLogo ? (
-                <Image
-                  source={company.localLogo}
-                  style={{ width: "100%", height: "100%" }}
-                  resizeMode="contain"
-                />
-              ) : (
-                <Text className="text-[16px] font-bold text-blue-700">
-                  {company.initials}
-                </Text>
-              )}
-            </View>
-          </View>
-          <View className="flex-1">
-            <Text className="text-[16px] font-semibold text-gray-900">
-              {company.name}
-            </Text>
-            <Text className="text-[14px] text-gray-700 mt-1">
-              {company.description[lang]}
-            </Text>
-            <View className="flex-row flex-wrap mt-2">
-              {company.industries.slice(0, 2).map((i, idx) => (
-                <View
-                  key={`ind-${idx}`}
-                  className="mr-2 mb-2 rounded-full bg-blue-50 px-2.5 py-1"
-                >
-                  <Text className="text-[12px] font-medium text-blue-700">
-                    {INDUSTRY_TRANSLATIONS[lang][
-                      i as keyof (typeof INDUSTRY_TRANSLATIONS)["en"]
-                    ] || i}
+    <>
+      <TouchableOpacity
+        activeOpacity={0.85}
+        onPress={onPress}
+        className="w-full rounded-2xl border border-gray-200 bg-white mb-3"
+      >
+        <View className="p-4">
+          <View className="flex-row">
+            <View className="mr-3">
+              <TouchableOpacity
+                activeOpacity={0.9}
+                onPress={() => setLogoOpen(true)}
+                className="h-12 w-12 rounded-xl overflow-hidden items-center justify-center border border-gray-200 bg-white"
+              >
+                {company.localLogo ? (
+                  <Image
+                    source={company.localLogo}
+                    style={{ width: "100%", height: "100%" }}
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <Text className="text-[16px] font-bold text-blue-700">
+                    {company.initials}
                   </Text>
-                </View>
-              ))}
+                )}
+              </TouchableOpacity>
             </View>
-            <View className="flex-row flex-wrap">
-              {company.hiringTypes.slice(0, 3).map((h, idx) => (
-                <View
-                  key={`hire-${idx}`}
-                  className="mr-2 mb-2 rounded-full bg-gray-100 px-2.5 py-1"
-                >
-                  <Text className="text-[12px] font-medium text-gray-700">
-                    {HIRING_TRANSLATIONS[lang][
-                      h as keyof (typeof HIRING_TRANSLATIONS)["en"]
-                    ] || h}
-                  </Text>
-                </View>
-              ))}
+            <View className="flex-1">
+              <Text className="text-[16px] font-semibold text-gray-900">
+                {company.name}
+              </Text>
+              <Text className="text-[14px] text-gray-700 mt-1">
+                {company.description[lang]}
+              </Text>
+              <View className="flex-row flex-wrap mt-2">
+                {company.industries.slice(0, 2).map((i, idx) => (
+                  <View
+                    key={`ind-${idx}`}
+                    className="mr-2 mb-2 rounded-full bg-blue-50 px-2.5 py-1"
+                  >
+                    <Text className="text-[12px] font-medium text-blue-700">
+                      {INDUSTRY_TRANSLATIONS[lang][
+                        i as keyof (typeof INDUSTRY_TRANSLATIONS)["en"]
+                      ] || i}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+              <View className="flex-row flex-wrap">
+                {company.hiringTypes.slice(0, 3).map((h, idx) => (
+                  <View
+                    key={`hire-${idx}`}
+                    className="mr-2 mb-2 rounded-full bg-gray-100 px-2.5 py-1"
+                  >
+                    <Text className="text-[12px] font-medium text-gray-700">
+                      {HIRING_TRANSLATIONS[lang][
+                        h as keyof (typeof HIRING_TRANSLATIONS)["en"]
+                      ] || h}
+                    </Text>
+                  </View>
+                ))}
+              </View>
             </View>
           </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+
+      <CompanyLogoLightbox
+        visible={logoOpen}
+        onClose={() => setLogoOpen(false)}
+        logoSource={company.localLogo}
+        fallbackText={company.initials}
+      />
+    </>
   );
 }
 
 function EventRow({ event }: { event: CompanyEvent }) {
-  const start = new Date(event.startISO);
+  const start = event.startISO ? new Date(event.startISO) : undefined;
   const end = event.endISO ? new Date(event.endISO) : undefined;
   const pad = (n: number) => n.toString().padStart(2, "0");
   const time =
-    end && !isNaN(end.getTime())
+    start && end && !isNaN(end.getTime())
       ? `${pad(start.getHours())}:${pad(start.getMinutes())} - ${pad(
           end.getHours(),
         )}:${pad(end.getMinutes())}`
-      : `${pad(start.getHours())}:${pad(start.getMinutes())}`;
+      : start
+        ? `${pad(start.getHours())}:${pad(start.getMinutes())}`
+        : undefined;
 
   return (
     <View className="w-full rounded-2xl border border-gray-200 bg-white mb-3">
@@ -451,16 +467,36 @@ function EventRow({ event }: { event: CompanyEvent }) {
             {event.title}
           </Text>
         </View>
-        <View className="flex-row items-center mt-2">
-          <Feather name="clock" size={14} color="#6B7280" />
-          <Text className="ml-1 text-[13px] text-gray-700">{time}</Text>
-        </View>
+        {time ? (
+          <View className="flex-row items-center mt-2">
+            <Feather name="clock" size={14} color="#6B7280" />
+            <Text className="ml-1 text-[13px] text-gray-700">{time}</Text>
+          </View>
+        ) : (
+          <View className="flex-row items-center mt-2">
+            <Feather name="clock" size={14} color="#6B7280" />
+            <Text className="ml-1 text-[13px] text-gray-700">
+              Kuupäev täpsustamisel
+            </Text>
+          </View>
+        )}
         <View className="flex-row items-center">
           <Feather name="map-pin" size={14} color="#6B7280" />
           <Text className="ml-1 text-[13px] text-gray-700">
             {event.locationText}
           </Text>
         </View>
+        {event.registrationUrl ? (
+          <TouchableOpacity
+            onPress={() => Linking.openURL(event.registrationUrl!)}
+            className="mt-3 flex-row items-center justify-center rounded-lg border border-blue-200 bg-blue-50 py-2"
+          >
+            <Feather name="external-link" size={14} color="#1E66FF" />
+            <Text className="ml-2 text-[13px] font-semibold text-blue-700">
+              Registreeru
+            </Text>
+          </TouchableOpacity>
+        ) : null}
       </View>
     </View>
   );

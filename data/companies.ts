@@ -11,13 +11,17 @@ export type CompanyLink = {
   icon?: CompanyLinkIcon;
 };
 
+export type CompanyEventType = "talk" | "company-visit" | "work-shadowing";
+
 export type CompanyEvent = {
   id: string;
   companyId: string;
   title: string;
-  startISO: string;
+  eventType: CompanyEventType;
+  startISO?: string;
   endISO?: string;
   locationText: string;
+  registrationUrl?: string;
 };
 
 export type Company = {
@@ -66,6 +70,10 @@ export const ALL_INDUSTRIES = [
   "Keskkond",
   "Avalik Sektor",
   "Tootmine",
+  "Kaubandus",
+  "Hulgimüük",
+  "Meelelahutus",
+  "Turundus",
   "Kindlustus",
   "Pangandus",
   "Müük",
@@ -76,6 +84,7 @@ export const ALL_HIRING = [
   "Full-time",
   "Part-time",
   "Graduate",
+  "Heategevus",
 ] as const;
 
 export { logos };
@@ -94,6 +103,7 @@ const regularCompanies: Company[] = [
     industries: ["Construction"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
+    localLogo: logos.watercomLogoImgLogo,
     links: [
       { label: "Website", url: "https://watercom.eu/", icon: "globe" },
       {
@@ -120,11 +130,108 @@ const regularCompanies: Company[] = [
     industries: ["Sisejulgeolek"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.politseiLogo,
     links: [
       { label: "Website", url: "http://karjaar.politsei.ee", icon: "globe" },
       {
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/eesti-politsei/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "85",
+    name: "Coca-Cola HBC Eesti AS",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["85"],
+      en: COMPANY_DESCRIPTIONS.en["85"],
+    },
+    initials: "CC",
+    color: "#1E66FF",
+    industries: ["Kaubandus", "Hulgimüük"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    localLogo: logos.cocacolaLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://poland-baltics.coca-colahellenic.com/et",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://poland-baltics.coca-colahellenic.com/et",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/coca-cola-hbc/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "86",
+    name: "Apollo Group",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["86"],
+      en: COMPANY_DESCRIPTIONS.en["86"],
+    },
+    initials: "AG",
+    color: "#1E66FF",
+    industries: ["Meelelahutus"],
+    hiringTypes: ["Full-time", "Part-time"],
+    localLogo: logos.apolloLogo,
+    isFavorite: false,
+    links: [
+      { label: "Website", url: "https://apollogroup.ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://apolloee.teamdash.com/p/jobs/44/tule-apollosse-toole",
+        icon: "briefcase",
+      },
+    ],
+  },
+  {
+    id: "87",
+    name: "Red Bull Wings For Life",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["87"],
+      en: COMPANY_DESCRIPTIONS.en["87"],
+    },
+    initials: "RB",
+    color: "#1E66FF",
+    industries: ["Turundus"],
+    hiringTypes: ["Heategevus"],
+    isFavorite: false,
+    localLogo: logos.redbullLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.wingsforlifeworldrun.com/en",
+        icon: "globe",
+      },
+    ],
+  },
+  {
+    id: "88",
+    name: "Freel",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["88"],
+      en: COMPANY_DESCRIPTIONS.en["88"],
+    },
+    initials: "FR",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Part-time"],
+    isFavorite: false,
+    localLogo: logos.freelLogo,
+    links: [
+      { label: "Website", url: "https://www.freel.ee", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "http://www.linkedin.com/company/freel-ee/",
         icon: "linkedin",
       },
     ],
@@ -141,6 +248,7 @@ const regularCompanies: Company[] = [
     industries: ["Energeetika"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.elektrileviLogo,
     links: [
       { label: "Website", url: "http://www.elektrilevi.ee", icon: "globe" },
       {
@@ -168,6 +276,7 @@ const regularCompanies: Company[] = [
     industries: ["Avalik Sektor"],
     hiringTypes: ["Internship"],
     isFavorite: false,
+    localLogo: logos.konkurentsiametLogo,
     links: [
       {
         label: "Website",
@@ -318,56 +427,7 @@ const regularCompanies: Company[] = [
     isFavorite: false,
     localLogo: logos.stoneridgeLogo,
   },
-  {
-    id: "19",
-    name: "Smartecon OÜ",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["19"],
-      en: COMPANY_DESCRIPTIONS.en["19"],
-    },
-    boothCode: "48",
-    initials: "SM",
-    color: "#1E66FF",
-    industries: ["Energeetika"],
-    hiringTypes: ["Full-time", "Part-time"],
-    isFavorite: false,
-    localLogo: logos.smarteconLogo,
-    links: [
-      { label: "Website", url: "https://smartecon.com/et/", icon: "globe" },
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/smartecon",
-        icon: "linkedin",
-      },
-    ],
-  },
-  {
-    id: "20",
-    name: "Seesam kindlustus",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["20"],
-      en: COMPANY_DESCRIPTIONS.en["20"],
-    },
-    about: {
-      et: COMPANY_ABOUT.et["20"],
-      en: COMPANY_ABOUT.en["20"],
-    },
-    boothCode: "94",
-    initials: "CO",
-    color: "#1E66FF",
-    industries: ["Kindlustus", "Majandus"],
-    hiringTypes: ["Tööpakkumised puuduvad"],
-    isFavorite: false,
-    localLogo: logos.compensaLogo,
-    links: [
-      { label: "Website", url: "https://seesam.ee/", icon: "globe" },
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/18346040/admin/page-posts/published/",
-        icon: "linkedin",
-      },
-    ],
-  },
+
   {
     id: "21",
     name: "Tallinna Vesi",
@@ -719,33 +779,7 @@ const regularCompanies: Company[] = [
       },
     ],
   },
-  {
-    id: "35",
-    name: "CVKeskus.ee",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["35"],
-      en: COMPANY_DESCRIPTIONS.en["35"],
-    },
-    boothCode: "100",
-    initials: "CV",
-    color: "#1E66FF",
-    industries: ["Infotehnoloogia"],
-    hiringTypes: [""],
-    isFavorite: false,
-    localLogo: logos.cvkeskusLogo,
-    links: [
-      {
-        label: "Website",
-        url: "https://www.cvkeskus.ee/",
-        icon: "globe",
-      },
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/441415/",
-        icon: "linkedin",
-      },
-    ],
-  },
+
   {
     id: "36",
     name: "Coop Pank AS",
@@ -1327,10 +1361,23 @@ const regularCompanies: Company[] = [
     boothCode: "79",
     initials: "VA",
     color: "#1E66FF",
-    industries: ["Government"],
+    industries: ["Sisejulgeolek"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.valisluureametLogo,
+    links: [
+      { label: "Website", url: "https://valisluureamet.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://valisluureamet.ee/toole.html",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/valisluureamet",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "58",
@@ -1489,40 +1536,6 @@ const regularCompanies: Company[] = [
       },
     ],
   },
-  {
-    id: "64",
-    name: "Genius Sports",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["64"],
-      en: COMPANY_DESCRIPTIONS.en["64"],
-    },
-    boothCode: "117",
-    initials: "GS",
-    color: "#1E66FF",
-    industries: ["Infotehnoloogia"],
-    hiringTypes: ["Internship", "Full-time", "Part-time"],
-    isFavorite: false,
-    localLogo: logos.geniussportsLogo,
-    links: [
-      {
-        label: "Website",
-        url: "geniussports.com",
-        icon: "globe",
-      },
-
-      {
-        label: "Careers",
-        url: "https://www.geniussports.com/careers/",
-        icon: "briefcase",
-      },
-
-      {
-        label: "LinkedIn",
-        url: "https://www.linkedin.com/company/geniussports/",
-        icon: "linkedin",
-      },
-    ],
-  },
 
   {
     id: "65",
@@ -1609,21 +1622,7 @@ const regularCompanies: Company[] = [
     isFavorite: false,
     localLogo: logos.tartuulikoolLogo,
   },
-  {
-    id: "68",
-    name: "Ruukki Products AS",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["68"],
-      en: COMPANY_DESCRIPTIONS.en["68"],
-    },
-    boothCode: "23",
-    initials: "RU",
-    color: "#1E66FF",
-    industries: ["Manufacturing"],
-    hiringTypes: ["Full-time"],
-    isFavorite: false,
-    localLogo: logos.ruukkiLogo,
-  },
+
   {
     id: "69",
     name: "HANZA Mechanics",
@@ -1733,6 +1732,7 @@ const regularCompanies: Company[] = [
     industries: ["Logistika"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.omnivaLogo,
     links: [
       { label: "Website", url: "https://www.omniva.ee", icon: "globe" },
       {
@@ -1760,6 +1760,7 @@ const regularCompanies: Company[] = [
     industries: ["Kosmos"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.spaceestoniaLogoImgLogo,
     links: [
       { label: "Website", url: "https://www.eis.ee/kosmos", icon: "globe" },
       {
@@ -1787,6 +1788,7 @@ const regularCompanies: Company[] = [
     industries: ["Engineering"],
     hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
+    localLogo: logos.cernLogo,
     links: [
       { label: "Website", url: "https://home.cern/", icon: "globe" },
       {
@@ -1814,6 +1816,7 @@ const regularCompanies: Company[] = [
     industries: ["Infotehnoloogia"],
     hiringTypes: ["Full-time", "Part-time"],
     isFavorite: false,
+    localLogo: logos.itestraLogoImgLogo,
     links: [
       { label: "Website", url: "https://itestra.com/", icon: "globe" },
       {
@@ -1841,6 +1844,7 @@ const regularCompanies: Company[] = [
     industries: ["Construction"],
     hiringTypes: ["Full-time", "Part-time"],
     isFavorite: false,
+    localLogo: logos.kmgLogo,
     links: [
       { label: "Website", url: "https://kmg.ee/katenditood/", icon: "globe" },
       {
@@ -1851,33 +1855,28 @@ const regularCompanies: Company[] = [
     ],
   },
   {
-    id: "79",
-    name: "Postimees Grupp",
+    id: "89",
+    name: "Kaitsepolitseiamet",
     description: {
-      et: COMPANY_DESCRIPTIONS.et["79"],
-      en: COMPANY_DESCRIPTIONS.en["79"],
+      et: COMPANY_DESCRIPTIONS.et["89"],
+      en: COMPANY_DESCRIPTIONS.en["89"],
     },
-    boothCode: "47",
-    initials: "PG",
+    initials: "KP",
     color: "#1E66FF",
-    industries: ["Majandus"],
+    industries: ["Sisejulgeolek"],
     hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
+    localLogo: logos.kaitsepolitseiametLogo,
     links: [
-      { label: "Website", url: "https://postimeesgrupp.ee/", icon: "globe" },
+      { label: "Website", url: "https://kapo.ee/", icon: "globe" },
       {
         label: "Careers",
-        url: "https://postimeesgrupp.ee/praktika",
-        icon: "briefcase",
-      },
-      {
-        label: "Careers",
-        url: "https://postimeesgrupp.ee/toole",
+        url: "https://kapo.ee/et/kandideeri/",
         icon: "briefcase",
       },
       {
         label: "LinkedIn",
-        url: "https://www.linkedin.com/company/postimeesgrupp/",
+        url: "https://ee.linkedin.com/company/kaitsepolitsei",
         icon: "linkedin",
       },
     ],
@@ -1894,17 +1893,111 @@ export const companyEvents: CompanyEvent[] = [
     id: "evt_bolt_1",
     companyId: "1",
     title: "Skaleeruva tehnoloogia loomine Boltis",
+    eventType: "talk",
     startISO: "2025-03-12T10:00:00+02:00",
     endISO: "2025-03-12T10:30:00+02:00",
     locationText: "Stage A",
   },
 
   {
+    id: "visit_elering_1",
+    companyId: "43",
+    title: "Elering Firmakülastus",
+    eventType: "company-visit",
+    startISO: "2025-03-10T10:00:00+02:00",
+    endISO: "2025-03-10T12:00:00+02:00",
+    locationText: "Kadaka tee 42, Mustamäe",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+
+  {
+    id: "visit_rail_baltic_1",
+    companyId: "24",
+    title: "Rail Baltic Estonia Firmakülastus",
+    eventType: "company-visit",
+    startISO: "2025-03-11T10:00:00+02:00",
+    endISO: "2025-03-11T12:00:00+02:00",
+    locationText: "Veskiposti 2/1, Tallinn. Polarise hoone 8.korrus",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+
+  {
+    id: "visit_tammer_1",
+    companyId: "42",
+    title: "Tammer OÜ Firmakülastus",
+    eventType: "company-visit",
+    startISO: "2025-03-12T14:00:00+02:00",
+    endISO: "2025-03-12T16:00:00+02:00",
+    locationText: "Väike Paala 4, Tallinn",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+
+  {
+    id: "visit_fujitsu_1",
+    companyId: "60",
+    title: "Fujitsu Estonia Firmakülastus",
+    eventType: "company-visit",
+    startISO: "2025-03-05T11:30:00+02:00",
+    endISO: "2025-03-05T12:30:00+02:00",
+    locationText: "Sepise 7, Alma Tominga maja 5 korrus",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+
+  {
+    id: "visit_estanc_1",
+    companyId: "51",
+    title: "Estanc AS Firmakülastus",
+    eventType: "company-visit",
+    startISO: "2025-03-13T12:00:00+02:00",
+    endISO: "2025-03-13T14:00:00+02:00",
+    locationText: "Põrguvälja tee 5a, Pildiküla, Rae vald, Harjumaa",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+
+  {
     id: "visit_nortal_1",
     companyId: "14",
     title: "Nortal Firmakülastus",
+    eventType: "company-visit",
     startISO: "2025-03-12T15:00:00+02:00",
     endISO: "2025-03-12T17:00:00+02:00",
     locationText: "Peterburi tee 2-52",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+
+  {
+    id: "shadow_elering_1",
+    companyId: "43",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
+  },
+
+  {
+    id: "shadow_space_estonia_1",
+    companyId: "75",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
+  },
+
+  {
+    id: "shadow_southwestern_1",
+    companyId: "th-7",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
+  },
+
+  {
+    id: "shadow_traffest_1",
+    companyId: "th-5",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Täpsustamisel",
+    registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
   },
 ];
