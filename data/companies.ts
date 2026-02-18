@@ -1361,10 +1361,23 @@ const regularCompanies: Company[] = [
     boothCode: "79",
     initials: "VA",
     color: "#1E66FF",
-    industries: ["Government"],
+    industries: ["Sisejulgeolek"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.valisluureametLogo,
+    links: [
+      { label: "Website", url: "https://valisluureamet.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://valisluureamet.ee/toole.html",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/valisluureamet",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "58",
@@ -1837,6 +1850,33 @@ const regularCompanies: Company[] = [
       {
         label: "LinkedIn",
         url: "https://www.linkedin.com/company/kmg-o%C3%BC/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "89",
+    name: "Kaitsepolitseiamet",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["89"],
+      en: COMPANY_DESCRIPTIONS.en["89"],
+    },
+    initials: "KP",
+    color: "#1E66FF",
+    industries: ["Sisejulgeolek"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
+    isFavorite: false,
+    localLogo: logos.kaitsepolitseiametLogo,
+    links: [
+      { label: "Website", url: "https://kapo.ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://kapo.ee/et/kandideeri/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://ee.linkedin.com/company/kaitsepolitsei",
         icon: "linkedin",
       },
     ],
