@@ -3,6 +3,7 @@ import apolloLogoImg from "../app/(tabs)/_assets/apollo-logo.png";
 import aqlasertoolLogoImg from "../app/(tabs)/_assets/aqlasertool-logo.png";
 import bigbankLogoImg from "../app/(tabs)/_assets/bigbank-logo.png";
 import blrtGruppLogoImg from "../app/(tabs)/_assets/blrt-grupp-logo.png";
+import boltLogoImg from "../app/(tabs)/_assets/bolt-logo.png";
 import cariadLogoImg from "../app/(tabs)/_assets/cariad-logo.png";
 import cernLogoImg from "../app/(tabs)/_assets/cern-logo.png";
 import cocacolaImg from "../app/(tabs)/_assets/cocacola-logo.png";
@@ -10,9 +11,11 @@ import compensaLogoImg from "../app/(tabs)/_assets/compensa-logo.jpg";
 import connectoLogoImg from "../app/(tabs)/_assets/connecto-logo.png";
 import cooppankLogoImg from "../app/(tabs)/_assets/cooppank-logo.png";
 import cvkeskusLogoImg from "../app/(tabs)/_assets/cvkeskus-logo.png";
+import directoLogoImg from "../app/(tabs)/_assets/directo-logo.jpg";
 import eestiRaudteeLogoImg from "../app/(tabs)/_assets/eesti-raudtee-logo.jpg";
 import ehitus5ecoLogoImg from "../app/(tabs)/_assets/ehitus-5-eco-logo.png";
 import eisLogoImg from "../app/(tabs)/_assets/eis-logo.png";
+import electricWingsLogoImg from "../app/(tabs)/_assets/electric-wings-logo.png";
 import elektrileviLogoImg from "../app/(tabs)/_assets/elektri-levi-logo.png";
 import eleringLogoImg from "../app/(tabs)/_assets/elering-logo.png";
 import enefitLogoImg from "../app/(tabs)/_assets/enefit-logo.png";
@@ -27,6 +30,7 @@ import freelLogoImg from "../app/(tabs)/_assets/freel-logo.png";
 import fujitsuLogoImg from "../app/(tabs)/_assets/fujitsu-logo.png";
 import geniussportsLogoImg from "../app/(tabs)/_assets/geniussports-logo.png";
 import gpvLogoImg from "../app/(tabs)/_assets/gpv-logo.png";
+import grkLogoImg from "../app/(tabs)/_assets/grk-logo.png";
 import gunvorServicesLogoImg from "../app/(tabs)/_assets/gunvor-services-logo.png";
 import hanzaLogoImg from "../app/(tabs)/_assets/hanza-logo.png";
 import harjuElekterLogoImg from "../app/(tabs)/_assets/harju-elekter-logo.png";
@@ -46,8 +50,10 @@ import kliimaministeeriumLogoImg from "../app/(tabs)/_assets/kliimaministeerium-
 import kmgLogoImg from "../app/(tabs)/_assets/kmg-logo.png";
 import konkurentsiametLogoImg from "../app/(tabs)/_assets/konkurentsiamet-logo.png";
 import kpmgLogoImg from "../app/(tabs)/_assets/kpmg-logo.png";
+import kuhuuuLogoImg from "../app/(tabs)/_assets/kuhuuuu-logo.png";
 import lennuliiklusteeninduse from "../app/(tabs)/_assets/lennuliiklusteeninduse-logo.png";
 import leonhardweissLogoImg from "../app/(tabs)/_assets/leonhard-weiss-logo.png";
+import magneticgroupLogoImg from "../app/(tabs)/_assets/magnetic-group-logo.png";
 import nobeLogoImg from "../app/(tabs)/_assets/nobe-logo.png";
 import nordeaLogoImg from "../app/(tabs)/_assets/nordea-logo.png";
 import nordeconLogoImg from "../app/(tabs)/_assets/nordecon-logo.png";
@@ -71,6 +77,7 @@ import smitLogoImg from "../app/(tabs)/_assets/smit-logo.png";
 import southwesternLogoImg from "../app/(tabs)/_assets/southwestern-logo.png";
 import spaceestoniaLogoImg from "../app/(tabs)/_assets/spaceestonia-logo.png";
 import stoneridgeLogoImg from "../app/(tabs)/_assets/stoneridge-logo.png";
+import svaraLogoImg from "../app/(tabs)/_assets/svara-logo.png";
 import swedbankLogoImg from "../app/(tabs)/_assets/swedbank.png";
 import tallinnalennujaamLogoImg from "../app/(tabs)/_assets/tallinna-lennujaam-logo.png";
 import tallinnvesiLogoImg from "../app/(tabs)/_assets/tallinnvesi-logo.png";
@@ -83,6 +90,7 @@ import traffestLogoImg from "../app/(tabs)/_assets/traffest-logo.png";
 import trev2LogoImg from "../app/(tabs)/_assets/trev2-logo.jpg";
 import utilitasLogoImg from "../app/(tabs)/_assets/utilitas-logo.png";
 import valisluureametLogoImg from "../app/(tabs)/_assets/valisluureamet-logo.png";
+import vanglateenistusLogoImg from "../app/(tabs)/_assets/vanglateenistus-logo.png";
 import verstonLogoImg from "../app/(tabs)/_assets/verston-logo.jpg";
 import watercomLogoImg from "../app/(tabs)/_assets/watercom-logo.png";
 
@@ -92,6 +100,7 @@ export const logos = {
   cariadLogo: cariadLogoImg,
   gunvorServicesLogo: gunvorServicesLogoImg,
   ABBLogo: abbLogoImg,
+  magneticgroupLogo: magneticgroupLogoImg,
   TRAFFESTOULogo: traffestLogoImg,
   eestiRaudteeLogo: eestiRaudteeLogoImg,
   southwesternAdvantageLogo: southwesternLogoImg,
@@ -111,6 +120,13 @@ export const logos = {
   kmgLogo: kmgLogoImg,
   politseiLogo: politseiLogoImg,
   postimeesLogo: postimeesLogoImg,
+  boltLogo: boltLogoImg,
+  directoLogo: directoLogoImg,
+  electricWingsLogo: electricWingsLogoImg,
+  vanglateenistusLogo: vanglateenistusLogoImg,
+  grkLogo: grkLogoImg,
+  kuhuuuLogo: kuhuuuLogoImg,
+  svaraLogo: svaraLogoImg,
   redbullLogo: redbullLogoImg,
   spaceestoniaLogoImgLogo: spaceestoniaLogoImg,
   watercomLogoImgLogo: watercomLogoImg,
