@@ -145,7 +145,7 @@ export const useUserStore = create<UserState>()(
         const seed = hashStringToSeed(participantId);
         const startIndex = seed % pool.length;
 
-        const selected = Array.from({ length: Math.min(12, pool.length) }).map(
+        const selected = Array.from({ length: Math.min(10, pool.length) }).map(
           (_, idx) => pool[(startIndex + idx) % pool.length].id,
         );
 

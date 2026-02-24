@@ -48,6 +48,7 @@ export const ALL_INDUSTRIES = [
   "Healthcare",
   "Consulting",
   "Engineering",
+  "Mehaanika",
   "Energy",
   "Retail",
   "Education",
@@ -56,6 +57,7 @@ export const ALL_INDUSTRIES = [
   "Government",
   "Construction",
   "Manufacturing",
+  "Elektroonika",
   "Tööstuselektroonika",
   "Tourism",
   "Turism",
@@ -65,6 +67,7 @@ export const ALL_INDUSTRIES = [
   "Transport",
   "Merendus",
   "Riigikaitse",
+  "Kaitsetööstus",
   "Lennundus",
   "Sisejulgeolek",
   "Keskkond",
@@ -77,6 +80,7 @@ export const ALL_INDUSTRIES = [
   "Kindlustus",
   "Pangandus",
   "Müük",
+  "Praktikaprogrammid Ameerikas",
 ];
 
 export const ALL_HIRING = [
@@ -548,21 +552,7 @@ const regularCompanies: Company[] = [
       },
     ],
   },
-  {
-    id: "25",
-    name: "Sisekaitseakadeemia",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["25"],
-      en: COMPANY_DESCRIPTIONS.en["25"],
-    },
-    boothCode: "63",
-    initials: "SK",
-    color: "#1E66FF",
-    industries: ["Government", "Education"],
-    hiringTypes: ["Full-time"],
-    isFavorite: false,
-    localLogo: logos.sisekaitseakadeemiaLogo,
-  },
+
   {
     id: "26",
     name: "AS TREV-2 Grupp",
@@ -591,21 +581,7 @@ const regularCompanies: Company[] = [
       },
     ],
   },
-  {
-    id: "27",
-    name: "AS Harju Elekter",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["27"],
-      en: COMPANY_DESCRIPTIONS.en["27"],
-    },
-    boothCode: "88",
-    initials: "HE",
-    color: "#1E66FF",
-    industries: ["Energy"],
-    hiringTypes: ["Full-time"],
-    isFavorite: false,
-    localLogo: logos.harjuElekterLogo,
-  },
+
   {
     id: "28",
     name: "Enefit",
@@ -836,7 +812,7 @@ const regularCompanies: Company[] = [
     links: [
       {
         label: "Website",
-        url: "ericsson.com",
+        url: "https://www.ericsson.com/en",
         icon: "globe",
       },
 
@@ -912,21 +888,6 @@ const regularCompanies: Company[] = [
     ],
   },
   {
-    id: "40",
-    name: "Rahapesu Andmebüroo",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["40"],
-      en: COMPANY_DESCRIPTIONS.en["40"],
-    },
-    boothCode: "58",
-    initials: "RA",
-    color: "#1E66FF",
-    industries: ["Majandus"],
-    hiringTypes: ["Internship", "Full-time", "Part-time"],
-    isFavorite: false,
-    localLogo: logos.rahapesuandmeburooLogo,
-  },
-  {
     id: "41",
     name: "Kaitseressursside Amet",
     description: {
@@ -959,10 +920,18 @@ const regularCompanies: Company[] = [
     boothCode: "78",
     initials: "TA",
     color: "#1E66FF",
-    industries: ["Manufacturing"],
-    hiringTypes: ["Full-time"],
+    industries: ["Tootmine"],
+    hiringTypes: [""],
     isFavorite: false,
     localLogo: logos.tammerLogo,
+    links: [
+      { label: "Website", url: "https://www.tammer.ee/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/tammerdoors/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "43",
@@ -1451,29 +1420,22 @@ const regularCompanies: Company[] = [
       et: COMPANY_DESCRIPTIONS.et["60"],
       en: COMPANY_DESCRIPTIONS.en["60"],
     },
-    boothCode: "61",
     initials: "FU",
     color: "#1E66FF",
     industries: ["Infotehnoloogia"],
-    hiringTypes: ["Full-time"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.fujitsuLogo,
+    links: [
+      { label: "Website", url: "https://global.fujitsu/et-ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.fujitsu.ee/praktika/",
+        icon: "briefcase",
+      },
+    ],
   },
-  {
-    id: "61",
-    name: "Finantsinspektsioon",
-    description: {
-      et: COMPANY_DESCRIPTIONS.et["61"],
-      en: COMPANY_DESCRIPTIONS.en["61"],
-    },
-    boothCode: "57",
-    initials: "FI",
-    color: "#1E66FF",
-    industries: ["Majandus", "Government"],
-    hiringTypes: ["Full-time"],
-    isFavorite: false,
-    localLogo: logos.finantsinspektsioonLogo,
-  },
+
   {
     id: "62",
     name: "Connecto",
@@ -1616,18 +1578,35 @@ const regularCompanies: Company[] = [
 
   {
     id: "67",
-    name: "Tartu Ülikool",
+    name: "Pärnumaa inseneeriaKOBAR",
     description: {
       et: COMPANY_DESCRIPTIONS.et["67"],
       en: COMPANY_DESCRIPTIONS.en["67"],
     },
     boothCode: "22",
-    initials: "UT",
+    initials: "PK",
     color: "#1E66FF",
-    industries: ["Education"],
-    hiringTypes: ["Full-time"],
+    industries: ["Elektroonika", "Mehaanika", "Tootmine"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
     isFavorite: false,
     localLogo: logos.tartuulikoolLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://arenduskeskus.eu/inseneeriakobar/",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://parnumaa.ee/too-parnus/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/parnumaa-arenduskeskus/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
   },
 
   {
@@ -1889,6 +1868,261 @@ const regularCompanies: Company[] = [
       },
     ],
   },
+  {
+    id: "90",
+    name: "Magnetic Group",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["90"],
+      en: COMPANY_DESCRIPTIONS.en["90"],
+    },
+    initials: "MG",
+    color: "#1E66FF",
+    industries: ["Lennundus"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    localLogo: logos.magneticgroupLogo,
+    links: [
+      { label: "Website", url: "https://www.magneticgroup.co/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.magneticgroup.co/open-positions/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/magneticgroup/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "91",
+    name: "Bolt",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["91"],
+      en: COMPANY_DESCRIPTIONS.en["91"],
+    },
+    initials: "BO",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    localLogo: logos.boltLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://bolt.eu/en/careers/teams/early-careers/",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://bolt.eu/en/careers/teams/early-careers/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/bolt-eu",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "92",
+    name: "Electric Wings UAS",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["92"],
+      en: COMPANY_DESCRIPTIONS.en["92"],
+    },
+    initials: "EW",
+    color: "#1E66FF",
+    industries: ["Kaitsetööstus"],
+    hiringTypes: ["Full-time"],
+    isFavorite: false,
+    localLogo: logos.electricWingsLogo,
+    links: [
+      { label: "Website", url: "https://electricwings.ee/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/electric-wings-uas/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "93",
+    name: "Directo OÜ",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["93"],
+      en: COMPANY_DESCRIPTIONS.en["93"],
+    },
+    initials: "DO",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Full-time", "Part-time"],
+    isFavorite: false,
+    localLogo: logos.directoLogo,
+    links: [
+      { label: "Website", url: "https://directo.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://directo.ee/pakume-tood-arendajale",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/directo-erp/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "94",
+    name: "Vanglateenistus",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["94"],
+      en: COMPANY_DESCRIPTIONS.en["94"],
+    },
+    initials: "VA",
+    color: "#1E66FF",
+    industries: ["Sisejulgeolek"],
+    hiringTypes: ["Full-time"],
+    isFavorite: false,
+    localLogo: logos.vanglateenistusLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://karjaar.vanglateenistus.ee/",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://karjaar.vanglateenistus.ee/karjaar/vabad-tookohad",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/vanglateenistus/?originalSubdomain=ee",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "95",
+    name: "GRK Eesti AS",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["95"],
+      en: COMPANY_DESCRIPTIONS.en["95"],
+    },
+    initials: "GRK",
+    color: "#1E66FF",
+    industries: ["Construction"],
+    hiringTypes: ["Internship"],
+    isFavorite: false,
+    localLogo: logos.grkLogo,
+    links: [
+      { label: "Website", url: "https://www.grk.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.grk.fi/ee/tookohad/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://fi.linkedin.com/company/grkfi",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "96",
+    name: "ÕF Kuhuuu",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["96"],
+      en: COMPANY_DESCRIPTIONS.en["96"],
+    },
+    initials: "KU",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Internship"],
+    isFavorite: false,
+    localLogo: logos.kuhuuuLogo,
+    links: [{ label: "Website", url: "https://kuhuuu.com", icon: "globe" }],
+  },
+  {
+    id: "97",
+    name: "SVARA AI",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["97"],
+      en: COMPANY_DESCRIPTIONS.en["97"],
+    },
+    initials: "SV",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Internship"],
+    isFavorite: false,
+    localLogo: logos.svaraLogo,
+    links: [
+      { label: "Website", url: "https://svara-ai.com", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/ai-svara/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "98",
+    name: "Levira AS",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["98"],
+      en: COMPANY_DESCRIPTIONS.en["98"],
+    },
+    initials: "LE",
+    color: "#1E66FF",
+    industries: ["Telekommunikatsioon"],
+    hiringTypes: ["Full-time"],
+    isFavorite: false,
+    localLogo: logos.leviraLogo,
+    links: [
+      { label: "Website", url: "https://www.levira.com", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.levira.ee/tule-t%C3%B6%C3%B6le",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/levira/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "99",
+    name: "BAFF",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["99"],
+      en: COMPANY_DESCRIPTIONS.en["99"],
+    },
+    initials: "BA",
+    color: "#1E66FF",
+    industries: ["Praktikaprogrammid Ameerikas"],
+    hiringTypes: ["Internship"],
+    isFavorite: false,
+    localLogo: logos.baffLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.balticamericanfreedomfoundation.org",
+        icon: "globe",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/baltic-american-freedom-foundation/",
+        icon: "linkedin",
+      },
+    ],
+  },
 ];
 
 export const companiesSeed: Company[] = [
@@ -1937,17 +2171,6 @@ export const companyEvents: CompanyEvent[] = [
     startISO: "2025-03-12T14:00:00+02:00",
     endISO: "2025-03-12T16:00:00+02:00",
     locationText: "Väike Paala 4, Tallinn",
-    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
-  },
-
-  {
-    id: "visit_fujitsu_1",
-    companyId: "60",
-    title: "Fujitsu Estonia Firmakülastus",
-    eventType: "company-visit",
-    startISO: "2025-03-05T11:30:00+02:00",
-    endISO: "2025-03-05T12:30:00+02:00",
-    locationText: "Sepise 7, Alma Tominga maja 5 korrus",
     registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
   },
 
