@@ -53,6 +53,7 @@ export default function TreasureHuntScreen() {
   const [hasRegisteredLocal, setHasRegisteredLocal] = useState(false);
 
   const carouselRef = useRef<FlatList<Company> | null>(null);
+  const scrollRef = useRef<ScrollView | null>(null);
 
   useEffect(() => {
     if (!selectedCompany && huntCompanies.length > 0) {
@@ -189,6 +190,10 @@ export default function TreasureHuntScreen() {
     }
   };
 
+  const handlePrizePress = () => {
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
+  };
+
   if (!permission) return <View className="flex-1 bg-white" />;
 
   return (
@@ -209,6 +214,9 @@ export default function TreasureHuntScreen() {
         </View>
       </View>
       <ScrollView
+        ref={(ref) => {
+          scrollRef.current = ref;
+        }}
         contentContainerStyle={{ paddingBottom: 24 }}
         showsVerticalScrollIndicator={false}
       >
@@ -251,6 +259,7 @@ export default function TreasureHuntScreen() {
           selectedId={selectedCompany?.id}
           participantId={participantId}
           onSelect={(company) => openScanFor(company)}
+          onPrizePress={handlePrizePress}
         />
 
         <View style={{ height: 190 }} className="mt-2">
@@ -351,9 +360,9 @@ export default function TreasureHuntScreen() {
         <View className="flex-1 bg-black/60 items-center justify-center p-4">
           <View className="bg-white w-full max-w-sm rounded-3xl p-6 shadow-xl">
             <View className="items-center mb-5">
-              <div className="h-16 w-16 bg-green-100 rounded-full items-center justify-center mb-3">
+              <View className="h-16 w-16 bg-green-100 rounded-full items-center justify-center mb-3">
                 <MaterialIcons name="emoji-events" size={36} color="#16a34a" />
-              </div>
+              </View>
               <Text className="text-2xl font-bold text-center text-gray-900">
                 {t("treasure.winner.title")}
               </Text>
