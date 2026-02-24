@@ -5,12 +5,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useRef } from "react";
 import {
-  Alert,
-  Animated,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
+    Animated,
+    Image,
+    Text,
+    TouchableOpacity,
+    View
 } from "react-native";
 
 type Props = {
@@ -19,6 +18,7 @@ type Props = {
   selectedId?: string;
   onSelect?: (company: Company) => void;
   participantId?: string;
+  onPrizePress?: () => void;
 };
 
 // --- Helperid sõbraliku ID jaoks (nt TA37) ---
@@ -56,6 +56,7 @@ export default function TreasureHuntMap({
   selectedId,
   onSelect,
   participantId,
+  onPrizePress,
 }: Props) {
   const { t } = useI18n();
   const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -257,20 +258,7 @@ export default function TreasureHuntMap({
             {/* AINULT nupu visuaal – tekst "Kraba auhind" */}
             <TouchableOpacity
               activeOpacity={0.9}
-              onPress={() => {
-                if (!allScanned) {
-                  Alert.alert(
-                    t("treasure.prize.continueTitle"),
-                    t("treasure.prize.continueBody"),
-                  );
-                  return;
-                }
-
-                Alert.alert(
-                  t("treasure.prize.congratsTitle"),
-                  t("treasure.prize.congratsBody", { code: readableId }),
-                );
-              }}
+              onPress={onPrizePress}
               className="rounded-full px-5 py-2.5 flex-row items-center"
               style={{
                 backgroundColor: allScanned
