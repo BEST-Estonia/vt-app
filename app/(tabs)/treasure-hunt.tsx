@@ -6,17 +6,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-    Alert,
-    FlatList,
-    Image,
-    Linking,
-    Modal,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Alert,
+  FlatList,
+  Image,
+  Linking,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CompanyCard from "../../components/CompanyCard";
@@ -44,7 +44,6 @@ export default function TreasureHuntScreen() {
   }, [activeHuntIds]);
 
   const [modalVisible, setModalVisible] = useState(false);
-  const [manualCode, setManualCode] = useState("");
   const [selectedCompany, setSelectedCompany] = useState<Company | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
   const [scannedRecent, setScannedRecent] = useState(false);
@@ -77,7 +76,6 @@ export default function TreasureHuntScreen() {
       return;
     }
     setSelectedCompany(company);
-    setManualCode("");
     setScannedRecent(false);
     setModalVisible(true);
   };
@@ -98,26 +96,6 @@ export default function TreasureHuntScreen() {
         [{ text: t("common.ok"), onPress: () => setModalVisible(false) }],
       );
     }
-  };
-
-  const handleManualScan = () => {
-    if (!selectedCompany) return;
-    const input = manualCode.trim();
-    if (!input) {
-      Alert.alert(t("treasure.manual.enterCode"));
-      return;
-    }
-    const match =
-      input === selectedCompany.id ||
-      input === selectedCompany.boothCode ||
-      input.toLowerCase() === selectedCompany.name.toLowerCase();
-
-    if (!match) {
-      Alert.alert(t("treasure.manual.codeMismatch"));
-      return;
-    }
-    addScan(selectedCompany.id);
-    setModalVisible(false);
   };
 
   const handleSubmitWinner = async () => {
@@ -348,22 +326,6 @@ export default function TreasureHuntScreen() {
               <Text className="text-center text-sm text-gray-500 mb-4">
                 {t("treasure.camera.scanPrompt")}
               </Text>
-              <View className="flex-row">
-                <TextInput
-                  placeholder={t("treasure.manual.placeholder")}
-                  value={manualCode}
-                  onChangeText={setManualCode}
-                  className="flex-1 bg-white border border-gray-300 rounded-l-lg px-3 py-3"
-                />
-                <TouchableOpacity
-                  onPress={handleManualScan}
-                  className="bg-blue-600 px-5 justify-center rounded-r-lg"
-                >
-                  <Text className="text-white font-bold">
-                    {t("treasure.manual.ok")}
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </View>
             <View
               pointerEvents="none"

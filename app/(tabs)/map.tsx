@@ -1,25 +1,26 @@
 // app/(tabs)/map.tsx
 import { companiesSeed, Company } from "@/data/companies";
 import { useI18n } from "@/lib/i18n";
-import { MaterialIcons } from "@expo/vector-icons";
+import { Feather, MaterialIcons } from "@expo/vector-icons";
 import { Asset } from "expo-asset";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
-  Alert,
-  Animated,
-  Dimensions,
-  Image,
-  Modal,
-  PanResponder,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
+    Alert,
+    Animated,
+    Dimensions,
+    Image,
+    Linking,
+    Modal,
+    PanResponder,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from "react-native";
 
 type SectionKey = "fuajee" | "aula" | "tudengimaja" | "kohvikusaal";
@@ -28,6 +29,17 @@ type BoothData = {
   boothNumber: string;
   x: number; // 0-1 relative to section map width
   y: number; // 0-1 relative to section map height
+};
+
+const getLinkIcon = (type?: string) => {
+  switch (type) {
+    case "linkedin":
+      return "linkedin";
+    case "briefcase":
+      return "briefcase";
+    default:
+      return "globe";
+  }
 };
 
 // Booths per section with coordinates relative to each section's map image
@@ -995,7 +1007,13 @@ export default function MapScreen() {
                       backgroundColor: "#E5EDFF",
                     }}
                   >
-                    <Text style={{ color: "#1E66FF", fontSize: 12, fontWeight: "600" }}>
+                    <Text
+                      style={{
+                        color: "#1E66FF",
+                        fontSize: 12,
+                        fontWeight: "600",
+                      }}
+                    >
                       Boks {selected?.booth.boothNumber}
                     </Text>
                   </View>
@@ -1009,7 +1027,13 @@ export default function MapScreen() {
                         backgroundColor: "#FEF3C7",
                       }}
                     >
-                      <Text style={{ color: "#D97706", fontSize: 12, fontWeight: "600" }}>
+                      <Text
+                        style={{
+                          color: "#D97706",
+                          fontSize: 12,
+                          fontWeight: "600",
+                        }}
+                      >
                         🎯 Treasure Hunt
                       </Text>
                     </View>
@@ -1017,7 +1041,9 @@ export default function MapScreen() {
                 </View>
 
                 {/* Company name */}
-                <Text style={{ fontSize: 20, fontWeight: "700", marginBottom: 10 }}>
+                <Text
+                  style={{ fontSize: 20, fontWeight: "700", marginBottom: 10 }}
+                >
                   {selected?.company?.name || "Tühi boks"}
                 </Text>
 
@@ -1041,7 +1067,9 @@ export default function MapScreen() {
                           backgroundColor: "#F1F5F9",
                         }}
                       >
-                        <Text style={{ color: "#475569", fontSize: 11 }}>{industry}</Text>
+                        <Text style={{ color: "#475569", fontSize: 11 }}>
+                          {industry}
+                        </Text>
                       </View>
                     ))}
                   </View>
@@ -1067,7 +1095,9 @@ export default function MapScreen() {
                           backgroundColor: "#DCFCE7",
                         }}
                       >
-                        <Text style={{ color: "#16A34A", fontSize: 11 }}>{type}</Text>
+                        <Text style={{ color: "#16A34A", fontSize: 11 }}>
+                          {type}
+                        </Text>
                       </View>
                     ))}
                   </View>
@@ -1075,9 +1105,87 @@ export default function MapScreen() {
 
                 {/* Description */}
                 {selected?.company?.description ? (
-                  <Text style={{ fontSize: 14, color: "#64748B", lineHeight: 20 }}>
+                  <Text
+                    style={{ fontSize: 14, color: "#64748B", lineHeight: 20 }}
+                  >
                     {selected.company.description[lang]}
                   </Text>
+                ) : null}
+
+                {/* Links */}
+                {selected?.company?.links?.length ? (
+                  <View style={{ marginTop: 16 }}>
+                    <Text
+                      style={{
+                        fontSize: 16,
+                        fontWeight: "700",
+                        marginBottom: 10,
+                      }}
+                    >
+                      Kontaktid ja lingid
+                    </Text>
+                    <View style={{ gap: 10 }}>
+                      {selected.company.links.map((link, index) => (
+                        <Pressable
+                          key={`${link.label}-${index}`}
+                          onPress={() => Linking.openURL(link.url)}
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            backgroundColor: "#F8FAFC",
+                            padding: 12,
+                            borderRadius: 12,
+                          }}
+                        >
+                          <View
+                            style={{
+                              width: 36,
+                              height: 36,
+                              backgroundColor: "white",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              borderRadius: 999,
+                              marginRight: 10,
+                            }}
+                          >
+                            <Feather
+                              name={getLinkIcon(link.icon) as any}
+                              size={18}
+                              color="#1E66FF"
+                            />
+                          </View>
+                          <View style={{ flex: 1 }}>
+                            <Text
+                              style={{
+                                fontSize: 11,
+                                color: "#6B7280",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {link.label}
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 14,
+                                fontWeight: "600",
+                                color: "#111827",
+                              }}
+                              numberOfLines={1}
+                            >
+                              {link.url
+                                .replace(/^https?:\/\//, "")
+                                .replace(/\/$/, "")}
+                            </Text>
+                          </View>
+                          <Feather
+                            name="external-link"
+                            size={16}
+                            color="#9CA3AF"
+                          />
+                        </Pressable>
+                      ))}
+                    </View>
+                  </View>
                 ) : null}
 
                 <View style={{ height: 16 }} />
@@ -1114,8 +1222,14 @@ export default function MapScreen() {
                       gap: 6,
                     }}
                   >
-                    <MaterialIcons name="qr-code-scanner" size={18} color="white" />
-                    <Text style={{ color: "white", fontWeight: "600" }}>Skänni</Text>
+                    <MaterialIcons
+                      name="qr-code-scanner"
+                      size={18}
+                      color="white"
+                    />
+                    <Text style={{ color: "white", fontWeight: "600" }}>
+                      Skänni
+                    </Text>
                   </Pressable>
                 )}
 
@@ -1129,17 +1243,15 @@ export default function MapScreen() {
                     alignItems: "center",
                   }}
                 >
-                  <Text style={{ color: "white", fontWeight: "600" }}>Sulge</Text>
+                  <Text style={{ color: "white", fontWeight: "600" }}>
+                    Sulge
+                  </Text>
                 </Pressable>
               </View>
             </View>
           </View>
         </View>
       </Modal>
-
-
-
-
 
       {/* QR Scanner Modal */}
       <Modal

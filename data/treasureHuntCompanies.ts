@@ -152,17 +152,24 @@ export const treasureHuntCompanies: Company[] = [
     id: "th-3",
     name: "Gunvor Services AS",
     description: {
-      et: "Ülemaailmne energiakaubandus",
-      en: "Global energy trading",
+      et: "Gunvor on ettevõte, mis tegutseb oma töötajate heaolu nimel. Meie eesmärk on pakkuda keskkonda, kus töötajad saavad läbi avatud koostöö ja suhtlemise oma loovust rakendada.\n\nGunvori meeskonnad tegelevad järjepidevalt sellega, et parandada meie ettevõtte toimimist, järgides samal ajal kõrgeid eetilisi ja ärilisi standardeid.\n\nGunvor peab esmatähtsaks oma töötajate, klientide ja kogukondade tervise, heaolu, inimõiguste ja ohutuse säilitamise ning austab ja kaitseb keskkonda riikides, kus me tegutseme.",
+      en: "Gunvor is a company that acts for the well-being of its employees. Our goal is to provide an environment where employees can apply their creativity through open collaboration and communication.\n\nGunvor teams consistently work to improve how our company operates while following high ethical and business standards.\n\nGunvor prioritizes the health, well-being, human rights, and safety of our employees, customers, and communities, and respects and protects the environment in the countries where we operate.",
     },
     boothCode: "42",
     initials: "GU",
     color: "#1E66FF",
-    industries: ["Energy", "Majandus"],
+    industries: ["Logistika"],
     hiringTypes: ["Full-time"],
     isFavorite: false,
     localLogo: logos.gunvorServicesLogo,
     isTreasureHunt: true,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.gunvorservices.com",
+        icon: "globe",
+      },
+    ],
   },
   {
     id: "th-4",

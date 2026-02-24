@@ -1,6 +1,7 @@
 import abbLogoImg from "../app/(tabs)/_assets/abb-logo.png";
 import apolloLogoImg from "../app/(tabs)/_assets/apollo-logo.png";
 import aqlasertoolLogoImg from "../app/(tabs)/_assets/aqlasertool-logo.png";
+import baffLogoImg from "../app/(tabs)/_assets/baff-logo.png";
 import bigbankLogoImg from "../app/(tabs)/_assets/bigbank-logo.png";
 import blrtGruppLogoImg from "../app/(tabs)/_assets/blrt-grupp-logo.png";
 import boltLogoImg from "../app/(tabs)/_assets/bolt-logo.png";
@@ -53,6 +54,7 @@ import kpmgLogoImg from "../app/(tabs)/_assets/kpmg-logo.png";
 import kuhuuuLogoImg from "../app/(tabs)/_assets/kuhuuuu-logo.png";
 import lennuliiklusteeninduse from "../app/(tabs)/_assets/lennuliiklusteeninduse-logo.png";
 import leonhardweissLogoImg from "../app/(tabs)/_assets/leonhard-weiss-logo.png";
+import leviraLogoImg from "../app/(tabs)/_assets/levira-logo.png";
 import magneticgroupLogoImg from "../app/(tabs)/_assets/magnetic-group-logo.png";
 import nobeLogoImg from "../app/(tabs)/_assets/nobe-logo.png";
 import nordeaLogoImg from "../app/(tabs)/_assets/nordea-logo.png";
@@ -115,6 +117,7 @@ export const logos = {
 
   // --- Regular Companies ---
   nortalAS: nortalLogoImg,
+  baffLogo: baffLogoImg,
   freelLogo: freelLogoImg,
   kliimaministeeriumLogo: kliimaministeeriumLogoImg,
   kmgLogo: kmgLogoImg,
@@ -192,5 +195,6 @@ export const logos = {
   tallinnalennujaamLogo: tallinnalennujaamLogoImg,
   eisLogo: eisLogoImg,
   leonhardweissLogo: leonhardweissLogoImg,
+  leviraLogo: leviraLogoImg,
   hanzaLogoImg: hanzaLogoImg,
 };
