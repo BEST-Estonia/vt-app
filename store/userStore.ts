@@ -14,11 +14,18 @@ function uuidv4() {
   });
 }
 
-// Fisher-Yates Shuffle Algorithm to mix the companies
-function shuffleArray<T>(array: T[]): T[] {
+// Deterministic Fisher-Yates shuffle using an LCG
+function shuffleArrayWithSeed<T>(array: T[], seed: number): T[] {
   const arr = [...array];
+  let state = seed || 1;
+
+  const next = () => {
+    state = (state * 1664525 + 1013904223) >>> 0;
+    return state / 2 ** 32;
+  };
+
   for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(next() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
@@ -127,10 +134,17 @@ export const useUserStore = create<UserState>()(
         const s = get();
         // If we already have a list, DO NOT change it.
         // This ensures the user keeps the same companies on restart.
-        if (s.activeHuntIds.length > 0) return;
-
         // 1. Get pool directly from the treasureHuntCompanies file
         const pool = treasureHuntCompanies;
+
+        const desiredCount = Math.min(10, pool.length);
+
+        if (s.activeHuntIds.length > 0) {
+          const poolIds = new Set(pool.map((c) => c.id));
+          const hasInvalidIds = s.activeHuntIds.some((id) => !poolIds.has(id));
+          const wrongCount = s.activeHuntIds.length !== desiredCount;
+          if (!hasInvalidIds && !wrongCount) return;
+        }
 
         if (pool.length === 0) {
           set({ activeHuntIds: [] });
@@ -143,11 +157,8 @@ export const useUserStore = create<UserState>()(
         // Deterministic selection based on participantId so users get
         // a stable list and the distribution is approximately uniform.
         const seed = hashStringToSeed(participantId);
-        const startIndex = seed % pool.length;
-
-        const selected = Array.from({ length: Math.min(10, pool.length) }).map(
-          (_, idx) => pool[(startIndex + idx) % pool.length].id,
-        );
+        const shuffled = shuffleArrayWithSeed(pool, seed);
+        const selected = shuffled.slice(0, desiredCount).map((c) => c.id);
 
         set({ activeHuntIds: selected });
       },

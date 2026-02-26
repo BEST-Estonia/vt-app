@@ -23,7 +23,7 @@ import enefitLogoImg from "../app/(tabs)/_assets/enefit-logo.png";
 import enginaatorLogoImg from "../app/(tabs)/_assets/enginaator-logo.png";
 import ergoInsuranceLogoImg from "../app/(tabs)/_assets/ergoinsurance-logo.png";
 import ericssonLogoImg from "../app/(tabs)/_assets/ericsson-logo.png";
-import ernstLogoImg from "../app/(tabs)/_assets/ernst-logo.png";
+import ernstLogoImg from "../app/(tabs)/_assets/ernst-logo.gif";
 import estancLogoImg from "../app/(tabs)/_assets/estanc-logo.png";
 import finantsinspektsioonLogoImg from "../app/(tabs)/_assets/finantsinspektsioon-logo.png";
 import finestLogoImg from "../app/(tabs)/_assets/finest-logo.png";
@@ -53,7 +53,7 @@ import konkurentsiametLogoImg from "../app/(tabs)/_assets/konkurentsiamet-logo.p
 import kpmgLogoImg from "../app/(tabs)/_assets/kpmg-logo.png";
 import kuhuuuLogoImg from "../app/(tabs)/_assets/kuhuuuu-logo.png";
 import lennuliiklusteeninduse from "../app/(tabs)/_assets/lennuliiklusteeninduse-logo.png";
-import leonhardweissLogoImg from "../app/(tabs)/_assets/leonhard-weiss-logo.png";
+import leonhardweissLogoImg from "../app/(tabs)/_assets/leonhard-weiss-logo.jpg";
 import leviraLogoImg from "../app/(tabs)/_assets/levira-logo.png";
 import magneticgroupLogoImg from "../app/(tabs)/_assets/magnetic-group-logo.png";
 import nobeLogoImg from "../app/(tabs)/_assets/nobe-logo.png";
