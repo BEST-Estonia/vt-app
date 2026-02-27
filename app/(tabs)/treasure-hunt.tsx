@@ -61,6 +61,32 @@ export default function TreasureHuntScreen() {
     }
   }, [selectedCompany, huntCompanies]);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    const checkRegistration = async () => {
+      if (!participantId) return;
+      try {
+        const { data, error } = await supabase
+          .from("giveaway_entries")
+          .select("participant_id")
+          .eq("participant_id", participantId)
+          .maybeSingle();
+
+        if (!isMounted || error) return;
+        setHasRegisteredLocal(!!data);
+      } catch {
+        // Ignore lookup errors; registration state will stay local
+      }
+    };
+
+    checkRegistration();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [participantId]);
+
   const total = huntCompanies.length;
   const scannedCount = huntCompanies.filter((c) =>
     scanned.includes(c.id),

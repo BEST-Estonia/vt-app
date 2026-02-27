@@ -1,7 +1,9 @@
 import abbLogoImg from "../app/(tabs)/_assets/abb-logo.png";
+import advenLogoImg from "../app/(tabs)/_assets/adven-logo.png";
 import apolloLogoImg from "../app/(tabs)/_assets/apollo-logo.png";
 import aqlasertoolLogoImg from "../app/(tabs)/_assets/aqlasertool-logo.png";
 import baffLogoImg from "../app/(tabs)/_assets/baff-logo.png";
+import balticWorkboatsLogoImg from "../app/(tabs)/_assets/baltic-workboats-logo.png";
 import bigbankLogoImg from "../app/(tabs)/_assets/bigbank-logo.png";
 import blrtGruppLogoImg from "../app/(tabs)/_assets/blrt-grupp-logo.png";
 import boltLogoImg from "../app/(tabs)/_assets/bolt-logo.png";
@@ -12,6 +14,7 @@ import compensaLogoImg from "../app/(tabs)/_assets/compensa-logo.jpg";
 import connectoLogoImg from "../app/(tabs)/_assets/connecto-logo.png";
 import cooppankLogoImg from "../app/(tabs)/_assets/cooppank-logo.png";
 import cvkeskusLogoImg from "../app/(tabs)/_assets/cvkeskus-logo.png";
+import cyberbitLogoImg from "../app/(tabs)/_assets/cyberbit-logo.png";
 import directoLogoImg from "../app/(tabs)/_assets/directo-logo.jpg";
 import eestiRaudteeLogoImg from "../app/(tabs)/_assets/eesti-raudtee-logo.jpg";
 import ehitus5ecoLogoImg from "../app/(tabs)/_assets/ehitus-5-eco-logo.png";
@@ -21,6 +24,7 @@ import elektrileviLogoImg from "../app/(tabs)/_assets/elektri-levi-logo.png";
 import eleringLogoImg from "../app/(tabs)/_assets/elering-logo.png";
 import enefitLogoImg from "../app/(tabs)/_assets/enefit-logo.png";
 import enginaatorLogoImg from "../app/(tabs)/_assets/enginaator-logo.png";
+import entainLogoImg from "../app/(tabs)/_assets/entain-logo.png";
 import ergoInsuranceLogoImg from "../app/(tabs)/_assets/ergoinsurance-logo.png";
 import ericssonLogoImg from "../app/(tabs)/_assets/ericsson-logo.png";
 import ernstLogoImg from "../app/(tabs)/_assets/ernst-logo.gif";
@@ -88,6 +92,7 @@ import tartuulikoolLogoImg from "../app/(tabs)/_assets/tartuulikool-logo.png";
 import techGroupLogoImg from "../app/(tabs)/_assets/techGroup-logo.png";
 import teliaLogoImg from "../app/(tabs)/_assets/telia-logo.png";
 import threodSystemsLogoImg from "../app/(tabs)/_assets/threodsystems-logo.png";
+import tivoLogoImg from "../app/(tabs)/_assets/tivo-logo.png";
 import traffestLogoImg from "../app/(tabs)/_assets/traffest-logo.png";
 import trev2LogoImg from "../app/(tabs)/_assets/trev2-logo.jpg";
 import utilitasLogoImg from "../app/(tabs)/_assets/utilitas-logo.png";
@@ -117,6 +122,10 @@ export const logos = {
 
   // --- Regular Companies ---
   nortalAS: nortalLogoImg,
+  entainLogo: entainLogoImg,
+  cyberbitLogo: cyberbitLogoImg,
+  advenLogo: advenLogoImg,
+  balticWorkboatsLogo: balticWorkboatsLogoImg,
   baffLogo: baffLogoImg,
   freelLogo: freelLogoImg,
   kliimaministeeriumLogo: kliimaministeeriumLogoImg,
@@ -143,6 +152,7 @@ export const logos = {
   inbank: inbankLogoImg,
   patendiAmet: patendiAmetLogoImg,
   techGroupLogo: techGroupLogoImg,
+  tivoLogo: tivoLogoImg,
   stoneridgeLogo: stoneridgeLogoImg,
   smarteconLogo: smarteconLogoImg,
   compensaLogo: compensaLogoImg,

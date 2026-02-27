@@ -334,17 +334,29 @@ export const treasureHuntCompanies: Company[] = [
     id: "th-12",
     name: "SMIT",
     description: {
-      et: "Siseministeeriumi infotehnoloogia- ja arenduskeskus",
-      en: "Ministry of Interior IT and Development Centre",
+      et: COMPANY_DESCRIPTIONS.et["th-12"],
+      en: COMPANY_DESCRIPTIONS.en["th-12"],
     },
     boothCode: "69",
     initials: "SM",
     color: "#1E66FF",
-    industries: ["Majandus"],
-    hiringTypes: ["Full-time", "Internship"],
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.smitLogo,
     isTreasureHunt: true,
+    links: [
+      {
+        label: "Careers",
+        url: "https://www.smit.ee/et/karjaar",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/siseministeeriumi-infotehnoloogia-ja-arenduskeskus?originalSubdomain=ee",
+        icon: "linkedin",
+      },
+    ],
   },
   {
     id: "th-13",

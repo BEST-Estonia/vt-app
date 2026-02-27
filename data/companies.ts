@@ -78,6 +78,7 @@ export const ALL_INDUSTRIES = [
   "Meelelahutus",
   "Turundus",
   "Kindlustus",
+  "Finantsjärelevalve",
   "Pangandus",
   "Müük",
   "Praktikaprogrammid Ameerikas",
@@ -433,10 +434,27 @@ const regularCompanies: Company[] = [
     boothCode: "56",
     initials: "SE",
     color: "#1E66FF",
-    industries: ["Infotehnoloogia"],
-    hiringTypes: ["Full-time"],
+    industries: ["Tootmine"],
+    hiringTypes: ["Internship", "Full-time"],
     isFavorite: false,
     localLogo: logos.stoneridgeLogo,
+    links: [
+      {
+        label: "Website",
+        url: "https://www.stoneridge.com/",
+        icon: "globe",
+      },
+      {
+        label: "Careers",
+        url: "https://www.stoneridge.com/careers/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/stoneridge-electronics-as/about/",
+        icon: "linkedin",
+      },
+    ],
   },
 
   {
@@ -1438,6 +1456,34 @@ const regularCompanies: Company[] = [
   },
 
   {
+    id: "61",
+    name: "Finantsinspektsioon",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["61"],
+      en: COMPANY_DESCRIPTIONS.en["61"],
+    },
+    initials: "FI",
+    color: "#1E66FF",
+    industries: ["Finantsjärelevalve"],
+    hiringTypes: ["Full-time"],
+    isFavorite: false,
+    localLogo: logos.finantsinspektsioonLogo,
+    links: [
+      { label: "Website", url: "https://www.fi.ee/et", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.fi.ee/et/finantsinspektsioon/finantsinspektsioonist/tootamine-finantsinspektsioonis/vabad-tookohad",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/finantsinspektsioon/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
+  },
+
+  {
     id: "62",
     name: "Connecto",
     description: {
@@ -2132,6 +2178,135 @@ const regularCompanies: Company[] = [
       },
     ],
   },
+  {
+    id: "100",
+    name: "Baltic Workboats AS",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["100"],
+      en: COMPANY_DESCRIPTIONS.en["100"],
+    },
+    initials: "BW",
+    color: "#1E66FF",
+    industries: ["Merendus"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    localLogo: logos.balticWorkboatsLogo,
+    links: [
+      { label: "Website", url: "https://bwb.ee", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://bwb.ee/karjaar/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/baltic-workboats/",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "101",
+    name: "Adven Eesti AS",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["101"],
+      en: COMPANY_DESCRIPTIONS.en["101"],
+    },
+    initials: "AE",
+    color: "#1E66FF",
+    industries: ["Energeetika"],
+    hiringTypes: ["Internship", "Full-time"],
+    isFavorite: false,
+    localLogo: logos.advenLogo,
+    links: [
+      { label: "Website", url: "https://adven.com/ee/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://adven.com/ee/karjaar/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/adven-group/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "102",
+    name: "Entain NCE",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["102"],
+      en: COMPANY_DESCRIPTIONS.en["102"],
+    },
+    initials: "EN",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Full-time"],
+    isFavorite: false,
+    localLogo: logos.entainLogo,
+    links: [
+      {
+        label: "Careers",
+        url: "https://careers.entainnce.com/",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/entain/posts/?feedView=all",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "103",
+    name: "Cyberbit / RangeForce",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["103"],
+      en: COMPANY_DESCRIPTIONS.en["103"],
+    },
+    initials: "CR",
+    color: "#1E66FF",
+    industries: ["Infotehnoloogia"],
+    hiringTypes: ["Internship", "Full-time", "Part-time"],
+    isFavorite: false,
+    localLogo: logos.cyberbitLogo,
+    links: [
+      { label: "Website", url: "https://www.rangeforce.com/", icon: "globe" },
+      {
+        label: "Careers",
+        url: "https://www.cyberbit.com/company/careers/#find_opportunity",
+        icon: "briefcase",
+      },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/cyberbit",
+        icon: "linkedin",
+      },
+    ],
+  },
+  {
+    id: "104",
+    name: "TiVo",
+    description: {
+      et: COMPANY_DESCRIPTIONS.et["104"],
+      en: COMPANY_DESCRIPTIONS.en["104"],
+    },
+    initials: "TI",
+    color: "#1E66FF",
+    industries: ["Energeetika"],
+    hiringTypes: ["Internship", "Part-time"],
+    isFavorite: false,
+    localLogo: logos.tivoLogo,
+    links: [
+      { label: "Website", url: "https://tivo.ee/", icon: "globe" },
+      {
+        label: "LinkedIn",
+        url: "https://www.linkedin.com/company/tivo-hydrogen-organization-of-taltech",
+        icon: "linkedin",
+      },
+    ],
+  },
 ];
 
 export const companiesSeed: Company[] = [
@@ -2206,6 +2381,46 @@ export const companyEvents: CompanyEvent[] = [
   },
 
   {
+    id: "visit_geniussports_1",
+    companyId: "th-20",
+    title: "Genius Sports Ettevõttekülastus",
+    eventType: "company-visit",
+    startISO: "2025-03-10T10:00:00+02:00",
+    endISO: "2025-03-10T12:00:00+02:00",
+    locationText: "Valukoja 10, Tallinn, Harjumaa, 11415",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+  {
+    id: "shadow_geniussports_1",
+    companyId: "th-20",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    startISO: "2025-03-10T10:00:00+02:00",
+    endISO: "2025-03-10T12:00:00+02:00",
+    locationText: "Valukoja 10, Tallinn, Harjumaa, 11415",
+  },
+
+  {
+    id: "visit_kmg_1",
+    companyId: "78",
+    title: "KMG OÜ Ettevõttekülastus",
+    eventType: "company-visit",
+    startISO: "2025-03-09T10:00:00+02:00",
+    endISO: "2025-03-09T12:00:00+02:00",
+    locationText: "Betooni 28, 13816 Tallinn",
+    registrationUrl: "https://forms.gle/4z5VTjSyhGKP8PwX9",
+  },
+  {
+    id: "shadow_kmg_1",
+    companyId: "78",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    startISO: "2025-03-09T10:00:00+02:00",
+    endISO: "2025-03-09T12:00:00+02:00",
+    locationText: "Betooni 28, 13816 Tallinn",
+  },
+
+  {
     id: "shadow_elering_1",
     companyId: "43",
     title: "Töövarjupäev",
@@ -2239,5 +2454,12 @@ export const companyEvents: CompanyEvent[] = [
     eventType: "work-shadowing",
     locationText: "Täpsustamisel",
     registrationUrl: "https://forms.gle/hyBhmtU3PQZin5yz8",
+  },
+  {
+    id: "shadow_gunvor_1",
+    companyId: "th-3",
+    title: "Töövarjupäev",
+    eventType: "work-shadowing",
+    locationText: "Operator",
   },
 ];
